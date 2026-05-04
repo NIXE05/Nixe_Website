@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nixe-paper:    #FAFAF7;
+  --color-nixe-bone:     #F4F3EE;
+  --color-nixe-stone:    #E5E4DF;
+  --color-nixe-ash:      #C9C8C2;
+  --color-nixe-ink:      #0A0A0A;
+  --color-nixe-graphite: #2A2A2A;
+  --color-nixe-smoke:    #6B6B6B;
+  --color-nixe-fog:      #A8A8A8;
+  --color-nixe-pearl:    #F5F4EF;
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    cursor: none;
+  }
+
+  body {
+    font-family: var(--font-jakarta), system-ui, sans-serif;
+    background-color: #FAFAF7;
+    color: #0A0A0A;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      cursor: auto !important;
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ─── Typography — plain CSS classes ─── */
+
+.hero-headline {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-size: clamp(3.5rem, 8.5vw, 10.5rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.93;
+}
+
+.display-xl {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-size: clamp(2.5rem, 5.5vw, 6.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.display-l {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.display-m {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.nixe-heading {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-size: clamp(1.1rem, 1.6vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.body-l {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.mono-label {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.manifesto-headline {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-size: clamp(1.6rem, 3.2vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+/* ─── Nav sliding text ─── */
+.nav-link {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  height: 1.3em;
+}
+.nav-link-inner,
+.nav-link-clone {
+  display: block;
+  transition: transform 0.42s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.nav-link-clone {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+.nav-link:hover .nav-link-inner,
+.nav-link:hover .nav-link-clone {
+  transform: translateY(-100%);
+}
+
+/* ─── Services list item ─── */
+.svc-item {
+  transition: opacity 0.35s ease;
+}
+.svc-item-dim {
+  opacity: 0.2;
+}
+
+/* ─── Keyframes ─── */
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollDot {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(32px); }
+}
+
+/* ─── Marquee ─── */
+.marquee-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marqueeScroll 40s linear infinite;
+  white-space: nowrap;
+}
+
+/* ─── Scroll dot ─── */
+.scroll-dot {
+  animation: scrollDot 1.8s ease-in-out infinite;
+}
