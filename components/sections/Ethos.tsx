@@ -40,7 +40,7 @@ export function Ethos() {
     >
       <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
         <div className="flex flex-col gap-5 mb-14 md:mb-20 md:flex-row md:items-end md:justify-between">
-          <span className="mono-label" style={{ color: "rgba(10,10,10,0.4)" }}>03 / ABOUT</span>
+          <span className="mono-label" style={{ color: "rgba(10,10,10,0.55)" }}>03 / ABOUT</span>
           <h2
             className="uppercase font-bold leading-none"
             style={{ fontFamily: "var(--font-jakarta), system-ui, sans-serif", fontSize: "clamp(1.6rem, 3.5vw, 3.2rem)", letterSpacing: "-0.03em", color: "#0A0A0A" }}
@@ -64,7 +64,7 @@ export function Ethos() {
               Markham, Ontario, working at the intersection of secure
               infrastructure and intelligent software.
             </p>
-            <p className="leading-relaxed mb-12" style={{ fontSize: "1.05rem", color: "rgba(10,10,10,0.45)" }}>
+            <p className="leading-relaxed mb-12" style={{ fontSize: "1.05rem", color: "rgba(10,10,10,0.68)" }}>
               We take on a small number of engagements per quarter — depth over volume.
             </p>
             <div className="grid grid-cols-2 gap-x-8 gap-y-4">
@@ -72,7 +72,7 @@ export function Ethos() {
                 <motion.span
                   key={c}
                   className="mono-label block"
-                  style={{ color: "rgba(10,10,10,0.45)" }}
+                  style={{ color: "rgba(10,10,10,0.65)" }}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -108,7 +108,7 @@ export function Ethos() {
                 </svg>
               ))}
             </a>
-            <p className="mt-8 text-sm leading-relaxed max-w-[40ch]" style={{ color: "rgba(10,10,10,0.4)" }}>
+            <p className="mt-8 text-sm leading-relaxed max-w-[40ch]" style={{ color: "rgba(10,10,10,0.62)" }}>
               Based in Markham, Ontario. Available for remote engagements worldwide.
             </p>
           </motion.div>

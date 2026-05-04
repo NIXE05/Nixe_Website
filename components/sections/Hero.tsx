@@ -18,6 +18,34 @@ function CornerSVG({ className = "" }: { className?: string }) {
   );
 }
 
+function ScreenCorner({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) {
+  const d = {
+    tl: "M1 11L1 1L11 1",
+    tr: "M1 1L11 1L11 11",
+    br: "M11 1L11 11L1 11",
+    bl: "M11 11L1 11L1 1",
+  }[pos];
+  const cls = {
+    tl: "top-6 left-5 md:left-9",
+    tr: "top-6 right-5 md:right-9",
+    bl: "bottom-6 left-5 md:left-9",
+    br: "bottom-6 right-5 md:right-9",
+  }[pos];
+  return (
+    <motion.svg
+      className={`absolute pointer-events-none z-10 ${cls}`}
+      width="18" height="18" viewBox="0 0 13 13" fill="none"
+      style={{ color: "rgba(10,10,10,0.22)" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 1.4 }}
+      aria-hidden="true"
+    >
+      <path d={d} stroke="currentColor" strokeWidth="1.2" />
+    </motion.svg>
+  );
+}
+
 function WQFButton({ children, href }: { children: React.ReactNode; href: string }) {
   return (
     <a
@@ -68,9 +96,51 @@ export function Hero() {
     >
       <HeroCanvas />
 
+      {/* Blueprint dot grid */}
+      <div className="absolute inset-0 pointer-events-none blueprint-dot" />
+
+      {/* One-time scan line */}
+      <motion.div
+        className="absolute inset-x-0 h-px pointer-events-none z-20"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(10,10,10,0.14) 30%, rgba(10,10,10,0.24) 50%, rgba(10,10,10,0.14) 70%, transparent)",
+        }}
+        initial={{ top: 0, opacity: 0 }}
+        animate={{ top: "100%", opacity: [0, 1, 1, 0] }}
+        transition={{ duration: 2.4, delay: 0.2, ease: "linear", times: [0, 0.04, 0.92, 1] }}
+      />
+
+      {/* Blueprint screen corners */}
+      <ScreenCorner pos="tl" />
+      <ScreenCorner pos="tr" />
+      <ScreenCorner pos="bl" />
+      <ScreenCorner pos="br" />
+
+      {/* Coordinate labels */}
+      <motion.div
+        className="absolute z-10 flex w-full items-center justify-between px-6 md:px-10 pointer-events-none"
+        style={{ top: "26px" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.6 }}
+      >
+        <span
+          className="mono-label"
+          style={{ color: "rgba(10,10,10,0.28)", fontSize: "0.54rem", letterSpacing: "0.18em" }}
+        >
+          43.8561° N · 79.2673° W
+        </span>
+        <span
+          className="mono-label"
+          style={{ color: "rgba(10,10,10,0.28)", fontSize: "0.54rem", letterSpacing: "0.18em" }}
+        >
+          REF: NXE-001
+        </span>
+      </motion.div>
+
       <div className="grow" />
 
-      {/* Headline — centered */}
+      {/* Headline */}
       <div className="relative z-10 flex grow-0 justify-center px-6">
         <h1
           className="text-center uppercase text-nixe-ink leading-none"
@@ -107,15 +177,15 @@ export function Hero() {
       >
         <div
           className="flex flex-col-reverse gap-6 border-t pt-5 md:flex-row md:items-center md:justify-between"
-          style={{ borderColor: "rgba(10,10,10,0.1)" }}
+          style={{ borderColor: "rgba(10,10,10,0.12)" }}
         >
           <div className="flex items-center gap-6">
             <WQFButton href="#contact">Contact Us</WQFButton>
-            <span className="mono-label" style={{ color: "rgba(10,10,10,0.3)" }}>
+            <span className="mono-label" style={{ color: "rgba(10,10,10,0.52)" }}>
               {time || "—:—"} EDT
             </span>
           </div>
-          <p className="mono-label max-w-[480px]" style={{ color: "rgba(10,10,10,0.4)" }}>
+          <p className="mono-label max-w-[480px]" style={{ color: "rgba(10,10,10,0.62)" }}>
             Boutique cybersecurity, AI, and applied software consulting — Markham, Ontario
           </p>
         </div>

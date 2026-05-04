@@ -60,21 +60,21 @@ export function Services() {
 
         {/* Header */}
         <div className="flex items-center justify-between mb-10 md:mb-14">
-          <span className="mono-label" style={{ color: "rgba(10,10,10,0.4)" }}>01 / SERVICES</span>
-          <p className="hidden md:block text-sm" style={{ color: "rgba(10,10,10,0.4)" }}>
+          <span className="mono-label" style={{ color: "rgba(10,10,10,0.55)" }}>01 / SERVICES</span>
+          <p className="hidden md:block text-sm" style={{ color: "rgba(10,10,10,0.55)" }}>
             A small number of engagements per quarter — depth over volume.
           </p>
         </div>
 
         {/* Cards */}
-        <ul className="flex flex-col gap-4 md:flex-row md:gap-4 md:h-[520px]">
+        <ul className="flex flex-col gap-4 md:flex-row md:gap-4 md:h-[540px]">
           {SERVICES.map((svc, i) => (
             <motion.li
               key={svc.num}
               className="overflow-hidden rounded-[20px] shrink-0 cursor-pointer"
               style={{ background: svc.bg, minHeight: "320px" }}
               animate={{
-                flex: active === null ? 1 : active === i ? 2.6 : 0.55,
+                flex: active === null ? 1 : active === i ? 2.8 : 0.45,
               }}
               transition={{ duration: 0.55, ease: [0.25, 0, 0.25, 1] }}
               onMouseEnter={() => setActive(i)}
@@ -84,11 +84,10 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
             >
-              <div className="flex h-full flex-col p-7 md:p-9">
+              <div className="flex h-full flex-col p-7 md:p-8">
 
                 {/* Top: number + description (revealed on expand) */}
                 <div className="flex items-start justify-between gap-4">
-                  {/* Description — fades in when active */}
                   <div
                     className="flex-1 transition-all duration-500"
                     style={{
@@ -98,33 +97,20 @@ export function Services() {
                     }}
                   >
                     <p
-                      className="leading-relaxed mb-6"
                       style={{
-                        fontSize: "0.9rem",
-                        color: "rgba(245,244,239,0.6)",
-                        maxWidth: "36ch",
-                        lineHeight: 1.65,
+                        fontSize: "0.88rem",
+                        color: "rgba(245,244,239,0.85)",
+                        maxWidth: "38ch",
+                        lineHeight: 1.7,
                       }}
                     >
                       {svc.description}
                     </p>
-                    <div className="flex flex-wrap gap-2">
-                      {svc.tags.map(tag => (
-                        <span
-                          key={tag}
-                          className="mono-label px-2.5 py-1 border"
-                          style={{ color: "rgba(245,244,239,0.35)", borderColor: "rgba(245,244,239,0.1)" }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
                   </div>
 
-                  {/* Number — always visible, top-right */}
                   <span
                     className="mono-label shrink-0 self-start"
-                    style={{ color: "rgba(245,244,239,0.25)", marginTop: "2px" }}
+                    style={{ color: "rgba(245,244,239,0.45)", marginTop: "2px" }}
                   >
                     {svc.num}
                   </span>
@@ -133,31 +119,59 @@ export function Services() {
                 {/* Spacer */}
                 <div className="flex-1" />
 
-                {/* Bottom: large title (clips when contracted) + arrow */}
+                {/* Bottom: title + tags + arrow */}
                 <div>
-                  <h3
-                    className="font-bold uppercase whitespace-nowrap leading-none"
+                  {/* Title — small in default, large when expanded */}
+                  <div className="overflow-hidden mb-4">
+                    <motion.h3
+                      className="font-bold uppercase leading-none whitespace-nowrap"
+                      style={{
+                        fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+                        letterSpacing: "-0.04em",
+                        color: "#F5F4EF",
+                        opacity: active !== null && active !== i ? 0.38 : 1,
+                        transition: "opacity 0.35s ease",
+                      }}
+                      animate={{
+                        fontSize:
+                          active === i
+                            ? "clamp(3rem, 5.8vw, 7rem)"
+                            : "clamp(1.5rem, 2vw, 2.2rem)",
+                      }}
+                      transition={{ duration: 0.55, ease: [0.25, 0, 0.25, 1] }}
+                    >
+                      {svc.title}
+                    </motion.h3>
+                  </div>
+
+                  {/* Tags — visible in default + expanded, hidden when contracted */}
+                  <div
+                    className="flex flex-wrap gap-2 mb-5 transition-all duration-400"
                     style={{
-                      fontFamily: "var(--font-jakarta), system-ui, sans-serif",
-                      /* Large enough to fill the expanded card width */
-                      fontSize: "clamp(3rem, 7vw, 8rem)",
-                      letterSpacing: "-0.04em",
-                      color: "#F5F4EF",
-                      marginBottom: "1.25rem",
-                      /* Slight fade on inactive cards */
-                      opacity: active !== null && active !== i ? 0.35 : 1,
-                      transition: "opacity 0.35s ease",
+                      opacity: active !== null && active !== i ? 0 : 1,
+                      transform: active !== null && active !== i ? "translateY(4px)" : "translateY(0)",
                     }}
                   >
-                    {svc.title}
-                  </h3>
+                    {svc.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="mono-label px-2.5 py-1 border"
+                        style={{
+                          color: "rgba(245,244,239,0.62)",
+                          borderColor: "rgba(245,244,239,0.18)",
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
 
                   <div
                     className="mono-label transition-all duration-400"
                     style={{
                       color: active === i
-                        ? "rgba(245,244,239,0.8)"
-                        : "rgba(245,244,239,0.25)",
+                        ? "rgba(245,244,239,0.85)"
+                        : "rgba(245,244,239,0.4)",
                       transform: active === i ? "translateX(6px)" : "translateX(0)",
                     }}
                   >

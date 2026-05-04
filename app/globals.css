@@ -156,3 +156,14 @@
 .scroll-dot {
   animation: scrollDot 1.8s ease-in-out infinite;
 }
+
+/* ─── Blueprint ─── */
+.blueprint-dot {
+  background-image: radial-gradient(circle, rgba(10,10,10,0.055) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+@keyframes blipPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}

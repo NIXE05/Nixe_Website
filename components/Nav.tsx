@@ -85,11 +85,11 @@ export function Nav() {
                 />
                 {/* Text */}
                 <div className="relative isolate flex overflow-hidden -translate-x-[4px] transition-transform duration-400 group-hover/link:translate-x-[4px]">
-                  <span className="mono-label text-nixe-ink/50 transition-transform duration-400 group-hover/link:-translate-y-full">
+                  <span className="mono-label text-nixe-ink/70 transition-transform duration-400 group-hover/link:-translate-y-full">
                     {label}
                   </span>
                   <span
-                    className="mono-label text-nixe-ink/50 absolute inset-0 translate-y-full transition-transform duration-400 group-hover/link:translate-y-0"
+                    className="mono-label text-nixe-ink/70 absolute inset-0 translate-y-full transition-transform duration-400 group-hover/link:translate-y-0"
                     aria-hidden="true"
                   >
                     {label}
@@ -97,7 +97,7 @@ export function Nav() {
                 </div>
                 {/* Corner accents */}
                 {(["top-0 left-0","top-0 right-0 rotate-90","bottom-0 right-0 rotate-180","bottom-0 left-0 -rotate-90"] as const).map(pos => (
-                  <svg key={pos} className={`absolute size-[9px] opacity-0 group-active/link:opacity-100 transition-opacity duration-300 ${pos}`} style={{ color: "rgba(10,10,10,0.4)" }} width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <svg key={pos} className={`absolute size-[9px] opacity-0 group-hover/link:opacity-55 transition-opacity duration-300 ${pos}`} style={{ color: "rgba(10,10,10,0.5)" }} width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
                     <path d="M0.5 0.2L0.5 9.2M0.2 0.5L9.2 0.5" stroke="currentColor"/>
                   </svg>
                 ))}
@@ -109,7 +109,7 @@ export function Nav() {
         {/* Mobile */}
         <a
           href="#contact"
-          className="md:hidden mono-label text-nixe-ink/50 border px-4 py-2"
+          className="md:hidden mono-label text-nixe-ink/70 border px-4 py-2"
           style={{ borderColor: "rgba(10,10,10,0.12)" }}
           data-cursor-hover
         >

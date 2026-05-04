@@ -86,7 +86,7 @@ export function Shipped() {
       }}
     >
       <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
-        <div className="mono-label mb-16 md:mb-24" style={{ color: "rgba(10,10,10,0.35)" }}>
+        <div className="mono-label mb-16 md:mb-24" style={{ color: "rgba(10,10,10,0.55)" }}>
           02 / SHIPPED
         </div>
 
@@ -122,15 +122,15 @@ export function Shipped() {
             >
               Courtly
             </h2>
-            <div className="mono-label mb-7" style={{ color: "rgba(10,10,10,0.35)" }}>Sports · iOS · 2026</div>
+            <div className="mono-label mb-7" style={{ color: "rgba(10,10,10,0.55)" }}>Sports · iOS · 2026</div>
 
-            <p className="mb-8 leading-relaxed max-w-[48ch]" style={{ fontSize: "1rem", color: "rgba(10,10,10,0.55)" }}>
+            <p className="mb-8 leading-relaxed max-w-[48ch]" style={{ fontSize: "1rem", color: "rgba(10,10,10,0.72)" }}>
               Match tracking and performance analytics for racquet sports. Live
               scoring, player insights, expense splitting, and match history —
               built for competitive players who want to level up.
             </p>
 
-            <div className="mono-label mb-9" style={{ fontSize: "0.6rem", color: "rgba(10,10,10,0.28)" }}>
+            <div className="mono-label mb-9" style={{ fontSize: "0.6rem", color: "rgba(10,10,10,0.5)" }}>
               ★ COMING SOON · iOS 17+ · FREE
             </div>
 
@@ -140,7 +140,7 @@ export function Shipped() {
                 style={{ borderColor: "rgba(10,10,10,0.1)" }}
                 title="Coming soon"
               >
-                <span className="mono-label" style={{ color: "rgba(10,10,10,0.28)" }}>App Store — Coming Soon</span>
+                <span className="mono-label" style={{ color: "rgba(10,10,10,0.5)" }}>App Store — Coming Soon</span>
               </div>
               <button
                 onClick={() => openLightbox(0)}
@@ -162,7 +162,7 @@ export function Shipped() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p style={{ fontSize: "0.95rem", color: "rgba(10,10,10,0.4)" }}>
+          <p style={{ fontSize: "0.95rem", color: "rgba(10,10,10,0.62)" }}>
             More apps in development.{" "}
             <a href="#contact" className="hover:text-nixe-ink transition-colors duration-200" style={{ color: "rgba(10,10,10,0.6)" }} data-cursor-hover>
               Have an idea? →

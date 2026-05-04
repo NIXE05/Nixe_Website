@@ -16,7 +16,7 @@ export function Manifesto() {
       <div className="px-6 md:px-10 max-w-[920px] mx-auto text-center">
         <motion.p
           className="mono-label mb-8"
-          style={{ color: "rgba(10,10,10,0.3)" }}
+          style={{ color: "rgba(10,10,10,0.52)" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -24,12 +24,23 @@ export function Manifesto() {
         >
           WHAT WE BELIEVE
         </motion.p>
+
+        {/* Draw-in rule */}
+        <motion.div
+          className="mx-auto mb-10 h-px"
+          style={{ background: "rgba(10,10,10,0.14)", transformOrigin: "center" }}
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.25, 0, 0.25, 1], delay: 0.15 }}
+        />
+
         <motion.h2
           className="manifesto-headline text-nixe-ink"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, ease: [0.25, 0, 0.25, 1], delay: 0.1 }}
+          transition={{ duration: 1, ease: [0.25, 0, 0.25, 1], delay: 0.3 }}
         >
           Security, intelligence, and craft — treated as one discipline, not
           three departments.

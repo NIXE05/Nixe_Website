@@ -21,6 +21,7 @@ export function Contact() {
   return (
     <section
       id="contact"
+      className="relative overflow-hidden"
       style={{
         background: "#F0EFEA",
         borderTop: "1px solid rgba(10,10,10,0.07)",
@@ -28,8 +29,9 @@ export function Contact() {
         paddingBottom: "clamp(80px,12vh,180px)",
       }}
     >
+      <div className="absolute inset-0 pointer-events-none blueprint-dot" />
       <div className="w-full px-6 md:px-10 max-w-[1440px] mx-auto">
-        <div className="mono-label mb-16 md:mb-24" style={{ color: "rgba(10,10,10,0.35)" }}>
+        <div className="mono-label mb-16 md:mb-24" style={{ color: "rgba(10,10,10,0.55)" }}>
           05 / CONTACT
         </div>
 
@@ -71,7 +73,7 @@ export function Contact() {
                   { name: "company", label: "Company", type: "text",  required: false },
                 ] as const).map(field => (
                   <div key={field.name} className="flex flex-col gap-2">
-                    <label className="mono-label" style={{ color: "rgba(10,10,10,0.4)" }}>{field.label}</label>
+                    <label className="mono-label" style={{ color: "rgba(10,10,10,0.62)" }}>{field.label}</label>
                     <input
                       type={field.type} name={field.name} required={field.required}
                       onChange={handleChange}
@@ -84,7 +86,7 @@ export function Contact() {
                 ))}
 
                 <div className="flex flex-col gap-2">
-                  <label className="mono-label" style={{ color: "rgba(10,10,10,0.4)" }}>Intent</label>
+                  <label className="mono-label" style={{ color: "rgba(10,10,10,0.62)" }}>Intent</label>
                   <select
                     name="intent" required onChange={handleChange}
                     className="text-nixe-ink px-4 py-4 text-sm outline-none"
@@ -99,7 +101,7 @@ export function Contact() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="mono-label" style={{ color: "rgba(10,10,10,0.4)" }}>Message</label>
+                  <label className="mono-label" style={{ color: "rgba(10,10,10,0.62)" }}>Message</label>
                   <textarea
                     name="message" required rows={5} onChange={handleChange}
                     className="bg-transparent text-nixe-ink px-4 py-4 text-sm resize-y outline-none"
@@ -139,22 +141,22 @@ export function Contact() {
             transition={{ duration: 0.8, delay: 0.15 }}
           >
             <div>
-              <div className="mono-label mb-3" style={{ color: "rgba(10,10,10,0.35)" }}>Email</div>
+              <div className="mono-label mb-3" style={{ color: "rgba(10,10,10,0.55)" }}>Email</div>
               <a href="mailto:hello@nixe.in" className="group relative inline-block text-nixe-ink hover:opacity-60 transition-opacity duration-200" style={{ fontSize: "1.1rem" }} data-cursor-hover>
                 hello@nixe.in
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-nixe-ink transition-all duration-300 group-hover:w-full" />
               </a>
             </div>
             <div>
-              <div className="mono-label mb-3" style={{ color: "rgba(10,10,10,0.35)" }}>Schedule</div>
+              <div className="mono-label mb-3" style={{ color: "rgba(10,10,10,0.55)" }}>Schedule</div>
               <a href="#" className="group relative inline-block text-nixe-ink hover:opacity-60 transition-opacity duration-200" style={{ fontSize: "1.1rem" }} data-cursor-hover>
                 Book a call →
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-nixe-ink transition-all duration-300 group-hover:w-full" />
               </a>
             </div>
             <div className="mt-4 pt-8 border-t" style={{ borderColor: "rgba(10,10,10,0.08)" }}>
-              <div className="mono-label mb-3" style={{ color: "rgba(10,10,10,0.35)" }}>Location</div>
-              <p style={{ color: "rgba(10,10,10,0.7)", fontSize: "1.1rem" }}>Markham, Ontario</p>
+              <div className="mono-label mb-3" style={{ color: "rgba(10,10,10,0.55)" }}>Location</div>
+              <p style={{ color: "rgba(10,10,10,0.78)", fontSize: "1.1rem" }}>Markham, Ontario</p>
             </div>
           </motion.div>
         </div>
