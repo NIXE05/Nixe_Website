@@ -754,14 +754,24 @@ function CourtlyFooter() {
         </span>
       </div>
 
-      <Link
-        href="/"
-        data-cursor-hover
-        className="mono-label transition-colors duration-200"
-        style={{ color: "rgba(245,244,239,0.5)" }}
-      >
-        ← Back to NIXE
-      </Link>
+      <div className="flex items-center gap-6">
+        <Link
+          href="/courtly/privacy"
+          data-cursor-hover
+          className="mono-label transition-colors duration-200"
+          style={{ color: "rgba(245,244,239,0.5)" }}
+        >
+          Privacy
+        </Link>
+        <Link
+          href="/"
+          data-cursor-hover
+          className="mono-label transition-colors duration-200"
+          style={{ color: "rgba(245,244,239,0.5)" }}
+        >
+          ← Back to NIXE
+        </Link>
+      </div>
     </footer>
   );
 }
