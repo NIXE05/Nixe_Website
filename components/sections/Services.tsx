@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { WordReveal } from "@/components/WordReveal";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const SERVICES = [
   {
@@ -32,36 +33,37 @@ const SERVICES = [
 
 export function Services() {
   const [active, setActive] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "start 35%"],
-  });
-  const clipPath = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["inset(0 100% 0 0 round 20px 20px 0 0)", "inset(0 0% 0 0 round 20px 20px 0 0)"]
-  );
 
   return (
     <motion.section
-      ref={sectionRef}
       id="services"
+      data-bg-color="#F0EFEA"
       className="relative overflow-hidden"
       style={{
         background: "#F0EFEA",
-        clipPath,
-        paddingTop: "clamp(64px,10vh,140px)",
-        paddingBottom: "clamp(64px,10vh,140px)",
+        paddingTop: "clamp(96px, 14vh, 180px)",
+        paddingBottom: "clamp(96px, 14vh, 180px)",
       }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-15%" }}
+      transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
     >
       <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-10 md:mb-14">
-          <span className="mono-label" style={{ color: "rgba(10,10,10,0.55)" }}>01 / SERVICES</span>
-          <p className="hidden md:block text-sm" style={{ color: "rgba(10,10,10,0.55)" }}>
+        <div className="flex flex-col gap-5 mb-12 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="mono-label" style={{ color: "rgba(10,10,10,0.55)" }}>01 / SERVICES</span>
+            <h2
+              className="display-xl text-nixe-ink uppercase mt-5"
+              style={{ lineHeight: 0.95 }}
+            >
+              <WordReveal>What we</WordReveal>
+              <WordReveal delay={0.18}>actually do.</WordReveal>
+            </h2>
+          </div>
+          <p className="hidden md:block text-sm max-w-[34ch] md:pb-3" style={{ color: "rgba(10,10,10,0.6)" }}>
             A small number of engagements per quarter — depth over volume.
           </p>
         </div>

@@ -1,30 +1,26 @@
-import { Cursor } from "@/components/Cursor";
+import { BackgroundMorph } from "@/components/BackgroundMorph";
 import { Footer } from "@/components/Footer";
-import { GrainOverlay } from "@/components/GrainOverlay";
 import { Loader } from "@/components/Loader";
 import { Nav } from "@/components/Nav";
+import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
-import { Ethos } from "@/components/sections/Ethos";
+import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
 import { Hero } from "@/components/sections/Hero";
-import { Manifesto } from "@/components/sections/Manifesto";
-import { Process } from "@/components/sections/Process";
 import { Services } from "@/components/sections/Services";
 import { Shipped } from "@/components/sections/Shipped";
 
 export default function Home() {
   return (
     <>
-      <GrainOverlay />
-      <Cursor />
+      <BackgroundMorph />
       <Loader />
       <Nav />
       <main>
         <Hero />
-        <Manifesto />
+        <FeaturedProjects />
         <Services />
         <Shipped />
-        <Ethos />
-        <Process />
+        <About />
         <Contact />
       </main>
       <Footer />

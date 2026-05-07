@@ -1,22 +1,11 @@
 "use client";
 
 import { HeroCanvas } from "@/components/HeroCanvas";
+import { WordReveal } from "@/components/WordReveal";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const HEADLINE = ["ENGINEERING", "TRUST INTO", "INTELLIGENT", "SYSTEMS"];
-
-function CornerSVG({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      className={`size-[10px] transition-opacity duration-400 group-hover/btn:opacity-70 ${className}`}
-      style={{ color: "rgba(10,10,10,0.3)" }}
-      width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"
-    >
-      <path d="M0.5 0.2L0.5 9.2M0.2 0.5L9.2 0.5" stroke="currentColor" />
-    </svg>
-  );
-}
 
 function ScreenCorner({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) {
   const d = {
@@ -46,29 +35,57 @@ function ScreenCorner({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) {
   );
 }
 
-function WQFButton({ children, href }: { children: React.ReactNode; href: string }) {
+function PrimaryCTA({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
       href={href}
-      className="group/btn relative isolate inline-flex h-[44px] items-center justify-center px-6"
       data-cursor-hover
+      className="group/btn relative inline-flex h-[46px] items-center justify-center px-7 overflow-hidden"
+      style={{
+        background: "var(--color-nixe-ink)",
+        color: "var(--color-nixe-pearl)",
+        transition: "transform 0.35s cubic-bezier(0.25,0,0.25,1), box-shadow 0.35s",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-2px)";
+        e.currentTarget.style.boxShadow = "0 14px 32px rgba(10,10,10,0.22)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
     >
-      <div
-        className="absolute left-0 size-[10px] -translate-x-6 rounded-sm opacity-0 blur-[20px] transition-all duration-400 group-hover/btn:-translate-x-[6px] group-hover/btn:opacity-100 group-hover/btn:blur-0"
-        style={{ background: "rgba(10,10,10,0.7)" }}
-      />
-      <div className="relative isolate flex overflow-hidden -translate-x-[5px] transition-transform duration-400 group-hover/btn:translate-x-[5px]">
-        <span className="mono-label text-nixe-ink transition-transform duration-400 group-hover/btn:-translate-y-full">
-          {children}
-        </span>
-        <span className="mono-label text-nixe-ink absolute inset-0 translate-y-full transition-transform duration-400 group-hover/btn:translate-y-0" aria-hidden="true">
-          {children}
-        </span>
-      </div>
-      <CornerSVG className="absolute top-0 left-0" />
-      <CornerSVG className="absolute top-0 right-0 rotate-90" />
-      <CornerSVG className="absolute bottom-0 right-0 rotate-180" />
-      <CornerSVG className="absolute bottom-0 left-0 -rotate-90" />
+      <span className="mono-label" style={{ color: "var(--color-nixe-pearl)" }}>
+        {children}
+      </span>
+    </a>
+  );
+}
+
+function SecondaryCTA({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      data-cursor-hover
+      className="group/btn relative inline-flex h-[46px] items-center justify-center px-7"
+      style={{
+        background: "transparent",
+        color: "var(--color-nixe-ink)",
+        border: "1px solid rgba(10,10,10,0.22)",
+        transition: "border-color 0.3s, background-color 0.3s, transform 0.3s",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "rgba(10,10,10,0.7)";
+        e.currentTarget.style.backgroundColor = "rgba(10,10,10,0.03)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "rgba(10,10,10,0.22)";
+        e.currentTarget.style.backgroundColor = "transparent";
+      }}
+    >
+      <span className="mono-label" style={{ color: "var(--color-nixe-ink)" }}>
+        {children}
+      </span>
     </a>
   );
 }
@@ -92,6 +109,7 @@ export function Hero() {
   return (
     <section
       id="hero"
+      data-bg-color="#FAFAF7"
       className="relative flex h-dvh min-h-[550px] flex-col justify-between overflow-hidden bg-nixe-paper"
     >
       <HeroCanvas />
@@ -152,42 +170,50 @@ export function Hero() {
           }}
         >
           {HEADLINE.map((line, i) => (
-            <div key={i} className="overflow-hidden">
-              <motion.span
-                className="block"
-                initial={{ y: "105%" }}
-                animate={{ y: "0%" }}
-                transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.35 + i * 0.1 }}
-              >
-                {line}
-              </motion.span>
-            </div>
+            <WordReveal
+              key={line}
+              delay={0.35 + i * 0.18}
+              stagger={0.07}
+              duration={1}
+              amount={0.05}
+              style={{ display: "block" }}
+            >
+              {line}
+            </WordReveal>
           ))}
         </h1>
       </div>
 
+      {/* CTA pair (sits with the headline block) */}
+      <motion.div
+        className="relative z-10 flex flex-wrap items-center justify-center gap-3 px-6 mt-9 md:mt-12"
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 1.4, ease: [0.25, 0, 0.25, 1] }}
+      >
+        <PrimaryCTA href="#contact">Start a Project</PrimaryCTA>
+        <SecondaryCTA href="#work">View Work</SecondaryCTA>
+      </motion.div>
+
       <div className="grow" />
 
-      {/* Bottom bar */}
+      {/* Bottom strip */}
       <motion.div
         className="relative z-10 px-6 md:px-10 pb-7 md:pb-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 0.9 }}
+        transition={{ duration: 0.7, delay: 1.6 }}
       >
         <div
-          className="flex flex-col-reverse gap-6 border-t pt-5 md:flex-row md:items-center md:justify-between"
+          className="flex flex-col-reverse gap-3 border-t pt-5 md:flex-row md:items-center md:justify-between"
           style={{ borderColor: "rgba(10,10,10,0.12)" }}
         >
-          <div className="flex items-center gap-6">
-            <WQFButton href="#contact">Contact Us</WQFButton>
-            <span className="mono-label" style={{ color: "rgba(10,10,10,0.52)" }}>
-              {time || "—:—"} EDT
-            </span>
-          </div>
-          <p className="mono-label max-w-[480px]" style={{ color: "rgba(10,10,10,0.62)" }}>
-            Boutique cybersecurity, AI, and applied software consulting — Markham, Ontario
-          </p>
+          <span className="mono-label" style={{ color: "rgba(10,10,10,0.52)" }}>
+            {time || "—:—"} EDT
+          </span>
+          <span className="mono-label" style={{ color: "rgba(10,10,10,0.5)" }}>
+            Cybersecurity · AI · Applications
+          </span>
         </div>
       </motion.div>
     </section>

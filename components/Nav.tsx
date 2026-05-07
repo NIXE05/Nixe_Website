@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const links = [
+  { label: "Work",     href: "#work"     },
+  { label: "Apps",     href: "/courtly"  },
   { label: "Services", href: "#services" },
-  { label: "Apps",     href: "#shipped"  },
-  { label: "About",    href: "#ethos"    },
+  { label: "About",    href: "#about"    },
   { label: "Contact",  href: "#contact"  },
 ];
 

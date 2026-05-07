@@ -1,5 +1,6 @@
 "use client";
 
+import { WordReveal } from "@/components/WordReveal";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
@@ -76,18 +77,34 @@ export function Shipped() {
   const displayedImages = [...SCREENSHOTS.slice(startIndex), ...SCREENSHOTS.slice(0, startIndex)];
 
   return (
-    <section
+    <motion.section
       id="shipped"
+      data-bg-color="#FAFAF7"
+      className="relative overflow-hidden"
       style={{
         background: "#FAFAF7",
-        borderTop: "1px solid rgba(10,10,10,0.07)",
-        paddingTop: "clamp(80px,12vh,160px)",
-        paddingBottom: "clamp(80px,12vh,160px)",
+        paddingTop: "clamp(96px, 14vh, 180px)",
+        paddingBottom: "clamp(96px, 14vh, 180px)",
       }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-15%" }}
+      transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
     >
       <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
-        <div className="mono-label mb-16 md:mb-24" style={{ color: "rgba(10,10,10,0.55)" }}>
-          02 / SHIPPED
+        <div className="flex flex-col gap-5 mb-14 md:mb-20 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="mono-label mb-5" style={{ color: "rgba(10,10,10,0.55)" }}>
+              03 / SHIPPED
+            </div>
+            <h2 className="display-xl text-nixe-ink uppercase" style={{ lineHeight: 0.95 }}>
+              <WordReveal>The first</WordReveal>
+              <WordReveal delay={0.18}>one&apos;s out.</WordReveal>
+            </h2>
+          </div>
+          <p className="hidden md:block text-sm max-w-[34ch] md:pb-3" style={{ color: "rgba(10,10,10,0.6)" }}>
+            A closer look at Courtly — match tracking and analytics for racquet sports.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-14 lg:gap-24 items-center">
@@ -110,10 +127,17 @@ export function Shipped() {
             transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1], delay: 0.1 }}
           >
             <div
-              className="relative mb-8 overflow-hidden rounded-[22%] bg-nixe-stone/30"
-              style={{ width: 80, height: 80, boxShadow: "0 8px 32px rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.05)" }}
+              className="relative mb-8 overflow-hidden"
+              style={{
+                width: 92,
+                height: 92,
+                borderRadius: "26%",
+                background: "#FFFFFF",
+                boxShadow:
+                  "0 18px 40px rgba(10,10,10,0.18), 0 4px 10px rgba(10,10,10,0.08), inset 0 0 0 1px rgba(10,10,10,0.04)",
+              }}
             >
-              <Image src="/apps/courtly/icon.png" alt="Courtly" fill className="object-contain p-2" sizes="80px" />
+              <Image src="/apps/courtly/icon.png" alt="Courtly" fill className="object-cover" sizes="92px" />
             </div>
 
             <h2
@@ -135,13 +159,27 @@ export function Shipped() {
             </div>
 
             <div className="flex gap-6 items-center flex-wrap">
-              <div
-                className="inline-flex items-center px-5 py-3 cursor-not-allowed select-none border"
-                style={{ borderColor: "rgba(10,10,10,0.1)" }}
-                title="Coming soon"
+              <a
+                href="/courtly"
+                data-cursor-hover
+                className="group/btn inline-flex items-center h-[46px] px-7 transition-all duration-300"
+                style={{
+                  background: "var(--color-nixe-ink)",
+                  color: "var(--color-nixe-pearl)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "0 14px 32px rgba(10,10,10,0.22)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
               >
-                <span className="mono-label" style={{ color: "rgba(10,10,10,0.5)" }}>App Store — Coming Soon</span>
-              </div>
+                <span className="mono-label" style={{ color: "var(--color-nixe-pearl)" }}>
+                  Visit Courtly Site →
+                </span>
+              </a>
               <button
                 onClick={() => openLightbox(0)}
                 className="mono-label transition-colors duration-200 hover:text-nixe-ink"
@@ -174,6 +212,6 @@ export function Shipped() {
       <AnimatePresence>
         {lightboxOpen && <Lightbox images={displayedImages} onClose={() => setLightboxOpen(false)} />}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Cursor } from "@/components/Cursor";
+import { GrainOverlay } from "@/components/GrainOverlay";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -45,7 +47,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${jakarta.variable} ${jetbrainsMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <GrainOverlay />
+        <Cursor />
+        {children}
+      </body>
     </html>
   );
 }

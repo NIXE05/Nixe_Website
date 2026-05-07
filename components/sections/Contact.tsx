@@ -1,5 +1,6 @@
 "use client";
 
+import { WordReveal } from "@/components/WordReveal";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -19,15 +20,19 @@ export function Contact() {
   };
 
   return (
-    <section
+    <motion.section
       id="contact"
+      data-bg-color="#F0EFEA"
       className="relative overflow-hidden"
       style={{
         background: "#F0EFEA",
-        borderTop: "1px solid rgba(10,10,10,0.07)",
-        paddingTop: "clamp(80px,12vh,180px)",
-        paddingBottom: "clamp(80px,12vh,180px)",
+        paddingTop: "clamp(96px, 14vh, 180px)",
+        paddingBottom: "clamp(96px, 14vh, 180px)",
       }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-15%" }}
+      transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
     >
       <div className="absolute inset-0 pointer-events-none blueprint-dot" />
       <div className="w-full px-6 md:px-10 max-w-[1440px] mx-auto">
@@ -38,16 +43,14 @@ export function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32">
           {/* Left */}
           <div>
-            <motion.h2
+            <h2
               className="text-nixe-ink font-bold uppercase mb-16"
               style={{ fontFamily: "var(--font-jakarta), system-ui, sans-serif", fontSize: "clamp(2rem, 5vw, 5.5rem)", letterSpacing: "-0.03em", lineHeight: 0.95, fontWeight: 800 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9 }}
             >
-              Let&apos;s build something worth shipping.
-            </motion.h2>
+              <WordReveal>Let&apos;s build</WordReveal>
+              <WordReveal delay={0.18}>something worth</WordReveal>
+              <WordReveal delay={0.36}>shipping.</WordReveal>
+            </h2>
 
             {sent ? (
               <motion.div
@@ -161,6 +164,6 @@ export function Contact() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
