@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { WaitlistButton } from "@/components/WaitlistButton";
 import { WordReveal } from "@/components/WordReveal";
 
 // ─── Content ──────────────────────────────────────────────────────────────────
@@ -105,17 +106,9 @@ function CourtlyNav() {
           </span>
         </div>
 
-        <a
-          href="#download"
-          data-cursor-hover
-          className="mono-label inline-flex items-center h-[36px] px-4"
-          style={{
-            background: "var(--color-nixe-ink)",
-            color: "var(--color-nixe-pearl)",
-          }}
-        >
-          Get the app
-        </a>
+        <WaitlistButton size="sm" variant="dark">
+          Join Waitlist
+        </WaitlistButton>
       </div>
     </nav>
   );
@@ -263,28 +256,7 @@ function CourtlyHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 1.1 }}
             >
-              <a
-                href="#download"
-                data-cursor-hover
-                className="group/btn relative inline-flex h-[48px] items-center justify-center px-7"
-                style={{
-                  background: "var(--color-nixe-ink)",
-                  color: "var(--color-nixe-pearl)",
-                  transition: "transform 0.35s cubic-bezier(0.25,0,0.25,1), box-shadow 0.35s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = "0 14px 32px rgba(10,10,10,0.22)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
-              >
-                <span className="mono-label" style={{ color: "var(--color-nixe-pearl)" }}>
-                  Download for iOS
-                </span>
-              </a>
+              <WaitlistButton variant="dark">Join the Waitlist</WaitlistButton>
 
               <a
                 href="#features"
@@ -680,22 +652,7 @@ function CourtlyDownload() {
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="#"
-                data-cursor-hover
-                title="App Store — Coming soon"
-                aria-disabled
-                className="inline-flex h-[48px] items-center justify-center px-7 cursor-not-allowed select-none"
-                style={{
-                  background: "var(--color-nixe-pearl)",
-                  color: "var(--color-nixe-ink)",
-                  opacity: 0.92,
-                }}
-              >
-                <span className="mono-label" style={{ color: "var(--color-nixe-ink)" }}>
-                  App Store — Coming Soon
-                </span>
-              </a>
+              <WaitlistButton>Join the Waitlist</WaitlistButton>
 
               <a
                 href="mailto:hi@courtly.app"

@@ -69,17 +69,18 @@ export function Cursor() {
 
   return (
     <>
-      {/* White dot + difference = always contrasts with bg */}
+      {/* White dot + difference = always contrasts with bg.
+          z-[99999] keeps the cursor above any modal / overlay (which sit at 10000). */}
       <div
         ref={dotRef}
         aria-hidden="true"
-        className="fixed top-0 left-0 pointer-events-none z-[10000] rounded-full bg-white"
+        className="fixed top-0 left-0 pointer-events-none z-[99999] rounded-full bg-white"
         style={{ width: 7, height: 7, marginLeft: -3.5, marginTop: -3.5, mixBlendMode: "difference" }}
       />
       <div
         ref={ringRef}
         aria-hidden="true"
-        className="fixed top-0 left-0 pointer-events-none z-[10000] rounded-full border border-white"
+        className="fixed top-0 left-0 pointer-events-none z-[99999] rounded-full border border-white"
         style={{
           width: 24,
           height: 24,
