@@ -109,18 +109,22 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
     setErrorMsg("");
 
     try {
-      // Use FormData (multipart) — most compatible with FormSpark, mirrors a real
-      // HTML form submission. Don't set Content-Type; the browser fills the
-      // multipart boundary header for us.
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("source", "courtly.waitlist");
+      // Use URL-encoded form data — FormSpark's standard HTML-form path.
+      // (Multipart/FormData is silently dropped by their parser — submissions
+      // return formspark-status: empty and never appear in the dashboard.)
+      // x-www-form-urlencoded is a CORS "simple request" so no preflight.
+      const params = new URLSearchParams();
+      params.append("name", name);
+      params.append("email", email);
+      params.append("source", "courtly.waitlist");
 
       const res = await fetch(FORMSPARK_URL, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Accept: "application/json",
+        },
+        body: params.toString(),
       });
 
       const text = await res.text();
