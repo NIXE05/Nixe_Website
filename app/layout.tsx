@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Cursor } from "@/components/Cursor";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import "./globals.css";
+
+const GA_ID = "G-BHC142MH9X";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -52,6 +55,7 @@ export default function RootLayout({
         <Cursor />
         {children}
       </body>
+      <GoogleAnalytics gaId={GA_ID} />
     </html>
   );
 }
