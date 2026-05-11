@@ -647,7 +647,7 @@ function CourtlyDownload() {
                 color: "rgba(245,244,239,0.7)",
               }}
             >
-              Free during beta. iOS 17+. We&apos;ll keep core match logging free; group
+              Free during beta. iOS 26+. We&apos;ll keep core match logging free; group
               sessions and advanced stats land in a paid tier under $5/mo.
             </p>
 
@@ -707,7 +707,7 @@ function CourtlyFooter() {
           COURTLY
         </span>
         <span className="mono-label" style={{ color: "rgba(245,244,239,0.4)" }}>
-          By NIXE · iOS 17+
+          By NIXE · iOS 26+
         </span>
       </div>
 

@@ -155,7 +155,7 @@ export function Shipped() {
             </p>
 
             <div className="mono-label mb-9" style={{ fontSize: "0.6rem", color: "rgba(10,10,10,0.5)" }}>
-              ★ COMING SOON · iOS 17+ · FREE
+              ★ COMING SOON · iOS 26+ · FREE
             </div>
 
             <div className="flex gap-6 items-center flex-wrap">

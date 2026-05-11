@@ -179,3 +179,16 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ─── Hero Courtly chip pulse (toggled on while the chip is visible) ─── */
+@keyframes hero-chip-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(212, 160, 40, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    box-shadow: 0 7px 30px rgba(212, 160, 40, 0.34), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  }
+}
+.hero-chip-pulsing {
+  animation: hero-chip-pulse 2.4s ease-in-out infinite;
+}

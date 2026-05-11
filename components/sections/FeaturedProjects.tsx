@@ -16,6 +16,11 @@ type Project = {
   link?: string;
   comingSoon?: boolean;
   iconSrc?: string;
+  /**
+   * "app"      → square iOS-app-icon styling (white rounded square + shadow). Default.
+   * "wordmark" → horizontal logo rendered centered on the card bg, no container.
+   */
+  iconKind?: "app" | "wordmark";
 };
 
 const PROJECTS: Project[] = [
@@ -30,22 +35,15 @@ const PROJECTS: Project[] = [
     iconSrc: "/apps/courtly/icon.png",
   },
   {
-    id: "alpha",
-    name: "Alpha Platform",
+    id: "clavis",
+    name: "Clavis",
     year: "TBA",
-    category: "AI System",
+    category: "Hospitality PMS",
     description:
-      "Enterprise LLM deployment platform with responsible-AI guardrails. Currently in private development.",
+      "AI-native hotel property management — WhatsApp guest comms, automated billing, multi-tenant from day one. In private development.",
     comingSoon: true,
-  },
-  {
-    id: "secureflow",
-    name: "SecureFlow",
-    year: "TBA",
-    category: "Security Audit",
-    description:
-      "End-to-end SOC 2 compliance program for high-growth fintech. Deep architecture review in progress.",
-    comingSoon: true,
+    iconSrc: "/apps/clavis/wordmark.png",
+    iconKind: "wordmark",
   },
 ];
 
@@ -63,9 +61,25 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
       {/* Blueprint dots */}
       <div className="absolute inset-0 blueprint-dot pointer-events-none" />
 
-      {/* Centered icon for Courtly, monogram for placeholders */}
+      {/* Centered icon — iOS app-icon for square assets, wordmark for horizontal logos, monogram fallback */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {project.iconSrc ? (
+        {project.iconSrc && project.iconKind === "wordmark" ? (
+          <motion.div
+            className="relative"
+            style={{ width: 220, height: 70 }}
+            animate={{ y: hovered ? -4 : 0, scale: hovered ? 1.05 : 1 }}
+            transition={{ duration: 0.45, ease: [0.25, 0, 0.25, 1] }}
+          >
+            <Image
+              src={project.iconSrc}
+              alt={`${project.name} logo`}
+              fill
+              className="object-contain"
+              sizes="220px"
+              priority={false}
+            />
+          </motion.div>
+        ) : project.iconSrc ? (
           <motion.div
             className="relative overflow-hidden"
             style={{
@@ -265,13 +279,13 @@ export function FeaturedProjects() {
             className="max-w-[34ch] text-sm leading-relaxed md:pb-2"
             style={{ color: "rgba(10,10,10,0.6)" }}
           >
-            One shipped, two more compounding in private. We only ship things
+            One shipped, one more compounding in private. We only ship things
             we&apos;d want to use ourselves.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid gap-7 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-7 md:gap-10 grid-cols-1 sm:grid-cols-2 max-w-[920px]">
           {PROJECTS.map((p) => (
             <ProjectCard key={p.id} project={p} />
           ))}
