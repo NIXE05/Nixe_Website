@@ -647,15 +647,14 @@ function CourtsyDownload() {
                 color: "rgba(245,244,239,0.7)",
               }}
             >
-              Free during beta. iOS 26+. We&apos;ll keep core match logging free; group
-              sessions and advanced stats land in a paid tier under $5/mo.
+              Free during beta. iOS 26+.
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
               <WaitlistButton>Join the Waitlist</WaitlistButton>
 
               <a
-                href="mailto:hi@courtsy.app"
+                href="mailto:nixe.cxt@gmail.com"
                 data-cursor-hover
                 className="inline-flex h-[48px] items-center justify-center px-7"
                 style={{
@@ -673,7 +672,7 @@ function CourtsyDownload() {
                 }}
               >
                 <span className="mono-label" style={{ color: "var(--color-nixe-pearl)" }}>
-                  hi@courtsy.app
+                  nixe.cxt@gmail.com
                 </span>
               </a>
             </div>

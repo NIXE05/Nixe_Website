@@ -150,7 +150,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
       setErrorMsg(
         err instanceof Error
           ? err.message
-          : "Something went wrong. Try again, or email hi@courtsy.app."
+          : "Something went wrong. Try again, or email nixe.cxt@gmail.com."
       );
     }
   };
