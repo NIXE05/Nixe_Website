@@ -116,7 +116,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
       const params = new URLSearchParams();
       params.append("name", name);
       params.append("email", email);
-      params.append("source", "courtly.waitlist");
+      params.append("source", "courtsy.waitlist");
 
       const res = await fetch(FORMSPARK_URL, {
         method: "POST",
@@ -150,7 +150,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
       setErrorMsg(
         err instanceof Error
           ? err.message
-          : "Something went wrong. Try again, or email hi@courtly.app."
+          : "Something went wrong. Try again, or email hi@courtsy.app."
       );
     }
   };
@@ -213,7 +213,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
         ) : (
           <>
             <div className="mono-label mb-3" style={{ color: "rgba(10,10,10,0.55)" }}>
-              COURTLY · WAITLIST
+              COURTSY · WAITLIST
             </div>
             <h2
               id="waitlist-title"
@@ -237,7 +237,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
                 color: "rgba(10,10,10,0.65)",
               }}
             >
-              We&apos;ll email you the moment Courtly drops on the App Store. No spam,
+              We&apos;ll email you the moment Courtsy drops on the App Store. No spam,
               no marketing junk — just one launch ping.
             </p>
 
@@ -300,9 +300,9 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
                 className="text-xs leading-relaxed mt-1"
                 style={{ color: "rgba(10,10,10,0.5)" }}
               >
-                By joining you agree to be emailed about Courtly&apos;s launch. See our{" "}
+                By joining you agree to be emailed about Courtsy&apos;s launch. See our{" "}
                 <a
-                  href="/courtly/privacy"
+                  href="/courtsy/privacy"
                   className="underline"
                   style={{ color: "rgba(10,10,10,0.7)" }}
                   data-cursor-hover
@@ -415,7 +415,7 @@ function SuccessState({ email, onClose }: { email: string; onClose: () => void }
       >
         We&apos;ll send a single email to{" "}
         <strong style={{ color: "var(--color-nixe-ink)" }}>{email}</strong>{" "}
-        the moment Courtly is live on the App Store.
+        the moment Courtsy is live on the App Store.
       </p>
       <button
         type="button"

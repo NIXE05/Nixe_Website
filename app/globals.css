@@ -171,7 +171,7 @@
   50%       { opacity: 0.3; }
 }
 
-/* ─── Scrollbar-hide (used by horizontal phone strip on Courtly page) ─── */
+/* ─── Scrollbar-hide (used by horizontal phone strip on Courtsy page) ─── */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -180,7 +180,7 @@
   display: none;
 }
 
-/* ─── Hero Courtly chip pulse (toggled on while the chip is visible) ─── */
+/* ─── Hero Courtsy chip pulse (toggled on while the chip is visible) ─── */
 @keyframes hero-chip-pulse {
   0%, 100% {
     box-shadow: 0 4px 20px rgba(212, 160, 40, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.6);

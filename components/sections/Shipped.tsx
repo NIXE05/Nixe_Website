@@ -6,11 +6,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 const SCREENSHOTS = [
-  "/apps/courtly/screen-1.png",
-  "/apps/courtly/screen-2.png",
-  "/apps/courtly/screen-3.png",
-  "/apps/courtly/screen-4.png",
-  "/apps/courtly/screen-5.png",
+  "/apps/courtsy/screen-1.png",
+  "/apps/courtsy/screen-2.png",
+  "/apps/courtsy/screen-3.png",
+  "/apps/courtsy/screen-4.png",
+  "/apps/courtsy/screen-5.png",
 ];
 
 function AppScreenshot({ src, alt, offsetY = 0, onClick }: {
@@ -60,7 +60,7 @@ function Lightbox({ images, onClose }: { images: string[]; onClose: () => void }
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: i * 0.05 }}
             >
-              <Image src={src} alt={`Courtly screenshot ${i + 1}`} fill className="object-cover object-top" sizes="(max-width: 768px) 45vw, 20vw" />
+              <Image src={src} alt={`Courtsy screenshot ${i + 1}`} fill className="object-cover object-top" sizes="(max-width: 768px) 45vw, 20vw" />
             </motion.div>
           ))}
         </div>
@@ -103,7 +103,7 @@ export function Shipped() {
             </h2>
           </div>
           <p className="hidden md:block text-sm max-w-[34ch] md:pb-3" style={{ color: "rgba(10,10,10,0.6)" }}>
-            A closer look at Courtly — match tracking and analytics for racquet sports.
+            A closer look at Courtsy — match tracking and analytics for racquet sports.
           </p>
         </div>
 
@@ -115,9 +115,9 @@ export function Shipped() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
           >
-            <AppScreenshot src={SCREENSHOTS[0]} alt="Courtly home"    offsetY={0}  onClick={() => openLightbox(0)} />
-            <AppScreenshot src={SCREENSHOTS[1]} alt="Courtly matches" offsetY={52} onClick={() => openLightbox(1)} />
-            <AppScreenshot src={SCREENSHOTS[2]} alt="Courtly stats"   offsetY={20} onClick={() => openLightbox(2)} />
+            <AppScreenshot src={SCREENSHOTS[0]} alt="Courtsy home"    offsetY={0}  onClick={() => openLightbox(0)} />
+            <AppScreenshot src={SCREENSHOTS[1]} alt="Courtsy matches" offsetY={52} onClick={() => openLightbox(1)} />
+            <AppScreenshot src={SCREENSHOTS[2]} alt="Courtsy stats"   offsetY={20} onClick={() => openLightbox(2)} />
           </motion.div>
 
           <motion.div
@@ -137,14 +137,14 @@ export function Shipped() {
                   "0 18px 40px rgba(10,10,10,0.18), 0 4px 10px rgba(10,10,10,0.08), inset 0 0 0 1px rgba(10,10,10,0.04)",
               }}
             >
-              <Image src="/apps/courtly/icon.png" alt="Courtly" fill className="object-cover" sizes="92px" />
+              <Image src="/apps/courtsy/icon.png" alt="Courtsy" fill className="object-cover" sizes="92px" />
             </div>
 
             <h2
               className="text-nixe-ink font-bold mb-2"
               style={{ fontFamily: "var(--font-jakarta), system-ui, sans-serif", fontSize: "clamp(1.5rem, 2.5vw, 2.75rem)", letterSpacing: "-0.02em", fontWeight: 800 }}
             >
-              Courtly
+              Courtsy
             </h2>
             <div className="mono-label mb-7" style={{ color: "rgba(10,10,10,0.55)" }}>Sports · iOS · 2026</div>
 
@@ -160,7 +160,7 @@ export function Shipped() {
 
             <div className="flex gap-6 items-center flex-wrap">
               <a
-                href="/courtly"
+                href="/courtsy"
                 data-cursor-hover
                 className="group/btn inline-flex items-center h-[46px] px-7 transition-all duration-300"
                 style={{
@@ -177,7 +177,7 @@ export function Shipped() {
                 }}
               >
                 <span className="mono-label" style={{ color: "var(--color-nixe-pearl)" }}>
-                  Visit Courtly Site →
+                  Visit Courtsy Site →
                 </span>
               </a>
               <button

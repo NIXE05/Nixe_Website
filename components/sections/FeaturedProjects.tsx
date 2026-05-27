@@ -25,14 +25,14 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    id: "courtly",
-    name: "Courtly",
+    id: "courtsy",
+    name: "Courtsy",
     year: "2026",
     category: "iOS App",
     description:
       "Match tracking and performance analytics for racquet sports. Live scoring, player insights, and match history.",
-    link: "/courtly",
-    iconSrc: "/apps/courtly/icon.png",
+    link: "/courtsy",
+    iconSrc: "/apps/courtsy/icon.png",
   },
   {
     id: "clavis",

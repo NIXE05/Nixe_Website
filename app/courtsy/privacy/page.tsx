@@ -129,12 +129,12 @@ function PrivacyNav() {
       }}
     >
       <Link
-        href="/courtly"
+        href="/courtsy"
         data-cursor-hover
         className="mono-label inline-flex items-center"
         style={{ color: "rgba(10,10,10,0.7)" }}
       >
-        ← COURTLY
+        ← COURTSY
       </Link>
 
       <span className="mono-label hidden sm:block" style={{ color: "rgba(10,10,10,0.45)" }}>
@@ -142,7 +142,7 @@ function PrivacyNav() {
       </span>
 
       <a
-        href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtly`}
+        href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtsy`}
         data-cursor-hover
         className="mono-label inline-flex items-center"
         style={{ color: "rgba(10,10,10,0.7)" }}
@@ -153,7 +153,7 @@ function PrivacyNav() {
   );
 }
 
-// ─── Footer (matches the Courtly footer pattern) ─────────────────────────────
+// ─── Footer (matches the Courtsy footer pattern) ─────────────────────────────
 function PrivacyFooter() {
   return (
     <footer
@@ -173,7 +173,7 @@ function PrivacyFooter() {
             fontWeight: 800,
           }}
         >
-          COURTLY
+          COURTSY
         </span>
         <span className="mono-label" style={{ color: "rgba(245,244,239,0.4)" }}>
           By NIXE · Privacy Policy
@@ -182,12 +182,12 @@ function PrivacyFooter() {
 
       <div className="flex items-center gap-6">
         <Link
-          href="/courtly"
+          href="/courtsy"
           data-cursor-hover
           className="mono-label transition-colors duration-200"
           style={{ color: "rgba(245,244,239,0.5)" }}
         >
-          ← Back to Courtly
+          ← Back to Courtsy
         </Link>
         <Link
           href="/"
@@ -203,7 +203,7 @@ function PrivacyFooter() {
 }
 
 // ─── Page export ─────────────────────────────────────────────────────────────
-export default function CourtlyPrivacyPage() {
+export default function CourtsyPrivacyPage() {
   return (
     <>
       <PrivacyNav />
@@ -220,7 +220,7 @@ export default function CourtlyPrivacyPage() {
           {/* Header */}
           <header className="mb-14 md:mb-20">
             <div className="mono-label mb-5" style={{ color: "rgba(10,10,10,0.55)" }}>
-              COURTLY · LEGAL
+              COURTSY · LEGAL
             </div>
             <h1
               className="text-nixe-ink uppercase mb-8"
@@ -258,7 +258,7 @@ export default function CourtlyPrivacyPage() {
               This Privacy Policy describes how <strong>NIXE Labs</strong> (&ldquo;NIXE
               Labs&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), a sole
               proprietorship operated by Harish Sivaram, collects, uses, and shares
-              information when you use the <strong>Courtly</strong> mobile application (the
+              information when you use the <strong>Courtsy</strong> mobile application (the
               &ldquo;App&rdquo;) and related backend services (together, the &ldquo;Service&rdquo;).
             </p>
             <p className="mt-4" style={bodyStyle}>
@@ -298,7 +298,7 @@ export default function CourtlyPrivacyPage() {
                 <span className="mono-label mr-2" style={{ color: "rgba(10,10,10,0.5)" }}>
                   BUNDLE ID
                 </span>
-                nixelabs.Courtly
+                nixelabs.Courtsy
               </li>
             </ul>
           </Section>
@@ -306,7 +306,7 @@ export default function CourtlyPrivacyPage() {
           {/* §2 */}
           <Section num="02" title="Information we collect" id="data-collected">
             <p style={bodyStyle}>
-              We collect only the information needed to operate Courtly. We do{" "}
+              We collect only the information needed to operate Courtsy. We do{" "}
               <strong>not</strong> sell your personal data, and we do <strong>not</strong>{" "}
               use it for advertising.
             </p>
@@ -364,9 +364,9 @@ export default function CourtlyPrivacyPage() {
                 lineHeight: 1.65,
               }}
             >
-              <strong>Courtly does not process real-money payments.</strong> Expense and
+              <strong>Courtsy does not process real-money payments.</strong> Expense and
               settlement amounts are records of money owed between you and your friends —
-              Courtly does not transfer funds, store card details, or facilitate payment
+              Courtsy does not transfer funds, store card details, or facilitate payment
               processing.
             </blockquote>
 
@@ -462,7 +462,7 @@ export default function CourtlyPrivacyPage() {
           {/* §4 */}
           <Section num="04" title="Who can see your information (sharing within the App)" id="sharing">
             <p style={bodyStyle}>
-              Courtly is a closed-group, invitation-based app. Other people who use Courtly
+              Courtsy is a closed-group, invitation-based app. Other people who use Courtsy
               may see your information as follows:
             </p>
             <ul className="list-disc pl-6 flex flex-col gap-2" style={bodyStyle}>
@@ -513,7 +513,7 @@ export default function CourtlyPrivacyPage() {
                 ],
                 [
                   <strong key="host">Backend hosting provider</strong>,
-                  "Running the Courtly API server (e.g., Railway, Fly.io, or Render)",
+                  "Running the Courtsy API server (e.g., Railway, Fly.io, or Render)",
                   "API requests + responses in transit",
                   "Provider's region",
                 ],
@@ -604,7 +604,7 @@ export default function CourtlyPrivacyPage() {
             <p className="mt-4" style={bodyStyle}>
               To exercise any of these rights, email{" "}
               <a
-                href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtly`}
+                href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtsy`}
                 data-cursor-hover
                 className="border-b transition-colors"
                 style={{ color: "var(--color-nixe-ink)", borderColor: "rgba(10,10,10,0.3)" }}
@@ -626,17 +626,17 @@ export default function CourtlyPrivacyPage() {
               <li>
                 Email{" "}
                 <a
-                  href={`mailto:${CONTACT}?subject=Delete%20my%20Courtly%20account`}
+                  href={`mailto:${CONTACT}?subject=Delete%20my%20Courtsy%20account`}
                   data-cursor-hover
                   className="border-b transition-colors"
                   style={{ color: "var(--color-nixe-ink)", borderColor: "rgba(10,10,10,0.3)" }}
                 >
                   {CONTACT}
                 </a>{" "}
-                from the email address registered to your Courtly account.
+                from the email address registered to your Courtsy account.
               </li>
               <li>
-                Include the subject line <strong>&ldquo;Delete my Courtly account&rdquo;</strong>.
+                Include the subject line <strong>&ldquo;Delete my Courtsy account&rdquo;</strong>.
               </li>
               <li>
                 We will verify your identity and delete your account within{" "}
@@ -670,7 +670,7 @@ export default function CourtlyPrivacyPage() {
           {/* §9 */}
           <Section num="09" title="Children's privacy" id="children">
             <p style={bodyStyle}>
-              Courtly is not directed at children under <strong>13</strong> years of age.
+              Courtsy is not directed at children under <strong>13</strong> years of age.
               We do not knowingly collect personal information from children under 13. If
               you are a parent or guardian and believe your child has provided us with
               personal data, please contact{" "}
@@ -686,7 +686,7 @@ export default function CourtlyPrivacyPage() {
             </p>
             <p style={bodyStyle}>
               If you are between 13 and 18 (or the age of majority where you live), please
-              use Courtly only with the involvement of a parent or guardian.
+              use Courtsy only with the involvement of a parent or guardian.
             </p>
           </Section>
 
@@ -733,7 +733,7 @@ export default function CourtlyPrivacyPage() {
               We send push notifications via APNs for events such as group invites, RSVP
               responses, expense approvals, and settlement updates. You can disable push
               notifications at any time via{" "}
-              <strong>iOS Settings → Notifications → Courtly</strong>. Doing so will not
+              <strong>iOS Settings → Notifications → Courtsy</strong>. Doing so will not
               affect your ability to use the rest of the App.
             </p>
           </Section>
@@ -741,7 +741,7 @@ export default function CourtlyPrivacyPage() {
           {/* §12 */}
           <Section num="12" title="Cookies and tracking technologies" id="cookies">
             <p style={bodyStyle}>
-              The Courtly iOS app does not use cookies or web tracking technologies. We do
+              The Courtsy iOS app does not use cookies or web tracking technologies. We do
               not use the iOS Advertising Identifier (IDFA) and we have not implemented
               Apple&rsquo;s App Tracking Transparency (ATT) prompt because we do not track
               you across other apps or websites.
@@ -762,7 +762,7 @@ export default function CourtlyPrivacyPage() {
               </li>
             </ul>
             <p style={bodyStyle}>
-              Continued use of Courtly after the effective date of an updated policy
+              Continued use of Courtsy after the effective date of an updated policy
               constitutes your acceptance of the changes.
             </p>
           </Section>
@@ -787,7 +787,7 @@ export default function CourtlyPrivacyPage() {
               <p style={{ ...bodyStyle, marginBottom: 8 }}>
                 Email:{" "}
                 <a
-                  href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtly`}
+                  href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtsy`}
                   data-cursor-hover
                   className="border-b transition-colors"
                   style={{ color: "var(--color-nixe-ink)", borderColor: "rgba(10,10,10,0.3)" }}
@@ -797,7 +797,7 @@ export default function CourtlyPrivacyPage() {
               </p>
               <p style={captionStyle}>
                 Subject line for privacy requests:{" "}
-                <em>&ldquo;Privacy request — Courtly&rdquo;</em>
+                <em>&ldquo;Privacy request — Courtsy&rdquo;</em>
               </p>
             </div>
             <p style={bodyStyle}>
@@ -816,7 +816,7 @@ export default function CourtlyPrivacyPage() {
             <p style={{ ...captionStyle, fontStyle: "italic" }}>
               This policy is provided in good faith and is intended to comply with the
               GDPR, UK GDPR, CCPA/CPRA, and India&rsquo;s DPDP Act, 2023. It is not legal
-              advice. If you operate Courtly under a registered legal entity in the
+              advice. If you operate Courtsy under a registered legal entity in the
               future, update Sections 1 and 14 with the registered name and address.
             </p>
           </div>

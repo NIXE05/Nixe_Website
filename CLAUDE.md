@@ -51,12 +51,12 @@ Colors are defined in `@theme` inside `app/globals.css` and used as `text-nixe-i
 **Sections** (`components/sections/`):
 - All sections are `"use client"` and use Framer Motion `whileInView` with `viewport={{ once: true }}` for scroll reveals
 - `Hero` — full-viewport-width headline using `.hero-headline` class; cascade ghost text is `position: absolute right-0 w-1/2 overflow-hidden` with CSS `cascadeFloat` keyframe animation
-- `Shipped` — Courtly app showcase; screenshots are at `public/apps/courtly/screen-{1-5}.png`; app icon at `public/apps/courtly/icon.png`; lightbox uses `AnimatePresence`
+- `Shipped` — Courtsy app showcase; screenshots are at `public/apps/courtsy/screen-{1-5}.png`; app icon at `public/apps/courtsy/icon.png`; lightbox uses `AnimatePresence`
 - `Contact` — dark section (`bg-nixe-ink`); form submission logs to console and shows a success state; no email service wired yet
 
 ## Pending work
 
 - Wire contact form to an email service (Resend recommended for Next.js)
-- Add real App Store URL for Courtly (currently shows "Coming Soon")
+- Add real App Store URL for Courtsy (currently shows "Coming Soon")
 - Configure deployment target (Vercel recommended)
 - Domain: `nixe.in`

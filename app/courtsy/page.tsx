@@ -55,8 +55,8 @@ const META_ITEMS = [
   { label: "FREE IN BETA", value: "No credit card" },
 ];
 
-// ─── Top nav: simple back-link + Courtly wordmark ────────────────────────────
-function CourtlyNav() {
+// ─── Top nav: simple back-link + Courtsy wordmark ────────────────────────────
+function CourtsyNav() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -94,16 +94,16 @@ function CourtlyNav() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <span
-            className="text-nixe-ink select-none tracking-[0.12em]"
-            style={{
-              fontFamily: "var(--font-jakarta), system-ui, sans-serif",
-              fontSize: "1.25rem",
-              fontWeight: 800,
-            }}
-          >
-            COURTLY
-          </span>
+          <div className="relative" style={{ width: 132, height: 32 }}>
+            <Image
+              src="/apps/courtsy/wordmark.png"
+              alt="Courtsy"
+              fill
+              priority
+              className="object-contain"
+              sizes="132px"
+            />
+          </div>
         </div>
 
         <WaitlistButton size="sm" variant="dark">
@@ -162,8 +162,8 @@ function AppIcon({ size = 124 }: { size?: number }) {
       }}
     >
       <Image
-        src="/apps/courtly/icon.png"
-        alt="Courtly app icon"
+        src="/apps/courtsy/icon.png"
+        alt="Courtsy app icon"
         fill
         className="object-cover"
         sizes={`${size}px`}
@@ -173,7 +173,7 @@ function AppIcon({ size = 124 }: { size?: number }) {
 }
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
-function CourtlyHero() {
+function CourtsyHero() {
   return (
     <section
       className="relative overflow-hidden"
@@ -245,7 +245,7 @@ function CourtlyHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
             >
-              Courtly is the iOS companion for court sports — log every match, split the
+              Courtsy is the iOS companion for court sports — log every match, split the
               booking, and watch your win rate, streak, and rivalries grow with your crew.
             </motion.p>
 
@@ -315,7 +315,7 @@ function CourtlyHero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.25, 0, 0.25, 1] }}
           >
-            <PhoneFrame src="/apps/courtly/sim-1.png" alt="Courtly home screen" width={300} />
+            <PhoneFrame src="/apps/courtsy/sim-1.png" alt="Courtsy home screen" width={300} />
           </motion.div>
         </div>
       </div>
@@ -324,7 +324,7 @@ function CourtlyHero() {
 }
 
 // ─── Features grid ───────────────────────────────────────────────────────────
-function CourtlyFeatures() {
+function CourtsyFeatures() {
   return (
     <motion.section
       id="features"
@@ -418,13 +418,13 @@ function CourtlyFeatures() {
 }
 
 // ─── In the app — staggered phone gallery ───────────────────────────────────
-function CourtlyScreenshots() {
+function CourtsyScreenshots() {
   const screens: { src: string; alt: string; offsetY: number }[] = [
-    { src: "/apps/courtly/sim-1.png", alt: "Performance dashboard with win rate and streaks", offsetY: 0 },
-    { src: "/apps/courtly/sim-2.png", alt: "Match history list",                                offsetY: 60 },
-    { src: "/apps/courtly/sim-3.png", alt: "Tap-a-score match entry",                            offsetY: 24 },
-    { src: "/apps/courtly/sim-4.png", alt: "Expense splitting and balances",                     offsetY: 80 },
-    { src: "/apps/courtly/sim-5.png", alt: "RSVP-driven sessions",                               offsetY: 12 },
+    { src: "/apps/courtsy/sim-1.png", alt: "Performance dashboard with win rate and streaks", offsetY: 0 },
+    { src: "/apps/courtsy/sim-2.png", alt: "Match history list",                                offsetY: 60 },
+    { src: "/apps/courtsy/sim-3.png", alt: "Tap-a-score match entry",                            offsetY: 24 },
+    { src: "/apps/courtsy/sim-4.png", alt: "Expense splitting and balances",                     offsetY: 80 },
+    { src: "/apps/courtsy/sim-5.png", alt: "RSVP-driven sessions",                               offsetY: 12 },
   ];
 
   return (
@@ -489,7 +489,7 @@ function CourtlyScreenshots() {
 }
 
 // ─── How it works ────────────────────────────────────────────────────────────
-function CourtlyHowItWorks() {
+function CourtsyHowItWorks() {
   return (
     <motion.section
       id="how"
@@ -602,7 +602,7 @@ function CourtlyHowItWorks() {
 }
 
 // ─── Download / closing CTA ──────────────────────────────────────────────────
-function CourtlyDownload() {
+function CourtsyDownload() {
   return (
     <motion.section
       id="download"
@@ -636,7 +636,7 @@ function CourtlyDownload() {
                 lineHeight: 0.95,
               }}
             >
-              <WordReveal>Get Courtly</WordReveal>
+              <WordReveal>Get Courtsy</WordReveal>
               <WordReveal delay={0.18}>for iOS.</WordReveal>
             </h2>
 
@@ -655,7 +655,7 @@ function CourtlyDownload() {
               <WaitlistButton>Join the Waitlist</WaitlistButton>
 
               <a
-                href="mailto:hi@courtly.app"
+                href="mailto:hi@courtsy.app"
                 data-cursor-hover
                 className="inline-flex h-[48px] items-center justify-center px-7"
                 style={{
@@ -673,7 +673,7 @@ function CourtlyDownload() {
                 }}
               >
                 <span className="mono-label" style={{ color: "var(--color-nixe-pearl)" }}>
-                  hi@courtly.app
+                  hi@courtsy.app
                 </span>
               </a>
             </div>
@@ -685,7 +685,7 @@ function CourtlyDownload() {
 }
 
 // ─── Footer ──────────────────────────────────────────────────────────────────
-function CourtlyFooter() {
+function CourtsyFooter() {
   return (
     <footer
       className="flex flex-col md:flex-row items-center justify-between gap-6 px-6 md:px-10 py-12"
@@ -704,7 +704,7 @@ function CourtlyFooter() {
             fontWeight: 800,
           }}
         >
-          COURTLY
+          COURTSY
         </span>
         <span className="mono-label" style={{ color: "rgba(245,244,239,0.4)" }}>
           By NIXE · iOS 26+
@@ -713,7 +713,7 @@ function CourtlyFooter() {
 
       <div className="flex items-center gap-6">
         <Link
-          href="/courtly/privacy"
+          href="/courtsy/privacy"
           data-cursor-hover
           className="mono-label transition-colors duration-200"
           style={{ color: "rgba(245,244,239,0.5)" }}
@@ -734,18 +734,18 @@ function CourtlyFooter() {
 }
 
 // ─── Page export ─────────────────────────────────────────────────────────────
-export default function CourtlyPage() {
+export default function CourtsyPage() {
   return (
     <>
-      <CourtlyNav />
+      <CourtsyNav />
       <main>
-        <CourtlyHero />
-        <CourtlyFeatures />
-        <CourtlyScreenshots />
-        <CourtlyHowItWorks />
-        <CourtlyDownload />
+        <CourtsyHero />
+        <CourtsyFeatures />
+        <CourtsyScreenshots />
+        <CourtsyHowItWorks />
+        <CourtsyDownload />
       </main>
-      <CourtlyFooter />
+      <CourtsyFooter />
     </>
   );
 }

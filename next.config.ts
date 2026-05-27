@@ -6,9 +6,15 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      // /courtly is a Next.js route now; only the alt prototype designs need rewrites.
-      { source: "/courtly/interests", destination: "/courtly/interests.html" },
-      { source: "/courtly/neon", destination: "/courtly/neon.html" },
+      // /courtsy is a Next.js route now; only the alt prototype designs need rewrites.
+      { source: "/courtsy/interests", destination: "/courtsy/interests.html" },
+      { source: "/courtsy/neon", destination: "/courtsy/neon.html" },
+    ];
+  },
+  async redirects() {
+    return [
+      { source: "/courtly", destination: "/courtsy", permanent: true },
+      { source: "/courtly/:path*", destination: "/courtsy/:path*", permanent: true },
     ];
   },
 };
