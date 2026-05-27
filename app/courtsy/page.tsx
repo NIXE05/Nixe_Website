@@ -197,7 +197,16 @@ function CourtsyHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.25, 0, 0.25, 1] }}
             >
-              <AppIcon size={80} />
+              <div className="relative shrink-0" style={{ width: 200, height: 50 }}>
+                <Image
+                  src="/apps/courtsy/wordmark.png"
+                  alt="Courtsy"
+                  fill
+                  priority
+                  className="object-contain object-left"
+                  sizes="200px"
+                />
+              </div>
               <div className="flex flex-wrap gap-2">
                 <span
                   className="mono-label px-2.5 py-1 inline-flex"
@@ -620,7 +629,16 @@ function CourtsyDownload() {
     >
       <div className="px-6 md:px-10 max-w-[1280px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 items-center">
-          <AppIcon size={132} />
+          <div className="relative shrink-0" style={{ width: 260, height: 70 }}>
+            <Image
+              src="/apps/courtsy/wordmark.png"
+              alt="Courtsy"
+              fill
+              className="object-contain object-left"
+              sizes="260px"
+              style={{ filter: "invert(1)", mixBlendMode: "lighten" }}
+            />
+          </div>
 
           <div>
             <div className="mono-label mb-5" style={{ color: "rgba(245,244,239,0.55)" }}>
@@ -696,16 +714,16 @@ function CourtsyFooter() {
       }}
     >
       <div className="flex items-center gap-4">
-        <span
-          className="select-none tracking-[0.12em]"
-          style={{
-            fontFamily: "var(--font-jakarta), system-ui, sans-serif",
-            fontSize: "1.1rem",
-            fontWeight: 800,
-          }}
-        >
-          COURTSY
-        </span>
+        <div className="relative" style={{ width: 130, height: 30 }}>
+          <Image
+            src="/apps/courtsy/wordmark.png"
+            alt="Courtsy"
+            fill
+            className="object-contain object-left"
+            sizes="130px"
+            style={{ filter: "invert(1)", mixBlendMode: "lighten" }}
+          />
+        </div>
         <span className="mono-label" style={{ color: "rgba(245,244,239,0.4)" }}>
           By NIXE · iOS 26+
         </span>

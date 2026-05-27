@@ -32,7 +32,8 @@ const PROJECTS: Project[] = [
     description:
       "Match tracking and performance analytics for racquet sports. Live scoring, player insights, and match history.",
     link: "/courtsy",
-    iconSrc: "/apps/courtsy/icon.png",
+    iconSrc: "/apps/courtsy/wordmark.png",
+    iconKind: "wordmark",
   },
   {
     id: "clavis",

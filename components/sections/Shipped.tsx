@@ -126,26 +126,15 @@ export function Shipped() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1], delay: 0.1 }}
           >
-            <div
-              className="relative mb-8 overflow-hidden"
-              style={{
-                width: 92,
-                height: 92,
-                borderRadius: "26%",
-                background: "#FFFFFF",
-                boxShadow:
-                  "0 18px 40px rgba(10,10,10,0.18), 0 4px 10px rgba(10,10,10,0.08), inset 0 0 0 1px rgba(10,10,10,0.04)",
-              }}
-            >
-              <Image src="/apps/courtsy/icon.png" alt="Courtsy" fill className="object-cover" sizes="92px" />
+            <div className="relative mb-8" style={{ width: 220, height: 60 }}>
+              <Image
+                src="/apps/courtsy/wordmark.png"
+                alt="Courtsy"
+                fill
+                className="object-contain object-left"
+                sizes="220px"
+              />
             </div>
-
-            <h2
-              className="text-nixe-ink font-bold mb-2"
-              style={{ fontFamily: "var(--font-jakarta), system-ui, sans-serif", fontSize: "clamp(1.5rem, 2.5vw, 2.75rem)", letterSpacing: "-0.02em", fontWeight: 800 }}
-            >
-              Courtsy
-            </h2>
             <div className="mono-label mb-7" style={{ color: "rgba(10,10,10,0.55)" }}>Sports · iOS · 2026</div>
 
             <p className="mb-8 leading-relaxed max-w-[48ch]" style={{ fontSize: "1rem", color: "rgba(10,10,10,0.72)" }}>
