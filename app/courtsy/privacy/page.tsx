@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 const EFFECTIVE = "7 May 2026";
@@ -166,16 +165,16 @@ function PrivacyFooter() {
       }}
     >
       <div className="flex items-center gap-4">
-        <div className="relative" style={{ width: 130, height: 30 }}>
-          <Image
-            src="/apps/courtsy/wordmark.png"
-            alt="Courtsy"
-            fill
-            className="object-contain object-left"
-            sizes="130px"
-            style={{ filter: "invert(1)", mixBlendMode: "lighten" }}
-          />
-        </div>
+        <span
+          className="select-none tracking-[0.12em]"
+          style={{
+            fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+            fontSize: "1.1rem",
+            fontWeight: 800,
+          }}
+        >
+          COURTSY
+        </span>
         <span className="mono-label" style={{ color: "rgba(245,244,239,0.4)" }}>
           By NIXE · Privacy Policy
         </span>
