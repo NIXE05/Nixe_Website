@@ -93,19 +93,6 @@ function CourtsyNav() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-3">
-          <div className="relative" style={{ width: 132, height: 32 }}>
-            <Image
-              src="/apps/courtsy/wordmark.png"
-              alt="Courtsy"
-              fill
-              priority
-              className="object-contain"
-              sizes="132px"
-            />
-          </div>
-        </div>
-
         <WaitlistButton size="sm" variant="dark">
           Join Waitlist
         </WaitlistButton>
