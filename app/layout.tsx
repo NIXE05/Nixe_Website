@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Cursor } from "@/components/Cursor";
@@ -41,6 +41,13 @@ export const metadata: Metadata = {
     description: "Boutique cybersecurity, AI, and applied software consulting.",
   },
   robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  // Browser chrome tints to paper; locked light so native form controls,
+  // autofill and scrollbars never render dark against the always-paper world.
+  themeColor: "#FAFAF7",
+  colorScheme: "light",
 };
 
 export default function RootLayout({

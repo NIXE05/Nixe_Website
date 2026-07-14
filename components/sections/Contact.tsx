@@ -1,5 +1,6 @@
 "use client";
 
+import { SectionMorph } from "@/components/SectionMorph";
 import { WordReveal } from "@/components/WordReveal";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -20,19 +21,14 @@ export function Contact() {
   };
 
   return (
-    <motion.section
+    <SectionMorph
       id="contact"
-      data-bg-color="#F0EFEA"
-      className="relative overflow-hidden"
+      bg="#F0EFEA"
+      className="overflow-hidden"
       style={{
-        background: "#F0EFEA",
         paddingTop: "clamp(96px, 14vh, 180px)",
         paddingBottom: "clamp(96px, 14vh, 180px)",
       }}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-15%" }}
-      transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
     >
       <div className="absolute inset-0 pointer-events-none blueprint-dot" />
       <div className="w-full px-6 md:px-10 max-w-[1440px] mx-auto">
@@ -63,6 +59,7 @@ export function Contact() {
               </motion.div>
             ) : (
               <motion.form
+                data-world-clear
                 className="flex flex-col gap-6"
                 onSubmit={handleSubmit}
                 initial={{ opacity: 0 }}
@@ -92,8 +89,10 @@ export function Contact() {
                   <label className="mono-label" style={{ color: "rgba(10,10,10,0.62)" }}>Intent</label>
                   <select
                     name="intent" required onChange={handleChange}
-                    className="text-nixe-ink px-4 py-4 text-sm outline-none"
+                    className="text-nixe-ink px-4 py-4 text-sm outline-none transition-colors duration-300"
                     style={{ background: "#F0EFEA", border: "1px solid rgba(10,10,10,0.15)", fontSize: "0.95rem" }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(10,10,10,0.45)"; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(10,10,10,0.15)"; }}
                   >
                     <option value="">Select…</option>
                     <option value="cybersecurity">Cybersecurity</option>
@@ -137,6 +136,7 @@ export function Contact() {
 
           {/* Right */}
           <motion.div
+            data-world-clear
             className="flex flex-col gap-8 md:pt-14"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -164,6 +164,6 @@ export function Contact() {
           </motion.div>
         </div>
       </div>
-    </motion.section>
+    </SectionMorph>
   );
 }

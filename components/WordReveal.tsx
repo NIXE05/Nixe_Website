@@ -11,6 +11,8 @@ interface WordRevealProps {
   className?: string;
   style?: CSSProperties;
   amount?: number;
+  /** Extra gate (e.g. the loader's reveal moment). Defaults to open. */
+  active?: boolean;
 }
 
 export function WordReveal({
@@ -21,10 +23,12 @@ export function WordReveal({
   className,
   style,
   amount = 0.25,
+  active = true,
 }: WordRevealProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount });
   const words = children.split(" ");
+  const show = inView && active;
 
   return (
     <span
@@ -37,19 +41,18 @@ export function WordReveal({
           key={`${word}-${i}`}
           style={{
             display: "inline-block",
-            overflow: "hidden",
             verticalAlign: "bottom",
             paddingBottom: "0.06em",
             marginRight: i < words.length - 1 ? "0.28em" : 0,
           }}
         >
           <motion.span
-            style={{ display: "inline-block", willChange: "transform" }}
-            initial={{ y: "115%" }}
-            animate={inView ? { y: "0%" } : { y: "115%" }}
+            style={{ display: "inline-block", willChange: "opacity" }}
+            initial={{ opacity: 0 }}
+            animate={show ? { opacity: 1 } : { opacity: 0 }}
             transition={{
               duration,
-              ease: [0.76, 0, 0.24, 1],
+              ease: [0.25, 0, 0.25, 1],
               delay: delay + i * stagger,
             }}
           >

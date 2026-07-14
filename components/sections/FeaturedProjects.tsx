@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { SectionMorph } from "@/components/SectionMorph";
 import { WordReveal } from "@/components/WordReveal";
@@ -16,11 +16,14 @@ type Project = {
   link?: string;
   comingSoon?: boolean;
   iconSrc?: string;
+  /** URL shown in the browser chrome when iconKind === "browser". */
+  url?: string;
   /**
    * "app"      → square iOS-app-icon styling (white rounded square + shadow). Default.
    * "wordmark" → horizontal logo rendered centered on the card bg, no container.
+   * "browser"  → logo framed inside a browser window (for multiplatform web apps).
    */
-  iconKind?: "app" | "wordmark";
+  iconKind?: "app" | "wordmark" | "browser";
 };
 
 const PROJECTS: Project[] = [
@@ -42,8 +45,10 @@ const PROJECTS: Project[] = [
     description:
       "AI-native hotel property management — WhatsApp guest comms, automated billing, multi-tenant from day one. In private development.",
     comingSoon: true,
-    iconSrc: "/apps/clavis/wordmark.png",
-    iconKind: "wordmark",
+    link: "/clavis",
+    iconSrc: "/apps/clavis/wordmark-hd.png",
+    iconKind: "browser",
+    url: "clavis.app",
   },
 ];
 
@@ -61,9 +66,86 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
       {/* Blueprint dots */}
       <div className="absolute inset-0 blueprint-dot pointer-events-none" />
 
-      {/* Centered icon — iOS app-icon for square assets, wordmark for horizontal logos, monogram fallback */}
+      {/* Centered icon — browser window for web apps, iOS app-icon for square assets, wordmark for horizontal logos, monogram fallback */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {project.iconSrc && project.iconKind === "wordmark" ? (
+        {project.iconSrc && project.iconKind === "browser" ? (
+          <motion.div
+            className="relative w-[58%] max-w-[300px]"
+            animate={{ y: hovered ? -5 : 0, scale: hovered ? 1.03 : 1 }}
+            transition={{ duration: 0.45, ease: [0.25, 0, 0.25, 1] }}
+          >
+            <div
+              className="overflow-hidden rounded-[12px]"
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid rgba(10,10,10,0.10)",
+                boxShadow:
+                  "0 20px 44px rgba(10,10,10,0.16), 0 4px 12px rgba(10,10,10,0.07), inset 0 0 0 1px rgba(255,255,255,0.6)",
+              }}
+            >
+              {/* Title bar */}
+              <div
+                className="flex items-center px-3.5"
+                style={{
+                  height: 34,
+                  borderBottom: "1px solid rgba(10,10,10,0.07)",
+                  background: "linear-gradient(180deg, #FBFBF9 0%, #F2F1EC 100%)",
+                }}
+              >
+                {/* Traffic-light dots */}
+                <div className="flex items-center gap-[6px]" style={{ width: 40 }}>
+                  <span style={{ width: 9, height: 9, borderRadius: "50%", background: "rgba(10,10,10,0.14)" }} />
+                  <span style={{ width: 9, height: 9, borderRadius: "50%", background: "rgba(10,10,10,0.14)" }} />
+                  <span style={{ width: 9, height: 9, borderRadius: "50%", background: "rgba(10,10,10,0.14)" }} />
+                </div>
+                {/* URL pill */}
+                <div className="flex flex-1 justify-center">
+                  <div
+                    className="mono-label inline-flex items-center gap-1.5"
+                    style={{
+                      height: 19,
+                      padding: "0 11px",
+                      borderRadius: 999,
+                      background: "rgba(10,10,10,0.045)",
+                      border: "1px solid rgba(10,10,10,0.06)",
+                      color: "rgba(10,10,10,0.42)",
+                      fontSize: "0.6rem",
+                      letterSpacing: "0.02em",
+                    }}
+                  >
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" aria-hidden>
+                      <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="2" />
+                      <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span>{project.url ?? "app"}</span>
+                  </div>
+                </div>
+                {/* Spacer to balance the dots */}
+                <div style={{ width: 40 }} />
+              </div>
+
+              {/* Viewport */}
+              <div
+                className="flex items-center justify-center"
+                style={{ aspectRatio: "16 / 9", background: "#FFFFFF" }}
+              >
+                <div
+                  className="relative"
+                  style={{ width: "62%", aspectRatio: "1947 / 808" }}
+                >
+                  <Image
+                    src={project.iconSrc}
+                    alt={`${project.name} logo`}
+                    fill
+                    className="object-contain"
+                    sizes="240px"
+                    priority={false}
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ) : project.iconSrc && project.iconKind === "wordmark" ? (
           <motion.div
             className="relative"
             style={{ width: 220, height: 70 }}
@@ -132,7 +214,7 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
       {/* Coming soon ribbon */}
       {project.comingSoon && (
         <div
-          className="absolute top-4 left-4 mono-label px-2.5 py-1"
+          className="absolute top-4 left-4 mono-label inline-flex items-center gap-2 px-2.5 py-1"
           style={{
             border: "1px solid rgba(10,10,10,0.2)",
             color: "rgba(10,10,10,0.55)",
@@ -140,6 +222,11 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
             backdropFilter: "blur(6px)",
           }}
         >
+          <span
+            aria-hidden
+            className="size-[5px] rounded-full shrink-0"
+            style={{ background: "rgba(10,10,10,0.5)", animation: "blipPulse 2.6s ease-in-out infinite" }}
+          />
           Coming Soon
         </div>
       )}
@@ -161,7 +248,7 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
 
 function ProjectCard({ project }: { project: Project }) {
   const [hovered, setHovered] = useState(false);
-  const interactive = !project.comingSoon && project.link;
+  const interactive = !!project.link;
 
   const Wrapper = interactive ? motion.a : motion.div;
   const wrapperProps = interactive
@@ -232,15 +319,15 @@ function ProjectCard({ project }: { project: Project }) {
         <div
           className="mono-label mt-7 inline-flex items-center gap-2 transition-all duration-300"
           style={{
-            color: project.comingSoon
-              ? "rgba(10,10,10,0.35)"
-              : "rgba(10,10,10,0.55)",
+            color: interactive
+              ? "rgba(10,10,10,0.55)"
+              : "rgba(10,10,10,0.35)",
             transform:
               hovered && interactive ? "translateX(6px)" : "translateX(0)",
           }}
         >
-          {project.comingSoon ? "In Development" : "View Project"}
-          {!project.comingSoon && <span aria-hidden>→</span>}
+          {interactive ? "View Project" : "In Development"}
+          {interactive && <span aria-hidden>→</span>}
         </div>
       </div>
     </Wrapper>
@@ -248,6 +335,14 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export function FeaturedProjects() {
+  // Differential drift: the second card lags slightly as the grid scrolls by.
+  const gridRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: gridRef,
+    offset: ["start end", "end start"],
+  });
+  const cardDrift = useTransform(scrollYProgress, [0, 1], [38, -16]);
+
   return (
     <SectionMorph
       id="work"
@@ -265,7 +360,7 @@ export function FeaturedProjects() {
               className="mono-label mb-5"
               style={{ color: "rgba(10,10,10,0.55)" }}
             >
-              02 / SELECTED WORK
+              01 / SELECTED WORK
             </div>
             <h2
               className="display-xl text-nixe-ink uppercase"
@@ -285,9 +380,11 @@ export function FeaturedProjects() {
         </div>
 
         {/* Cards */}
-        <div className="grid gap-7 md:gap-10 grid-cols-1 sm:grid-cols-2 max-w-[920px]">
-          {PROJECTS.map((p) => (
-            <ProjectCard key={p.id} project={p} />
+        <div ref={gridRef} data-world-clear className="grid gap-7 md:gap-10 grid-cols-1 sm:grid-cols-2 max-w-[920px]">
+          {PROJECTS.map((p, i) => (
+            <motion.div key={p.id} style={i % 2 === 1 ? { y: cardDrift } : undefined}>
+              <ProjectCard project={p} />
+            </motion.div>
           ))}
         </div>
       </div>

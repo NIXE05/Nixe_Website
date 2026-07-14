@@ -2,8 +2,9 @@ export function GrainOverlay() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-[9999] pointer-events-none"
+      className="fixed z-[9999] pointer-events-none grain-anim"
       style={{
+        inset: -80, // oversized so the stepped grain shift never shows an edge
         opacity: 0.055,
         mixBlendMode: "screen",
         backgroundImage:

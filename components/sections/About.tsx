@@ -91,7 +91,7 @@ export function About() {
             </div>
 
             {/* Right — body */}
-            <div className="flex flex-col gap-7">
+            <div data-world-clear className="flex flex-col gap-7">
               <motion.p
                 className="leading-relaxed border-t pt-7"
                 style={{

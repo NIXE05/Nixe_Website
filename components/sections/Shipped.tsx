@@ -1,9 +1,11 @@
 "use client";
 
+import { SectionMorph } from "@/components/SectionMorph";
 import { WordReveal } from "@/components/WordReveal";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 const SCREENSHOTS = [
   "/apps/courtsy/screen-1.png",
@@ -76,20 +78,25 @@ export function Shipped() {
   const openLightbox = (from: number) => { setStartIndex(from); setLightboxOpen(true); };
   const displayedImages = [...SCREENSHOTS.slice(startIndex), ...SCREENSHOTS.slice(0, startIndex)];
 
+  // Scrubbed parallax — each phone drifts at its own rate as the section passes.
+  const phonesRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: phonesRef,
+    offset: ["start end", "end start"],
+  });
+  const phoneY1 = useTransform(scrollYProgress, [0, 1], [26, -26]);
+  const phoneY2 = useTransform(scrollYProgress, [0, 1], [64, -8]);
+  const phoneY3 = useTransform(scrollYProgress, [0, 1], [42, -18]);
+
   return (
-    <motion.section
+    <SectionMorph
       id="shipped"
-      data-bg-color="#FAFAF7"
-      className="relative overflow-hidden"
+      bg="#FAFAF7"
+      className="overflow-hidden"
       style={{
-        background: "#FAFAF7",
         paddingTop: "clamp(96px, 14vh, 180px)",
         paddingBottom: "clamp(96px, 14vh, 180px)",
       }}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-15%" }}
-      transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
     >
       <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
         <div className="flex flex-col gap-5 mb-14 md:mb-20 md:flex-row md:items-end md:justify-between">
@@ -107,17 +114,24 @@ export function Shipped() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-14 lg:gap-24 items-center">
+        <div data-world-clear className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-14 lg:gap-24 items-center">
           <motion.div
+            ref={phonesRef}
             className="flex gap-4 md:gap-5 items-start justify-center lg:justify-start"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
           >
-            <AppScreenshot src={SCREENSHOTS[0]} alt="Courtsy home"    offsetY={0}  onClick={() => openLightbox(0)} />
-            <AppScreenshot src={SCREENSHOTS[1]} alt="Courtsy matches" offsetY={52} onClick={() => openLightbox(1)} />
-            <AppScreenshot src={SCREENSHOTS[2]} alt="Courtsy stats"   offsetY={20} onClick={() => openLightbox(2)} />
+            <motion.div style={{ y: phoneY1 }}>
+              <AppScreenshot src={SCREENSHOTS[0]} alt="Courtsy home"    offsetY={0}  onClick={() => openLightbox(0)} />
+            </motion.div>
+            <motion.div style={{ y: phoneY2 }}>
+              <AppScreenshot src={SCREENSHOTS[1]} alt="Courtsy matches" offsetY={52} onClick={() => openLightbox(1)} />
+            </motion.div>
+            <motion.div style={{ y: phoneY3 }}>
+              <AppScreenshot src={SCREENSHOTS[2]} alt="Courtsy stats"   offsetY={20} onClick={() => openLightbox(2)} />
+            </motion.div>
           </motion.div>
 
           <motion.div
@@ -209,9 +223,15 @@ export function Shipped() {
         </motion.div>
       </div>
 
-      <AnimatePresence>
-        {lightboxOpen && <Lightbox images={displayedImages} onClose={() => setLightboxOpen(false)} />}
-      </AnimatePresence>
-    </motion.section>
+      {/* Portal: the lightbox is position:fixed and must escape the
+          SectionMorph transform (a transformed ancestor would trap it). */}
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {lightboxOpen && <Lightbox images={displayedImages} onClose={() => setLightboxOpen(false)} />}
+          </AnimatePresence>,
+          document.body,
+        )}
+    </SectionMorph>
   );
 }

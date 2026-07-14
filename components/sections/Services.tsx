@@ -1,5 +1,6 @@
 "use client";
 
+import { SectionMorph } from "@/components/SectionMorph";
 import { WordReveal } from "@/components/WordReveal";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -35,26 +36,21 @@ export function Services() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <motion.section
+    <SectionMorph
       id="services"
-      data-bg-color="#F0EFEA"
-      className="relative overflow-hidden"
+      bg="#F0EFEA"
+      className="overflow-hidden"
       style={{
-        background: "#F0EFEA",
         paddingTop: "clamp(96px, 14vh, 180px)",
         paddingBottom: "clamp(96px, 14vh, 180px)",
       }}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-15%" }}
-      transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
     >
       <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
 
         {/* Header */}
         <div className="flex flex-col gap-5 mb-12 md:mb-16 md:flex-row md:items-end md:justify-between">
           <div>
-            <span className="mono-label" style={{ color: "rgba(10,10,10,0.55)" }}>01 / SERVICES</span>
+            <span className="mono-label" style={{ color: "rgba(10,10,10,0.55)" }}>02 / SERVICES</span>
             <h2
               className="display-xl text-nixe-ink uppercase mt-5"
               style={{ lineHeight: 0.95 }}
@@ -69,7 +65,7 @@ export function Services() {
         </div>
 
         {/* Cards */}
-        <ul className="flex flex-col gap-4 md:flex-row md:gap-4 md:h-[540px]">
+        <ul data-world-clear className="flex flex-col gap-4 md:flex-row md:gap-4 md:h-[540px]">
           {SERVICES.map((svc, i) => (
             <motion.li
               key={svc.num}
@@ -185,6 +181,6 @@ export function Services() {
           ))}
         </ul>
       </div>
-    </motion.section>
+    </SectionMorph>
   );
 }

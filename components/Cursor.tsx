@@ -58,8 +58,20 @@ export function Cursor() {
     const obs = new MutationObserver(bind);
     obs.observe(document.body, { childList: true, subtree: true });
 
+    // Fade out when the pointer leaves the window instead of freezing in place.
+    const setVis = (v: string) => {
+      dotRef.current?.style.setProperty("opacity", v);
+      ringRef.current?.style.setProperty("opacity", v);
+    };
+    const onDocLeave = () => setVis("0");
+    const onDocEnter = () => setVis("1");
+    document.documentElement.addEventListener("mouseleave", onDocLeave);
+    document.documentElement.addEventListener("mouseenter", onDocEnter);
+
     return () => {
       document.removeEventListener("mousemove", onMove);
+      document.documentElement.removeEventListener("mouseleave", onDocLeave);
+      document.documentElement.removeEventListener("mouseenter", onDocEnter);
       cancelAnimationFrame(rafId);
       obs.disconnect();
     };
@@ -75,7 +87,7 @@ export function Cursor() {
         ref={dotRef}
         aria-hidden="true"
         className="fixed top-0 left-0 pointer-events-none z-[99999] rounded-full bg-white"
-        style={{ width: 7, height: 7, marginLeft: -3.5, marginTop: -3.5, mixBlendMode: "difference" }}
+        style={{ width: 7, height: 7, marginLeft: -3.5, marginTop: -3.5, mixBlendMode: "difference", transition: "opacity 0.4s ease" }}
       />
       <div
         ref={ringRef}
@@ -87,7 +99,7 @@ export function Cursor() {
           marginLeft: -12,
           marginTop: -12,
           mixBlendMode: "difference",
-          transition: "width 0.18s ease, height 0.18s ease, margin 0.18s ease",
+          transition: "width 0.18s ease, height 0.18s ease, margin 0.18s ease, opacity 0.4s ease",
         }}
       />
     </>

@@ -5,8 +5,8 @@ export function Footer() {
 
   return (
     <footer
-      className="flex flex-col md:flex-row items-center justify-between gap-8 px-6 md:px-10 py-12"
-      style={{ background: "#FAFAF7", borderTop: "1px solid rgba(10,10,10,0.07)" }}
+      className="relative z-[1] flex flex-col md:flex-row items-center justify-between gap-8 px-6 md:px-10 py-12"
+      style={{ borderTop: "1px solid rgba(10,10,10,0.07)" }}
     >
       <span
         className="text-nixe-ink select-none tracking-[0.12em]"
@@ -18,6 +18,10 @@ export function Footer() {
       <div className="mono-label text-center space-y-1" style={{ color: "rgba(10,10,10,0.52)" }}>
         <p>© 2026 NIXE</p>
         <p>nixe.in · Markham, Ontario</p>
+        {/* Coordinate bookend — the document closes the way the hero opens */}
+        <p style={{ color: "rgba(10,10,10,0.28)", fontSize: "0.54rem" }}>
+          43.8561° N · 79.2673° W · REF: NXE-001
+        </p>
       </div>
 
       <button

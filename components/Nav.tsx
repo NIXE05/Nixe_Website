@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { useRevealed } from "@/lib/reveal";
+
 const links = [
   { label: "Work",     href: "#work"     },
   { label: "Apps",     href: "/courtsy"  },
@@ -13,7 +15,9 @@ const links = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden]     = useState(false);
+  const revealed = useRevealed();
   const lastScrollY = useRef(0);
+  const progressRef = useRef<HTMLDivElement>(null);
   const THRESHOLD   = 50;
 
   useEffect(() => {
@@ -22,6 +26,10 @@ export function Nav() {
       const y     = window.scrollY;
       const delta = y - lastScrollY.current;
       setScrolled(y > vh / 4);
+      // Journey progress hairline along the pill's bottom edge (ref write —
+      // no re-render per scroll frame).
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      progressRef.current?.style.setProperty("transform", `scaleX(${Math.min(1, y / max)})`);
       if (y > vh) {
         if (delta >  THRESHOLD) setHidden(true);
         if (delta < -THRESHOLD) setHidden(false);
@@ -39,12 +47,14 @@ export function Nav() {
       className="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between"
       style={{
         transform: hidden ? "translateY(-100%)" : "translateY(0)",
-        transition: "transform 0.4s cubic-bezier(0.76,0,0.24,1), padding 0.5s cubic-bezier(0.76,0,0.24,1)",
+        // links ease in while the loader dissolves
+        opacity: revealed ? 1 : 0,
+        transition: "transform 0.4s cubic-bezier(0.76,0,0.24,1), padding 0.5s cubic-bezier(0.76,0,0.24,1), opacity 0.5s ease 0.15s",
         padding: scrolled ? "14px 16px" : "28px 40px",
       }}
     >
       <div
-        className="flex w-full items-center justify-between transition-all duration-500"
+        className="relative flex w-full items-center justify-between transition-all duration-500"
         style={scrolled ? {
           background: "rgba(250,250,247,0.92)",
           backdropFilter: "blur(16px)",
@@ -55,15 +65,30 @@ export function Nav() {
           boxShadow: "0 2px 20px rgba(10,10,10,0.06)",
         } : {}}
       >
+        {/* Journey progress hairline — only visible once the pill condenses */}
+        <div
+          ref={progressRef}
+          aria-hidden="true"
+          className="absolute bottom-0 left-[14px] right-[14px] h-px origin-left pointer-events-none"
+          style={{
+            background: "rgba(10,10,10,0.28)",
+            transform: "scaleX(0)",
+            opacity: scrolled ? 1 : 0,
+            transition: "opacity 0.5s ease",
+          }}
+        />
         {/* Wordmark */}
         <a href="#" aria-label="NIXE home" data-cursor-hover>
           <span
-            className="text-nixe-ink select-none tracking-[0.12em]"
+            data-nav-wordmark
+            className="text-nixe-ink select-none tracking-[0.12em] inline-block"
             style={{
               fontFamily: "var(--font-jakarta), system-ui, sans-serif",
               fontSize: scrolled ? "1.05rem" : "1.25rem",
               fontWeight: 800,
-              transition: "font-size 0.5s cubic-bezier(0.76,0,0.24,1)",
+              // crossfades in as the loader's wordmark lands on this spot
+              opacity: revealed ? 1 : 0,
+              transition: "font-size 0.5s cubic-bezier(0.76,0,0.24,1), opacity 0.25s ease 0.72s",
             }}
           >
             NIXE
