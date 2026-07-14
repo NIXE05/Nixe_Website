@@ -646,7 +646,8 @@ function ClavisHero() {
             >
               Clavis is an AI-native hotel operating system. It runs reservations, billing,
               housekeeping and guest messaging across web, mobile and WhatsApp — and only
-              interrupts you when a decision needs a human.
+              interrupts you when a decision needs a human. The back office runs itself,
+              so a lean team runs the whole property and labour costs stop climbing with it.
             </motion.p>
 
             <motion.div
@@ -714,6 +715,106 @@ function ClavisHero() {
   );
 }
 
+// ─── Why now (strategic positioning: automation vs rising labour costs) ─────
+const WHY_NOW_POINTS = [
+  {
+    label: "NIGHT AUDIT",
+    text: "Closes the day at 1am on its own — no night-shift data entry, no morning reconciliation.",
+  },
+  {
+    label: "FRONT OFFICE",
+    text: "Guest replies, confirmations and pre-arrival check-ins are drafted by AI and approved in one tap.",
+  },
+  {
+    label: "BACK OFFICE",
+    text: "Folios, GST filings, rate updates and payroll build themselves from what happens on the floor.",
+  },
+];
+
+function ClavisWhyNow() {
+  return (
+    <motion.section
+      id="why-now"
+      className="relative"
+      style={{
+        background: "var(--color-nixe-ink)",
+        color: "var(--color-nixe-pearl)",
+        paddingTop: "clamp(96px, 14vh, 180px)",
+        paddingBottom: "clamp(96px, 14vh, 180px)",
+      }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-15%" }}
+      transition={{ duration: 0.9, ease: [0.25, 0, 0.25, 1] }}
+    >
+      <div className="px-6 md:px-10 max-w-[1280px] mx-auto">
+        <div className="mb-12 md:mb-16 max-w-[60ch]">
+          <div className="mono-label mb-5" style={{ color: "rgba(245,244,239,0.55)" }}>
+            01 / WHY NOW
+          </div>
+          <h2
+            className="uppercase mb-6"
+            style={{
+              fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+              fontSize: "clamp(2.4rem, 5vw, 5.5rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.035em",
+              lineHeight: 0.95,
+            }}
+          >
+            <WordReveal>Costs keep climbing.</WordReveal>
+            <WordReveal delay={0.18}>Payroll doesn&apos;t have to.</WordReveal>
+          </h2>
+          <p className="leading-relaxed" style={{ fontSize: "1.1rem", color: "rgba(245,244,239,0.72)" }}>
+            Running the same property costs more every year — and people are the biggest
+            line on that bill. Clavis takes over the repetitive back-office work that used
+            to need headcount, so a lean team runs the whole hotel and your staff spend
+            their hours where they actually earn revenue: with guests.
+          </p>
+        </div>
+
+        <div className="grid gap-7 md:gap-8 grid-cols-1 sm:grid-cols-3 mb-12 md:mb-16">
+          {WHY_NOW_POINTS.map((p, i) => (
+            <motion.div
+              key={p.label}
+              className="p-6 md:p-7"
+              style={{
+                border: "1px solid rgba(245,244,239,0.14)",
+                borderRadius: 16,
+              }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, ease: [0.25, 0, 0.25, 1], delay: i * 0.08 }}
+            >
+              <div className="mono-label mb-3" style={{ color: AMBER }}>
+                {p.label}
+              </div>
+              <p className="leading-relaxed" style={{ fontSize: "0.96rem", color: "rgba(245,244,239,0.72)" }}>
+                {p.text}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        <p
+          style={{
+            fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+            fontSize: "clamp(1.3rem, 2.2vw, 1.9rem)",
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.25,
+            maxWidth: "34ch",
+          }}
+        >
+          Fewer manual hours. <span style={{ color: AMBER }}>Lower labour costs.</span>{" "}
+          The same service — or better.
+        </p>
+      </div>
+    </motion.section>
+  );
+}
+
 // ─── Features ────────────────────────────────────────────────────────────────
 function ClavisFeatures() {
   return (
@@ -733,7 +834,7 @@ function ClavisFeatures() {
       <div className="px-6 md:px-10 max-w-[1280px] mx-auto">
         <div className="mb-14 md:mb-20 max-w-[58ch]">
           <div className="mono-label mb-5" style={{ color: "rgba(10,10,10,0.55)" }}>
-            01 / WHAT IT DOES
+            02 / WHAT IT DOES
           </div>
           <h2
             className="text-nixe-ink uppercase mb-6"
@@ -836,7 +937,7 @@ function ClavisShowcase() {
         <div className="flex flex-col gap-5 mb-16 md:mb-24 md:flex-row md:items-end md:justify-between">
           <div className="max-w-[58ch]">
             <div className="mono-label mb-5" style={{ color: "rgba(10,10,10,0.55)" }}>
-              04 / SEE IT WORK
+              05 / SEE IT WORK
             </div>
             <h2
               className="text-nixe-ink uppercase"
@@ -989,7 +1090,7 @@ function ClavisHowItWorks() {
       <div className="px-6 md:px-10 max-w-[1280px] mx-auto">
         <div className="mb-14 md:mb-20 max-w-[58ch]">
           <div className="mono-label mb-5" style={{ color: "rgba(10,10,10,0.55)" }}>
-            06 / HOW IT WORKS
+            07 / HOW IT WORKS
           </div>
           <h2
             className="text-nixe-ink uppercase mb-6"
@@ -1086,7 +1187,7 @@ function ClavisCTA() {
       <div className="px-6 md:px-10 max-w-[1280px] mx-auto">
         <div className="max-w-[60ch]">
           <div className="mono-label mb-5" style={{ color: "rgba(245,244,239,0.55)" }}>
-            07 / EARLY ACCESS
+            08 / EARLY ACCESS
           </div>
           <h2
             className="uppercase mb-6"
@@ -1224,7 +1325,7 @@ function ClavisPlatform() {
       <div className="px-6 md:px-10 max-w-[1280px] mx-auto">
         <div className="mb-12 md:mb-16 max-w-[58ch]">
           <div className="mono-label mb-5" style={{ color: "rgba(10,10,10,0.55)" }}>
-            02 / ONE SYSTEM
+            03 / ONE SYSTEM
           </div>
           <h2
             className="text-nixe-ink uppercase mb-6"
@@ -1404,7 +1505,7 @@ function ClavisFinance() {
       <div className="px-6 md:px-10 max-w-[1280px] mx-auto">
         <div className="mb-14 md:mb-20 max-w-[58ch]">
           <div className="mono-label mb-5" style={{ color: "rgba(10,10,10,0.55)" }}>
-            03 / FINANCE &amp; PAYROLL
+            04 / FINANCE &amp; PAYROLL
           </div>
           <h2
             className="text-nixe-ink uppercase mb-6"
@@ -1473,7 +1574,7 @@ function ClavisTemplates() {
       <div className="px-6 md:px-10 max-w-[1280px] mx-auto">
         <div className="mb-14 md:mb-20 max-w-[58ch]">
           <div className="mono-label mb-5" style={{ color: "rgba(10,10,10,0.55)" }}>
-            05 / BUILT FOR YOUR PROPERTY
+            06 / BUILT FOR YOUR PROPERTY
           </div>
           <h2
             className="text-nixe-ink uppercase mb-6"
@@ -1540,6 +1641,7 @@ export default function ClavisPage() {
       <ClavisNav />
       <main>
         <ClavisHero />
+        <ClavisWhyNow />
         <ClavisFeatures />
         <ClavisPlatform />
         <ClavisFinance />
