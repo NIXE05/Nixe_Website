@@ -1,186 +1,390 @@
 "use client";
 
-import { SectionMorph } from "@/components/SectionMorph";
-import { WordReveal } from "@/components/WordReveal";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { useRef, useState } from "react";
+
+import { Plate } from "@/components/Plate";
+import {
+  MotifAI,
+  MotifApps,
+  MotifSecurity,
+} from "@/components/ServiceMotif";
 
 const SERVICES = [
   {
     num: "01",
-    title: "CYBERSECURITY",
+    title: "Cybersecurity",
+    lede: "Security designed from the ground up, not bolted on after.",
+    body: "We architect, audit, and harden systems for teams who ship without compromise. Threat models that reflect how your product actually works, and reviews that end in fixes rather than findings.",
     tags: ["Architecture Review", "Threat Modeling", "Cloud Audits"],
-    description:
-      "Security designed from the ground up — not bolted on after. We architect, audit, and harden systems for teams who ship without compromise.",
-    bg: "#0A0A0A",
+    Motif: MotifSecurity,
   },
   {
     num: "02",
-    title: "AI CONSULTING",
+    title: "AI Consulting",
+    lede: "Intelligent systems built with intent.",
+    body: "From strategy to hands-on LLM engineering: evaluation harnesses, retrieval that holds up, and guardrails that survive contact with real users. AI that works in production, responsibly.",
     tags: ["AI Strategy", "LLM Integration", "Responsible Deployment"],
-    description:
-      "Intelligent systems built with intent. From strategy to hands-on LLM engineering — AI that works in production, responsibly.",
-    bg: "#0B1525",
+    Motif: MotifAI,
   },
   {
     num: "03",
-    title: "APPLICATIONS",
+    title: "Applications",
+    lede: "Native iOS apps built with precision.",
+    body: "SwiftUI-first, performance-conscious, designed to feel inevitable. We take products from concept through App Store review, and stay for the version that matters.",
     tags: ["iOS / Swift", "SwiftUI", "Product Engineering"],
-    description:
-      "Native iOS apps built with precision. SwiftUI-first, performance-conscious, designed to feel inevitable. Concept to App Store.",
-    bg: "#111111",
+    Motif: MotifApps,
   },
-];
+] as const;
 
-export function Services() {
-  const [active, setActive] = useState<number | null>(null);
+const COUNT = SERVICES.length;
+/**
+ * Panel visibility as a function of distance (in panel units) from its centre:
+ * fully opaque within HOLD, gone by FADE_END. The two windows are complementary
+ * rather than overlapping — both panels share the same left column, so any
+ * simultaneous visibility renders two headlines on top of each other. Keeping
+ * the ramp short (0.1 of a panel ≈ 90px of scroll) makes the handover read as a
+ * cut rather than a gap.
+ */
+const HOLD = 0.4;
+const FADE_END = 0.5;
+
+type Service = (typeof SERVICES)[number];
+
+/**
+ * One pinned panel. Each computes its own scroll-driven opacity/offset from the
+ * shared track progress, so the panels cut through the ink plate rather than
+ * cross-dissolving into a muddy overlap: at the midpoint between two panels
+ * both are at zero and the plate reads as empty for an instant.
+ */
+function Panel({
+  service,
+  index,
+  progress,
+  isActive,
+}: {
+  service: Service;
+  index: number;
+  progress: MotionValue<number>;
+  isActive: boolean;
+}) {
+  const span = COUNT - 1;
+  const opacity = useTransform(
+    progress,
+    [
+      (index - FADE_END) / span,
+      (index - HOLD) / span,
+      (index + HOLD) / span,
+      (index + FADE_END) / span,
+    ],
+    [0, 1, 1, 0],
+  );
+  const y = useTransform(
+    progress,
+    [(index - 1) / span, (index + 1) / span],
+    [80, -80],
+  );
+
+  const { Motif } = service;
 
   return (
-    <SectionMorph
-      id="services"
-      bg="#F0EFEA"
-      className="overflow-hidden"
-      style={{
-        paddingTop: "clamp(96px, 14vh, 180px)",
-        paddingBottom: "clamp(96px, 14vh, 180px)",
-      }}
+    <motion.div
+      className="absolute inset-0 flex items-center"
+      style={{ opacity, y, pointerEvents: isActive ? "auto" : "none" }}
+      aria-hidden={!isActive}
     >
-      <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
-
-        {/* Header */}
-        <div className="flex flex-col gap-5 mb-12 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="mono-label" style={{ color: "rgba(10,10,10,0.55)" }}>02 / SERVICES</span>
-            <h2
-              className="display-xl text-nixe-ink uppercase mt-5"
-              style={{ lineHeight: 0.95 }}
-            >
-              <WordReveal>What we</WordReveal>
-              <WordReveal delay={0.18}>actually do.</WordReveal>
-            </h2>
+      <div className="w-full grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 xl:gap-20 items-center">
+        {/* Copy */}
+        <div>
+          <div
+            className="mono-label mb-6"
+            style={{ color: "var(--tone-fg-3)" }}
+          >
+            {service.num} / Practice
           </div>
-          <p className="hidden md:block text-sm max-w-[34ch] md:pb-3" style={{ color: "rgba(10,10,10,0.6)" }}>
-            A small number of engagements per quarter — depth over volume.
+
+          <h3
+            className="uppercase mb-7"
+            style={{
+              fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+              fontSize: "clamp(2.4rem, 5.2vw, 5.4rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.035em",
+              lineHeight: 0.94,
+              color: "var(--tone-fg)",
+            }}
+          >
+            {service.title}
+          </h3>
+
+          <p
+            className="mb-5 max-w-[34ch]"
+            style={{
+              fontSize: "clamp(1.05rem, 1.5vw, 1.35rem)",
+              lineHeight: 1.45,
+              color: "var(--tone-fg)",
+            }}
+          >
+            {service.lede}
           </p>
+
+          <p
+            className="mb-10 max-w-[46ch] leading-relaxed"
+            style={{ fontSize: "0.98rem", color: "var(--tone-fg-2)" }}
+          >
+            {service.body}
+          </p>
+
+          <ul className="flex flex-wrap gap-2 list-none p-0 m-0">
+            {service.tags.map((tag) => (
+              <li
+                key={tag}
+                className="mono-label px-3 py-2"
+                style={{
+                  color: "var(--tone-fg-2)",
+                  border: "1px solid var(--tone-line)",
+                }}
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Cards */}
-        <ul data-world-clear className="flex flex-col gap-4 md:flex-row md:gap-4 md:h-[540px]">
-          {SERVICES.map((svc, i) => (
-            <motion.li
-              key={svc.num}
-              className="overflow-hidden rounded-[20px] shrink-0 cursor-pointer"
-              style={{ background: svc.bg, minHeight: "320px" }}
-              animate={{
-                flex: active === null ? 1 : active === i ? 2.8 : 0.45,
-              }}
-              transition={{ duration: 0.55, ease: [0.25, 0, 0.25, 1] }}
-              onMouseEnter={() => setActive(i)}
-              onMouseLeave={() => setActive(null)}
-              data-cursor-hover
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-            >
-              <div className="flex h-full flex-col p-7 md:p-8">
+        {/* Motif */}
+        <div className="hidden lg:flex items-center justify-center">
+          <div
+            className="relative w-full"
+            style={{ maxWidth: 440, aspectRatio: "1 / 1" }}
+          >
+            <Motif />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
-                {/* Top: number + description (revealed on expand) */}
-                <div className="flex items-start justify-between gap-4">
-                  <div
-                    className="flex-1 transition-all duration-500"
-                    style={{
-                      opacity: active === i ? 1 : 0,
-                      transform: active === i ? "translateY(0)" : "translateY(8px)",
-                      pointerEvents: active === i ? "auto" : "none",
-                    }}
-                  >
-                    <p
+export function Services() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    const next = Math.min(
+      COUNT - 1,
+      Math.max(0, Math.round(p * (COUNT - 1))),
+    );
+    setActive((prev) => (prev === next ? prev : next));
+  });
+
+  // Rail fill mirrors travel through the pinned track.
+  const railScale = useTransform(scrollYProgress, [0, 1], [1 / COUNT, 1]);
+
+  return (
+    <Plate id="services" tone="ink" bare>
+      <div className="blueprint-dot absolute inset-0 pointer-events-none opacity-70" />
+
+      {/* ── Desktop: the plate pins and the panels advance ── */}
+      <div
+        ref={trackRef}
+        className="hidden md:block relative"
+        style={{ height: `${COUNT * 100}vh` }}
+      >
+        <div className="sticky top-0 h-dvh overflow-hidden flex flex-col">
+          {/* Header rail — persists across every panel */}
+          <div className="px-6 md:px-10 pt-28 shrink-0">
+            <div className="max-w-[1440px] mx-auto">
+              <div
+                className="flex items-baseline justify-between gap-6 pb-4"
+                style={{ borderBottom: "1px solid var(--tone-line)" }}
+              >
+                <span
+                  className="mono-label"
+                  style={{ color: "var(--tone-fg-3)" }}
+                >
+                  02 / Services
+                </span>
+                <span
+                  className="mono-label hidden lg:block"
+                  style={{ color: "var(--tone-fg-4)" }}
+                >
+                  A small number of engagements per quarter. Depth over volume.
+                </span>
+                <div className="flex items-center gap-2 shrink-0">
+                  {SERVICES.map((s, i) => (
+                    <span
+                      key={s.num}
+                      className="block h-[2px]"
                       style={{
-                        fontSize: "0.88rem",
-                        color: "rgba(245,244,239,0.85)",
-                        maxWidth: "38ch",
-                        lineHeight: 1.7,
+                        width: i === active ? 28 : 12,
+                        background:
+                          i === active ? "var(--tone-fg)" : "var(--tone-fg-4)",
+                        transition:
+                          "width 0.45s cubic-bezier(0.25,0,0.25,1), background-color 0.45s",
                       }}
-                    >
-                      {svc.description}
-                    </p>
-                  </div>
-
-                  <span
-                    className="mono-label shrink-0 self-start"
-                    style={{ color: "rgba(245,244,239,0.45)", marginTop: "2px" }}
-                  >
-                    {svc.num}
-                  </span>
-                </div>
-
-                {/* Spacer */}
-                <div className="flex-1" />
-
-                {/* Bottom: title + tags + arrow */}
-                <div>
-                  {/* Title — small in default, large when expanded */}
-                  <div className="overflow-hidden mb-4">
-                    <motion.h3
-                      className="font-bold uppercase leading-none whitespace-nowrap"
-                      style={{
-                        fontFamily: "var(--font-jakarta), system-ui, sans-serif",
-                        letterSpacing: "-0.04em",
-                        color: "#F5F4EF",
-                        opacity: active !== null && active !== i ? 0.38 : 1,
-                        transition: "opacity 0.35s ease",
-                      }}
-                      animate={{
-                        fontSize:
-                          active === i
-                            ? "clamp(3rem, 5.8vw, 7rem)"
-                            : "clamp(1.5rem, 2vw, 2.2rem)",
-                      }}
-                      transition={{ duration: 0.55, ease: [0.25, 0, 0.25, 1] }}
-                    >
-                      {svc.title}
-                    </motion.h3>
-                  </div>
-
-                  {/* Tags — visible in default + expanded, hidden when contracted */}
-                  <div
-                    className="flex flex-wrap gap-2 mb-5 transition-all duration-400"
-                    style={{
-                      opacity: active !== null && active !== i ? 0 : 1,
-                      transform: active !== null && active !== i ? "translateY(4px)" : "translateY(0)",
-                    }}
-                  >
-                    {svc.tags.map(tag => (
-                      <span
-                        key={tag}
-                        className="mono-label px-2.5 py-1 border"
-                        style={{
-                          color: "rgba(245,244,239,0.62)",
-                          borderColor: "rgba(245,244,239,0.18)",
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div
-                    className="mono-label transition-all duration-400"
-                    style={{
-                      color: active === i
-                        ? "rgba(245,244,239,0.85)"
-                        : "rgba(245,244,239,0.4)",
-                      transform: active === i ? "translateX(6px)" : "translateX(0)",
-                    }}
-                  >
-                    →
-                  </div>
+                    />
+                  ))}
                 </div>
               </div>
-            </motion.li>
-          ))}
-        </ul>
+            </div>
+          </div>
+
+          {/* Panel stage */}
+          <div className="relative flex-1 px-6 md:px-10">
+            <div className="relative h-full max-w-[1440px] mx-auto">
+              {/* Ghost numeral behind the stage */}
+              <div
+                aria-hidden
+                className="absolute pointer-events-none select-none"
+                style={{
+                  right: "-1.5%",
+                  bottom: "-8%",
+                  fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+                  fontSize: "clamp(12rem, 26vw, 28rem)",
+                  fontWeight: 800,
+                  lineHeight: 0.8,
+                  letterSpacing: "-0.06em",
+                  color: "var(--tone-fg)",
+                  opacity: 0.035,
+                }}
+              >
+                {SERVICES[active].num}
+              </div>
+
+              {SERVICES.map((s, i) => (
+                <Panel
+                  key={s.num}
+                  service={s}
+                  index={i}
+                  progress={scrollYProgress}
+                  isActive={active === i}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Footer rail */}
+          <div className="px-6 md:px-10 pb-10 shrink-0">
+            <div className="max-w-[1440px] mx-auto">
+              <div
+                className="flex items-center justify-between gap-6 pt-5"
+                style={{ borderTop: "1px solid var(--tone-line)" }}
+              >
+                <div
+                  className="relative h-[2px] flex-1 max-w-[240px]"
+                  style={{ background: "var(--tone-line)" }}
+                >
+                  <motion.span
+                    className="absolute inset-y-0 left-0 w-full origin-left block"
+                    style={{ background: "var(--tone-fg)", scaleX: railScale }}
+                  />
+                </div>
+                <span
+                  className="mono-label"
+                  style={{ color: "var(--tone-fg-3)" }}
+                >
+                  {active < COUNT - 1
+                    ? `Next: ${SERVICES[active + 1].title}`
+                    : "Keep scrolling"}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </SectionMorph>
+
+      {/* ── Mobile: no pinning; the panels simply stack ── */}
+      <div className="md:hidden px-6 py-24">
+        <div
+          className="flex items-baseline justify-between gap-6 pb-4"
+          style={{ borderBottom: "1px solid var(--tone-line)" }}
+        >
+          <span className="mono-label" style={{ color: "var(--tone-fg-3)" }}>
+            02 / Services
+          </span>
+          <span className="mono-label" style={{ color: "var(--tone-fg-4)" }}>
+            NIXE
+          </span>
+        </div>
+
+        <p
+          className="mt-8 mb-14 max-w-[34ch]"
+          style={{ fontSize: "1.05rem", color: "var(--tone-fg-2)" }}
+        >
+          A small number of engagements per quarter. Depth over volume.
+        </p>
+
+        <div className="flex flex-col gap-16">
+          {SERVICES.map((s) => (
+            <motion.div
+              key={s.num}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, ease: [0.25, 0, 0.25, 1] }}
+              style={{ borderTop: "1px solid var(--tone-line)" }}
+              className="pt-8"
+            >
+              <div
+                className="mono-label mb-5"
+                style={{ color: "var(--tone-fg-3)" }}
+              >
+                {s.num} / Practice
+              </div>
+              <h3
+                className="uppercase mb-5"
+                style={{
+                  fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+                  fontSize: "clamp(2rem, 11vw, 3rem)",
+                  fontWeight: 800,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 0.95,
+                  color: "var(--tone-fg)",
+                }}
+              >
+                {s.title}
+              </h3>
+              <p
+                className="mb-4"
+                style={{ fontSize: "1.05rem", color: "var(--tone-fg)" }}
+              >
+                {s.lede}
+              </p>
+              <p
+                className="mb-7 leading-relaxed"
+                style={{ fontSize: "0.95rem", color: "var(--tone-fg-2)" }}
+              >
+                {s.body}
+              </p>
+              <ul className="flex flex-wrap gap-2 list-none p-0 m-0">
+                {s.tags.map((tag) => (
+                  <li
+                    key={tag}
+                    className="mono-label px-3 py-2"
+                    style={{
+                      color: "var(--tone-fg-2)",
+                      border: "1px solid var(--tone-line)",
+                    }}
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </Plate>
   );
 }

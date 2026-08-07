@@ -140,7 +140,7 @@ function PrivacyNav() {
       </span>
 
       <a
-        href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Clavis`}
+        href={`mailto:${CONTACT}?subject=Privacy%20request%3A%20Clavis`}
         data-cursor-hover
         className="mono-label inline-flex items-center"
         style={{ color: "rgba(10,10,10,0.7)" }}
@@ -247,13 +247,13 @@ export default function ClavisPrivacyPage() {
               This Privacy Policy describes how <strong>NIXE Labs</strong> (&ldquo;NIXE
               Labs&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), a sole
               proprietorship operated by Harish Sivaram, collects, uses, and protects
-              information in the <strong>Clavis</strong> hotel operating system — the Clavis
+              information in the <strong>Clavis</strong> hotel operating system: the Clavis
               web application, mobile apps, WhatsApp interfaces and related backend services
               (together, the &ldquo;Service&rdquo;).
             </p>
             <p className="mt-4" style={bodyStyle}>
               Clavis is sold to and used by hotels. This means we act in two different roles
-              depending on the data — see Section 1. If you have any questions, contact us at{" "}
+              depending on the data (see Section 1). If you have any questions, contact us at{" "}
               <a
                 href={`mailto:${CONTACT}`}
                 data-cursor-hover
@@ -278,12 +278,12 @@ export default function ClavisPrivacyPage() {
             <ul className="list-disc pl-6 flex flex-col gap-2" style={bodyStyle}>
               <li>
                 <strong>We are the controller</strong> of the data belonging to the hotel and
-                its staff who hold Clavis accounts — for example, the account and billing
+                its staff who hold Clavis accounts, such as the account and billing
                 details of the hotel and the login profiles of owners, managers and staff.
               </li>
               <li>
                 <strong>We are a processor</strong> of the data a hotel&rsquo;s guests
-                generate — for example, guest profiles, bookings, folios, ID documents and
+                generate, such as guest profiles, bookings, folios, ID documents and
                 messages. Here the <strong>hotel is the controller</strong>, and we process
                 that data only on the hotel&rsquo;s documented instructions to provide the
                 Service. See Section 8.
@@ -300,7 +300,7 @@ export default function ClavisPrivacyPage() {
                 <span className="mono-label mr-2" style={{ color: "rgba(10,10,10,0.5)" }}>
                   PRODUCT
                 </span>
-                Clavis — hotel operating system
+                Clavis · hotel operating system
               </li>
             </ul>
           </Section>
@@ -325,7 +325,7 @@ export default function ClavisPrivacyPage() {
                 ],
                 [
                   <strong key="staff">Staff user profiles</strong>,
-                  "Name, work email, phone, role (owner / manager / front desk / housekeeping / F&B / accountant), password (stored as a hash by our auth provider — we never see it in plain text)",
+                  "Name, work email, phone, role (owner / manager / front desk / housekeeping / F&B / accountant), password (stored as a hash by our auth provider; we never see it in plain text)",
                   "When accounts are created",
                 ],
                 [
@@ -354,7 +354,7 @@ export default function ClavisPrivacyPage() {
                 ],
                 [
                   <strong key="id">Identity documents</strong>,
-                  "ID type and number (Aadhaar / passport / driving licence), and — for foreign nationals — the data required for Form C / the digital C-register",
+                  "ID type and number (Aadhaar / passport / driving licence), and, for foreign nationals, the data required for Form C / the digital C-register",
                   "Captured at check-in by the hotel, as required by law",
                 ],
                 [
@@ -364,7 +364,7 @@ export default function ClavisPrivacyPage() {
                 ],
                 [
                   <strong key="pay">Payment records</strong>,
-                  "Amount, method, status, and references — card details are handled by our payment processor and are not stored by Clavis",
+                  "Amount, method, status, and references. Card details are handled by our payment processor and are not stored by Clavis",
                   "Payments and checkout",
                 ],
                 [
@@ -417,30 +417,30 @@ export default function ClavisPrivacyPage() {
             </p>
             <ol className="list-decimal pl-6 flex flex-col gap-3" style={bodyStyle}>
               <li>
-                <strong>To provide and operate the Service</strong> — running reservations,
+                <strong>To provide and operate the Service</strong>: running reservations,
                 billing, housekeeping, channels, payroll and messaging. <em>[Performance of contract]</em>
               </li>
               <li>
-                <strong>To power Clavis AI</strong> — drafting guest replies, suggesting
+                <strong>To power Clavis AI</strong>: drafting guest replies, suggesting
                 rates, preparing folios, writing the morning briefing (see Section 4).{" "}
                 <em>[Performance of contract / legitimate interests]</em>
               </li>
               <li>
-                <strong>To send operational messages</strong> — booking confirmations,
+                <strong>To send operational messages</strong>: booking confirmations,
                 pre-arrival check-in, invoices and staff task notifications via WhatsApp,
                 email and push. <em>[Performance of contract]</em>
               </li>
               <li>
-                <strong>To meet legal obligations</strong> — GST invoicing and returns,
+                <strong>To meet legal obligations</strong>: GST invoicing and returns,
                 Form C / guest-register requirements, statutory payroll filings, and tax
                 record-keeping. <em>[Legal obligation]</em>
               </li>
               <li>
-                <strong>To protect security</strong> — auditing access, detecting abuse and
+                <strong>To protect security</strong>: auditing access, detecting abuse and
                 rate-limiting. <em>[Legitimate interests / legal obligation]</em>
               </li>
               <li>
-                <strong>To support and improve the Service</strong> — responding to support
+                <strong>To support and improve the Service</strong>: responding to support
                 requests and fixing problems. <em>[Legitimate interests]</em>
               </li>
             </ol>
@@ -461,8 +461,8 @@ export default function ClavisPrivacyPage() {
               </li>
               <li>
                 <strong>A human stays in control.</strong> For anything that materially
-                affects a guest or your finances, the AI proposes and a manager approves —
-                you set what the AI may do autonomously and within what limits (e.g. price
+                affects a guest or your finances, the AI proposes and a manager approves.
+                You set what the AI may do autonomously and within what limits (e.g. price
                 floors and ceilings).
               </li>
               <li>
@@ -578,10 +578,10 @@ export default function ClavisPrivacyPage() {
             </ul>
             <p style={bodyStyle}>
               If you are a <strong>hotel guest</strong>, the hotel is the controller of your
-              data — please direct your request to the hotel, and we will assist them as
+              data, so please direct your request to the hotel, and we will assist them as
               their processor. For hotel and staff account data, email{" "}
               <a
-                href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Clavis`}
+                href={`mailto:${CONTACT}?subject=Privacy%20request%3A%20Clavis`}
                 data-cursor-hover
                 className="border-b transition-colors"
                 style={{ color: "var(--color-nixe-ink)", borderColor: "rgba(10,10,10,0.3)" }}
@@ -616,14 +616,14 @@ export default function ClavisPrivacyPage() {
           <Section num="09" title="Security" id="security">
             <p style={bodyStyle}>We protect data using, among other measures:</p>
             <ul className="list-disc pl-6 flex flex-col gap-2" style={bodyStyle}>
-              <li><strong>Encryption in transit</strong> — all connections use HTTPS/TLS.</li>
-              <li><strong>Encryption at rest</strong> — data stored in our database is encrypted at rest.</li>
+              <li><strong>Encryption in transit</strong>: all connections use HTTPS/TLS.</li>
+              <li><strong>Encryption at rest</strong>: data stored in our database is encrypted at rest.</li>
               <li>
-                <strong>Role-based access &amp; row-level security</strong> — staff see only
+                <strong>Role-based access &amp; row-level security</strong>: staff see only
                 what their role and property allow; tenants are isolated from one another.
               </li>
-              <li><strong>Audit logging</strong> — security-relevant events are logged for monitoring.</li>
-              <li><strong>Rate limiting</strong> — repeated failed sign-ins trigger a temporary lockout.</li>
+              <li><strong>Audit logging</strong>: security-relevant events are logged for monitoring.</li>
+              <li><strong>Rate limiting</strong>: repeated failed sign-ins trigger a temporary lockout.</li>
             </ul>
             <p style={bodyStyle}>
               No system is 100% secure. If we become aware of a breach affecting personal
@@ -636,7 +636,7 @@ export default function ClavisPrivacyPage() {
           <Section num="10" title="WhatsApp and guest messaging" id="whatsapp">
             <p style={bodyStyle}>
               Clavis uses the WhatsApp Business (Meta Cloud API) to send and receive guest
-              and staff messages — pre-arrival check-in links, confirmations, invoices, room
+              and staff messages: pre-arrival check-in links, confirmations, invoices, room
               service and task updates. Message content and phone numbers for those
               conversations are processed by Meta in order to deliver them. Standard WhatsApp
               terms and Meta&rsquo;s own policies apply to the WhatsApp service itself. Guests
@@ -702,7 +702,7 @@ export default function ClavisPrivacyPage() {
               <p style={{ ...bodyStyle, marginBottom: 8 }}>
                 Email:{" "}
                 <a
-                  href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Clavis`}
+                  href={`mailto:${CONTACT}?subject=Privacy%20request%3A%20Clavis`}
                   data-cursor-hover
                   className="border-b transition-colors"
                   style={{ color: "var(--color-nixe-ink)", borderColor: "rgba(10,10,10,0.3)" }}
@@ -711,7 +711,7 @@ export default function ClavisPrivacyPage() {
                 </a>
               </p>
               <p style={captionStyle}>
-                Subject line for privacy requests: <em>&ldquo;Privacy request — Clavis&rdquo;</em>
+                Subject line for privacy requests: <em>&ldquo;Privacy request: Clavis&rdquo;</em>
               </p>
             </div>
             <p style={bodyStyle}>

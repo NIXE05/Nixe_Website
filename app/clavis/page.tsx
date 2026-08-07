@@ -24,18 +24,18 @@ const FEATURES: Feature[] = [
   {
     num: "01",
     title: "An AI that runs the floor",
-    desc: "Clavis drafts the replies, prices the rooms and closes the night audit. You approve with one tap — or let the agents run on their own.",
+    desc: "Clavis drafts the replies, prices the rooms and closes the night audit. You approve with one tap, or let the agents run on their own.",
   },
   {
     num: "02",
     title: "One calendar. Every channel.",
-    desc: "Booking.com, MakeMyTrip, Expedia, Agoda — rates and availability sync both ways, so there are no double bookings and no manual rate updates.",
+    desc: "Booking.com, MakeMyTrip, Expedia, Agoda: rates and availability sync both ways, so there are no double bookings and no manual rate updates.",
     roadmap: "Coming after launch",
   },
   {
     num: "03",
     title: "Your front desk, on WhatsApp",
-    desc: "Pre-arrival check-in, room service and express checkout — guests just text. In-room QR codes let them order without an app, and every charge lands straight on the folio.",
+    desc: "Pre-arrival check-in, room service and express checkout. Guests just text. In-room QR codes let them order without an app, and every charge lands straight on the folio.",
   },
   {
     num: "04",
@@ -50,14 +50,14 @@ const FEATURES: Feature[] = [
   {
     num: "06",
     title: "Every format, one screen",
-    desc: "Multi-property from day one, with layouts that adapt to each kind of property — boutique, business, resort or homestay. Occupancy, revenue and guest history, consolidated across the group.",
+    desc: "Multi-property from day one, with layouts that adapt to each kind of property: boutique, business, resort or homestay. Occupancy, revenue and guest history, consolidated across the group.",
   },
 ];
 
 const STEPS = [
-  { num: "01", title: "ONBOARD", desc: "Add your rooms, rates and team. No manual, no two-week setup — you're live the same day." },
+  { num: "01", title: "ONBOARD", desc: "Add your rooms, rates and team. No manual, no two-week setup. You're live the same day." },
   { num: "02", title: "CONNECT", desc: "Plug in your OTAs, WhatsApp and payments. Clavis pulls your bookings in and starts syncing." },
-  { num: "03", title: "AUTOMATE", desc: "Switch on the agents — replies, pricing, night audit. Set the guardrails; approve what matters." },
+  { num: "03", title: "AUTOMATE", desc: "Switch on the agents: replies, pricing, night audit. Set the guardrails; approve what matters." },
   { num: "04", title: "RUN", desc: "Read your morning briefing, clear the few decisions that need you, and run the hotel from your phone." },
 ];
 
@@ -172,9 +172,9 @@ function DashboardMockup() {
     { label: "ARRIVALS", value: "12", delta: "" },
   ];
   const feed = [
-    { agent: "Revenue Agent", text: "Sat rate raised ₹4,250 → ₹4,900 — demand +18%", chip: "APPROVED", chipColor: "#22C55E" },
+    { agent: "Revenue Agent", text: "Sat rate raised ₹4,250 → ₹4,900, demand +18%", chip: "APPROVED", chipColor: "#22C55E" },
     { agent: "Front-Office Agent", text: "Pre-arrival check-in sent to 6 guests", chip: "SENT", chipColor: "#3B82F6" },
-    { agent: "Housekeeping", text: "Rooms 301–303 prioritised for 2pm arrivals", chip: "RUNNING", chipColor: AMBER },
+    { agent: "Housekeeping", text: "Rooms 301-303 prioritised for 2pm arrivals", chip: "RUNNING", chipColor: AMBER },
   ];
 
   return (
@@ -390,7 +390,7 @@ function WhatsAppMockup() {
           <Time>10:42</Time>
         </Bubble>
         <Bubble side="out">
-          Welcome, Mr. Sharma 👋 Room 204 will be ready by 11 — I&apos;ve flagged early
+          Welcome, Mr. Sharma 👋 Room 204 will be ready by 11. I&apos;ve flagged early
           check-in with housekeeping.
           <Time out>10:42 ✓✓</Time>
         </Bubble>
@@ -399,7 +399,7 @@ function WhatsAppMockup() {
           <Time>10:43</Time>
         </Bubble>
         <Bubble side="out">
-          Anytime. I&apos;ll send your invoice on WhatsApp at checkout — no front-desk
+          Anytime. I&apos;ll send your invoice on WhatsApp at checkout, no front-desk
           queue. 🔑
           <Time out>10:43 ✓✓</Time>
         </Bubble>
@@ -462,9 +462,9 @@ function Time({ children, out }: { children: React.ReactNode; out?: boolean }) {
 function BriefingCard() {
   const lines = [
     { label: "OVERNIGHT", text: "All 14 in-house guests settled. ₹48,200 collected. Night audit closed clean." },
-    { label: "TODAY", text: "12 arrivals, 8 departures. 2 VIPs — Mr. Rao (anniversary), Ms. Khan (late checkout)." },
+    { label: "TODAY", text: "12 arrivals, 8 departures. 2 VIPs: Mr. Rao (anniversary), Ms. Khan (late checkout)." },
     { label: "THE NUMBERS", text: "Occupancy 87% · ADR ₹4,250 · RevPAR ₹3,698." },
-    { label: "NEEDS YOU", text: "Rooms 301–303 won't be ready before their 2pm check-ins. Reassign housekeeping?" },
+    { label: "NEEDS YOU", text: "Rooms 301-303 won't be ready before their 2pm check-ins. Reassign housekeeping?" },
   ];
   return (
     <div
@@ -645,7 +645,7 @@ function ClavisHero() {
               transition={{ duration: 0.8, delay: 0.9 }}
             >
               Clavis is an AI-native hotel operating system. It runs reservations, billing,
-              housekeeping and guest messaging across web, mobile and WhatsApp — and only
+              housekeeping and guest messaging across web, mobile and WhatsApp, and only
               interrupts you when a decision needs a human. The back office runs itself,
               so a lean team runs the whole property and labour costs stop climbing with it.
             </motion.p>
@@ -719,7 +719,7 @@ function ClavisHero() {
 const WHY_NOW_POINTS = [
   {
     label: "NIGHT AUDIT",
-    text: "Closes the day at 1am on its own — no night-shift data entry, no morning reconciliation.",
+    text: "Closes the day at 1am on its own. No night-shift data entry, no morning reconciliation.",
   },
   {
     label: "FRONT OFFICE",
@@ -766,7 +766,7 @@ function ClavisWhyNow() {
             <WordReveal delay={0.18}>Payroll doesn&apos;t have to.</WordReveal>
           </h2>
           <p className="leading-relaxed" style={{ fontSize: "1.1rem", color: "rgba(245,244,239,0.72)" }}>
-            Running the same property costs more every year — and people are the biggest
+            Running the same property costs more every year, and people are the biggest
             line on that bill. Clavis takes over the repetitive back-office work that used
             to need headcount, so a lean team runs the whole hotel and your staff spend
             their hours where they actually earn revenue: with guests.
@@ -808,7 +808,7 @@ function ClavisWhyNow() {
           }}
         >
           Fewer manual hours. <span style={{ color: AMBER }}>Lower labour costs.</span>{" "}
-          The same service — or better.
+          The same service, or better.
         </p>
       </div>
     </motion.section>
@@ -850,8 +850,8 @@ function ClavisFeatures() {
             <WordReveal delay={0.18}>hotel runs on.</WordReveal>
           </h2>
           <p className="leading-relaxed" style={{ fontSize: "1.1rem", color: "rgba(10,10,10,0.65)" }}>
-            One cloud platform replaces the whole stack — PMS, channel manager, revenue,
-            reviews, accounting, payroll and WhatsApp — with every module wired to the next.
+            One cloud platform replaces the whole stack: PMS, channel manager, revenue,
+            reviews, accounting, payroll and WhatsApp, with every module wired to the next.
             Throw the rest away.
           </p>
         </div>
@@ -955,7 +955,7 @@ function ClavisShowcase() {
           </div>
           <p className="max-w-[34ch] text-sm leading-relaxed md:pb-3" style={{ color: "rgba(10,10,10,0.6)" }}>
             A hotel is already chaotic. The software should be the quietest thing in the
-            room — facts where you need them, the AI&apos;s suggestions clearly marked.
+            room: facts where you need them, the AI&apos;s suggestions clearly marked.
           </p>
         </div>
 
@@ -980,7 +980,7 @@ function ClavisShowcase() {
             <p className="leading-relaxed max-w-[46ch]" style={{ fontSize: "1.05rem", color: "rgba(10,10,10,0.68)" }}>
               No app to download, no portal to log into. Pre-arrival check-in, room service,
               housekeeping requests and express checkout all happen in the one place every
-              guest already lives — WhatsApp. Clavis answers in seconds and only pulls you in
+              guest already lives: WhatsApp. Clavis answers in seconds and only pulls you in
               when a request needs a human call.
             </p>
 
@@ -1015,7 +1015,7 @@ function ClavisShowcase() {
                 </div>
                 <p style={{ fontSize: "0.95rem", lineHeight: 1.5, color: "rgba(10,10,10,0.7)" }}>
                   A code on the desk. Guests scan, order food or service, and the charge posts
-                  itself to their room folio — no call, no paper chit, no front-desk relay.
+                  itself to their room folio. No call, no paper chit, no front-desk relay.
                 </p>
               </div>
             </div>
@@ -1062,7 +1062,7 @@ function ClavisShowcase() {
               Every morning, Clavis reads the last 24 hours for you and writes it in plain
               English: what happened overnight, what&apos;s happening today, the numbers, and
               the handful of things that actually need your decision. No dashboards to dig
-              through — just the read, and a tap to act.
+              through. Just the read, and a tap to act.
             </p>
           </div>
         </div>
@@ -1107,7 +1107,7 @@ function ClavisHowItWorks() {
           </h2>
           <p className="leading-relaxed" style={{ fontSize: "1.1rem", color: "rgba(10,10,10,0.65)" }}>
             No migration project, no consultant. Most hotels are live the same day they sign
-            up — and running on autopilot within the week.
+            up, and running on autopilot within the week.
           </p>
         </div>
 
@@ -1204,7 +1204,7 @@ function ClavisCTA() {
           </h2>
 
           <p className="leading-relaxed max-w-[52ch] mb-10" style={{ fontSize: "1.1rem", color: "rgba(245,244,239,0.7)" }}>
-            We&apos;re onboarding a handful of hotels before launch. No setup fee, no lock-in —
+            We&apos;re onboarding a handful of hotels before launch. No setup fee, no lock-in.
             just your property, running on Clavis, with us beside you the whole way.
           </p>
 
@@ -1295,7 +1295,7 @@ const MODULES = [
 const PLATFORM_POINTS = [
   {
     title: "Cloud-native",
-    desc: "Nothing to install, nothing to back up. Open Clavis from the front desk, your phone or home — it's the same live property, always current.",
+    desc: "Nothing to install, nothing to back up. Open Clavis from the front desk, your phone or home. It's the same live property, always current.",
   },
   {
     title: "Always in sync",
@@ -1303,7 +1303,7 @@ const PLATFORM_POINTS = [
   },
   {
     title: "One data core",
-    desc: "Reservations, billing, housekeeping and guest history share a single source of truth — so the number on your dashboard is the number in your books.",
+    desc: "Reservations, billing, housekeeping and guest history share a single source of truth, so the number on your dashboard is the number in your books.",
   },
 ];
 
@@ -1343,7 +1343,7 @@ function ClavisPlatform() {
           <p className="leading-relaxed" style={{ fontSize: "1.1rem", color: "rgba(10,10,10,0.65)" }}>
             Most hotels run six disconnected tools that never quite agree. Clavis is a single
             cloud system where reservations, billing, housekeeping, payroll and guest messaging
-            all read and write to the same core — live, and in step with each other.
+            all read and write to the same core, live and in step with each other.
           </p>
         </div>
 
@@ -1413,7 +1413,7 @@ const FINANCE_POINTS = [
 const PAYROLL_POINTS = [
   "Staff attendance and shift rosters, from the same app",
   "Salary runs with digital payslips",
-  "Statutory built in — PF, ESI and TDS",
+  "Statutory built in: PF, ESI and TDS",
   "Tips and service charge, pooled and distributed fairly",
 ];
 
@@ -1531,13 +1531,13 @@ function ClavisFinance() {
           <LedgerCard
             label="FINANCE"
             title="Books that keep themselves."
-            lead="Every charge and payment flows straight into a GST-compliant ledger — so closing the month is a review, not a rebuild."
+            lead="Every charge and payment flows straight into a GST-compliant ledger, so closing the month is a review, not a rebuild."
             points={FINANCE_POINTS}
           />
           <LedgerCard
             label="PAYROLL"
             title="Payday without the paperwork."
-            lead="Attendance from the floor becomes salaries, payslips and statutory filings — all in one place, all reconciled."
+            lead="Attendance from the floor becomes salaries, payslips and statutory filings, all in one place, all reconciled."
             points={PAYROLL_POINTS}
           />
         </div>
@@ -1548,10 +1548,10 @@ function ClavisFinance() {
 
 // ─── Built for your property (templates) ─────────────────────────────────────
 const PROPERTY_TYPES = [
-  { name: "Boutique & heritage", note: "Character over count — rich guest profiles, curated rates and personal touches." },
+  { name: "Boutique & heritage", note: "Character over count: rich guest profiles, curated rates and personal touches." },
   { name: "Business & city", note: "Fast check-in and checkout, corporate billing, GST invoices and city-ledger accounts." },
   { name: "Resorts & villas", note: "Packages, activities and multiple F&B outlets that all post back to one folio." },
-  { name: "Homestays & B&Bs", note: "Lightweight and WhatsApp-first — run the whole place from a phone." },
+  { name: "Homestays & B&Bs", note: "Lightweight and WhatsApp-first. Run the whole place from a phone." },
   { name: "Serviced apartments", note: "Long-stay rates, monthly billing and recurring housekeeping schedules." },
   { name: "Hostels & groups", note: "Bed-level inventory, shared spaces and group bookings handled cleanly." },
 ];
@@ -1592,7 +1592,7 @@ function ClavisTemplates() {
           <p className="leading-relaxed" style={{ fontSize: "1.1rem", color: "rgba(10,10,10,0.65)" }}>
             A city business hotel and a hillside homestay don&apos;t run the same way, so they
             shouldn&apos;t use the same screens. Clavis starts from a template built for your
-            kind of property — then bends to how you actually work.
+            kind of property, then bends to how you actually work.
           </p>
         </div>
 

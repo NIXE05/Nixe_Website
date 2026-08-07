@@ -1,39 +1,61 @@
 "use client";
 
+/**
+ * The footer continues the Contact plate's ink rather than cutting to paper, so
+ * the page closes on one heavy block instead of a thin light strip.
+ */
 export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer
-      className="relative z-[1] flex flex-col md:flex-row items-center justify-between gap-8 px-6 md:px-10 py-12"
-      style={{ borderTop: "1px solid rgba(10,10,10,0.07)" }}
-    >
-      <span
-        className="text-nixe-ink select-none tracking-[0.12em]"
-        style={{ fontFamily: "var(--font-jakarta), system-ui, sans-serif", fontSize: "1.2rem", fontWeight: 800 }}
-      >
-        NIXE
-      </span>
+    <footer data-tone="ink" className="plate plate-ink relative z-[1]">
+      <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
+        <div
+          className="flex flex-col md:flex-row items-center justify-between gap-8 py-12"
+          style={{ borderTop: "1px solid var(--tone-line)" }}
+        >
+          <span
+            className="select-none tracking-[0.12em]"
+            style={{
+              fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+              fontSize: "1.2rem",
+              fontWeight: 800,
+              color: "var(--tone-fg)",
+            }}
+          >
+            NIXE
+          </span>
 
-      <div className="mono-label text-center space-y-1" style={{ color: "rgba(10,10,10,0.52)" }}>
-        <p>© 2026 NIXE</p>
-        <p>nixe.in · Markham, Ontario</p>
-        {/* Coordinate bookend — the document closes the way the hero opens */}
-        <p style={{ color: "rgba(10,10,10,0.28)", fontSize: "0.54rem" }}>
-          43.8561° N · 79.2673° W · REF: NXE-001
-        </p>
-      </div>
+          <div
+            className="mono-label text-center space-y-1"
+            style={{ color: "var(--tone-fg-3)" }}
+          >
+            <p>© 2026 NIXE</p>
+            <p>nixe.in · Markham, Ontario</p>
+          </div>
 
-      <button
-        onClick={scrollToTop}
-        className="group/btn relative isolate flex h-[40px] items-center px-5"
-        data-cursor-hover
-      >
-        <div className="relative isolate flex overflow-hidden -translate-x-[4px] transition-transform duration-400 group-hover/btn:translate-x-[4px]">
-          <span className="mono-label transition-transform duration-400 group-hover/btn:-translate-y-full" style={{ color: "rgba(10,10,10,0.58)" }}>↑ BACK TO TOP</span>
-          <span className="mono-label absolute inset-0 translate-y-full transition-transform duration-400 group-hover/btn:translate-y-0" style={{ color: "rgba(10,10,10,0.4)" }} aria-hidden="true">↑ BACK TO TOP</span>
+          <button
+            onClick={scrollToTop}
+            className="group/btn relative isolate flex h-[40px] items-center px-5"
+          >
+            <div className="relative isolate flex overflow-hidden -translate-x-[4px] transition-transform duration-400 group-hover/btn:translate-x-[4px]">
+              <span
+                className="mono-label transition-transform duration-400 group-hover/btn:-translate-y-full"
+                style={{ color: "var(--tone-fg-3)" }}
+              >
+                ↑ BACK TO TOP
+              </span>
+              <span
+                className="mono-label absolute inset-0 translate-y-full transition-transform duration-400 group-hover/btn:translate-y-0"
+                style={{ color: "var(--tone-fg)" }}
+                aria-hidden="true"
+              >
+                ↑ BACK TO TOP
+              </span>
+            </div>
+          </button>
         </div>
-      </button>
+      </div>
     </footer>
   );
 }

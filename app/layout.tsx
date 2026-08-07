@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
-import { Cursor } from "@/components/Cursor";
-import { GrainOverlay } from "@/components/GrainOverlay";
 import "./globals.css";
 
 const GA_ID = "G-BHC142MH9X";
@@ -22,12 +20,12 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NIXE — Engineering trust into intelligent systems",
+  title: "NIXE · Engineering trust into intelligent systems",
   description:
-    "Boutique cybersecurity, AI, and applied software consulting — for teams who'd rather build it right the first time.",
+    "Boutique cybersecurity, AI, and applied software consulting for teams who'd rather build it right the first time.",
   metadataBase: new URL("https://nixe.in"),
   openGraph: {
-    title: "NIXE — Engineering trust into intelligent systems",
+    title: "NIXE · Engineering trust into intelligent systems",
     description:
       "Boutique cybersecurity, AI, and applied software consulting based in Markham, Ontario.",
     url: "https://nixe.in",
@@ -44,8 +42,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Browser chrome tints to paper; locked light so native form controls,
-  // autofill and scrollbars never render dark against the always-paper world.
+  // The page opens on a paper plate. Ink plates opt themselves into dark form
+  // controls locally via `color-scheme: dark` on .plate-ink.
   themeColor: "#FAFAF7",
   colorScheme: "light",
 };
@@ -57,11 +55,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${jakarta.variable} ${jetbrainsMono.variable}`}>
-      <body>
-        <GrainOverlay />
-        <Cursor />
-        {children}
-      </body>
+      <body>{children}</body>
       <GoogleAnalytics gaId={GA_ID} />
     </html>
   );

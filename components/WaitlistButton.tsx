@@ -238,7 +238,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
               }}
             >
               We&apos;ll email you the moment Courtsy drops on the App Store. No spam,
-              no marketing junk — just one launch ping.
+              no marketing junk, just one launch ping.
             </p>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>

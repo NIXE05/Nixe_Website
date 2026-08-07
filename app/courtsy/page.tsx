@@ -13,12 +13,12 @@ const FEATURES = [
   {
     num: "01",
     title: "Stats that mean something to your group",
-    desc: "Win rate, streaks, formats — and the parts you actually argue about: best partner, biggest rival, head-to-head.",
+    desc: "Win rate, streaks, formats, plus the parts you actually argue about: best partner, biggest rival, head-to-head.",
   },
   {
     num: "02",
     title: "Tap a score. Done.",
-    desc: "Singles, doubles, mixed — pick your sport, players, score. Results auto-update everyone's stats and leaderboards.",
+    desc: "Singles, doubles, mixed. Pick your sport, players, score. Results auto-update everyone's stats and leaderboards.",
   },
   {
     num: "03",
@@ -33,17 +33,17 @@ const FEATURES = [
   {
     num: "05",
     title: "Best partners, worst rivals",
-    desc: "The kind of social context only your group's data can reveal — see your wins together, head-to-heads, and edge.",
+    desc: "The kind of social context only your group's data can reveal. See your wins together, head-to-heads, and edge.",
   },
   {
     num: "06",
     title: "Streaks that travel with you",
-    desc: "Track your longest run, the matches that broke it, and the day you got it back. Plus your home court — calculated.",
+    desc: "Track your longest run, the matches that broke it, and the day you got it back. Plus your home court, calculated.",
   },
 ];
 
 const STEPS = [
-  { num: "01", title: "CREATE", desc: "Spin up a group. Invite your regulars by email — they get a join code, they're in." },
+  { num: "01", title: "CREATE", desc: "Spin up a group. Invite your regulars by email. They get a join code, they're in." },
   { num: "02", title: "PLAN",   desc: "Schedule a session. Pick the court, set the cap, RSVP. Recurring bookings are one tap." },
   { num: "03", title: "PLAY",   desc: "Log the match. Singles, doubles, mixed. Tap winners and scores while you're catching breath." },
   { num: "04", title: "SETTLE", desc: "Split & settle. The fee splits how you want. Balances net out across the season." },
@@ -232,7 +232,7 @@ function CourtsyHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
             >
-              Courtsy is the iOS companion for court sports — log every match, split the
+              Courtsy is the iOS companion for court sports. Log every match, split the
               booking, and watch your win rate, streak, and rivalries grow with your crew.
             </motion.p>
 
@@ -453,7 +453,7 @@ function CourtsyScreenshots() {
             style={{ color: "rgba(10,10,10,0.6)" }}
           >
             Performance dashboard, match history, score entry, expense splitting,
-            session planning — every screen built for one-handed use mid-rally.
+            session planning. Every screen is built for one-handed use mid-rally.
           </p>
         </div>
 

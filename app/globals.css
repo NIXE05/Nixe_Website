@@ -2,7 +2,7 @@
 
 @theme {
   --color-nixe-paper:    #FAFAF7;
-  --color-nixe-bone:     #F4F3EE;
+  --color-nixe-bone:     #F1F0EA;
   --color-nixe-stone:    #E5E4DF;
   --color-nixe-ash:      #C9C8C2;
   --color-nixe-ink:      #0A0A0A;
@@ -15,15 +15,16 @@
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
-    cursor: none;
   }
 
   body {
     font-family: var(--font-jakarta), system-ui, sans-serif;
-    background-color: transparent;
+    background-color: #FAFAF7;
     color: #0A0A0A;
     line-height: 1.6;
-    overflow-x: hidden;
+    /* `clip`, not `hidden` — `hidden` turns <body> into a scroll container and
+       breaks `position: sticky` (the pinned Services section depends on it). */
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -42,10 +43,14 @@
     color: #F5F4EF;
   }
 
-  /* Blueprint focus ring for keyboard users (the custom cursor hides the
-     pointer, so this is their only wayfinding) */
+  /* Selection inverts again inside ink plates so it stays legible */
+  .plate-ink ::selection {
+    background: #F5F4EF;
+    color: #0A0A0A;
+  }
+
   :focus-visible {
-    outline: 1px dashed rgba(10, 10, 10, 0.6);
+    outline: 1px dashed currentColor;
     outline-offset: 3px;
   }
 
@@ -58,61 +63,88 @@
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
-      cursor: auto !important;
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
     }
   }
 }
 
-/* ─── Lenis smooth scroll ─── */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
+/* ─────────────────────────────────────────────────────────────
+   PLATES — the tone system
+
+   Every section is an opaque "plate" that paints its own colour.
+   A plate publishes a small set of tone variables; everything
+   inside reads from them instead of hard-coding rgba(10,10,10,…),
+   so the same markup is legible on paper and on ink.
+   ───────────────────────────────────────────────────────────── */
+
+.plate {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--tone-bg);
+  color: var(--tone-fg);
 }
 
-/* ─── Autofill — keep inputs ink-on-paper over the morphing background ─── */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #0a0a0a;
-  caret-color: #0a0a0a;
+.plate-paper {
+  --tone-bg:        #FAFAF7;
+  --tone-fg:        #0A0A0A;
+  --tone-fg-2:      rgba(10, 10, 10, 0.72);
+  --tone-fg-3:      rgba(10, 10, 10, 0.52);
+  --tone-fg-4:      rgba(10, 10, 10, 0.34);
+  --tone-line:      rgba(10, 10, 10, 0.13);
+  --tone-line-soft: rgba(10, 10, 10, 0.07);
+  --tone-fill:      rgba(10, 10, 10, 0.035);
+  --tone-raise:     #FFFFFF;
+  --dot:            rgba(10, 10, 10, 0.055);
+}
+
+.plate-bone {
+  --tone-bg:        #F1F0EA;
+  --tone-fg:        #0A0A0A;
+  --tone-fg-2:      rgba(10, 10, 10, 0.72);
+  --tone-fg-3:      rgba(10, 10, 10, 0.52);
+  --tone-fg-4:      rgba(10, 10, 10, 0.34);
+  --tone-line:      rgba(10, 10, 10, 0.13);
+  --tone-line-soft: rgba(10, 10, 10, 0.07);
+  --tone-fill:      rgba(10, 10, 10, 0.035);
+  --tone-raise:     #FAFAF7;
+  --dot:            rgba(10, 10, 10, 0.05);
+}
+
+.plate-ink {
+  --tone-bg:        #0A0A0A;
+  --tone-fg:        #F5F4EF;
+  --tone-fg-2:      rgba(245, 244, 239, 0.70);
+  --tone-fg-3:      rgba(245, 244, 239, 0.46);
+  --tone-fg-4:      rgba(245, 244, 239, 0.30);
+  --tone-line:      rgba(245, 244, 239, 0.17);
+  --tone-line-soft: rgba(245, 244, 239, 0.09);
+  --tone-fill:      rgba(245, 244, 239, 0.05);
+  --tone-raise:     #141414;
+  --dot:            rgba(245, 244, 239, 0.07);
+  color-scheme: dark;
+}
+
+/* Autofill follows the plate it sits in rather than assuming paper */
+.plate input:-webkit-autofill,
+.plate input:-webkit-autofill:hover,
+.plate input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--tone-fg);
+  caret-color: var(--tone-fg);
   transition: background-color 999999s ease-out;
 }
 
-/* ─── Living film grain — discrete steps, compositor-only ─── */
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes grainShift {
-    0%   { transform: translate3d(0, 0, 0); }
-    25%  { transform: translate3d(-42px, 28px, 0); }
-    50%  { transform: translate3d(24px, -38px, 0); }
-    75%  { transform: translate3d(-16px, -12px, 0); }
-    100% { transform: translate3d(0, 0, 0); }
-  }
-  .grain-anim {
-    animation: grainShift 1.6s steps(1, end) infinite;
-  }
+/* ─── Blueprint dot grid — tone-aware ─── */
+.blueprint-dot {
+  background-image: radial-gradient(
+    circle,
+    var(--dot, rgba(10, 10, 10, 0.055)) 1px,
+    transparent 1px
+  );
+  background-size: 32px 32px;
 }
 
-/* ─── ScrollHUD chapter label crossfade ─── */
-@keyframes hudLabelFade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-.hud-label-swap {
-  animation: hudLabelFade 0.6s ease both;
-}
-
-/* ─── Typography — plain CSS classes ─── */
+/* ─── Typography — plain CSS classes, NOT Tailwind @utility (see CLAUDE.md) ─── */
 
 .hero-headline {
   font-family: var(--font-jakarta), system-ui, sans-serif;
@@ -198,13 +230,56 @@ input:-webkit-autofill:focus {
   transform: translateY(-100%);
 }
 
-/* ─── Services list item ─── */
-.svc-item {
-  transition: opacity 0.35s ease;
+/* ─── ScrollHUD chapter label crossfade ─── */
+@keyframes hudLabelFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-.svc-item-dim {
-  opacity: 0.2;
+.hud-label-swap {
+  animation: hudLabelFade 0.6s ease both;
 }
+
+/* ─── Service motifs (Services plate) ─────────────────────────
+   Line-art diagrams behind each pinned panel. All motion is
+   compositor-friendly (transform / opacity / stroke-dashoffset).
+   ───────────────────────────────────────────────────────────── */
+
+@keyframes motifSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes motifSpinBack {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+@keyframes motifSweep {
+  0%   { transform: translateY(-52%); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateY(52%); opacity: 0; }
+}
+@keyframes motifTrace {
+  0%   { stroke-dashoffset: var(--trace-len, 400); }
+  55%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+/* Scale rather than animating `r` — SVG geometry properties are not reliably
+   animatable via CSS across engines, transforms are. */
+@keyframes motifBlip {
+  0%, 100% { opacity: 0.3; transform: scale(0.75); }
+  50%      { opacity: 1;   transform: scale(1.35); }
+}
+@keyframes motifRise {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50%      { transform: translateY(-5px); opacity: 1; }
+}
+
+.motif-spin      { animation: motifSpin 26s linear infinite; transform-origin: 50% 50%; }
+.motif-spin-back { animation: motifSpinBack 40s linear infinite; transform-origin: 50% 50%; }
+.motif-sweep     { animation: motifSweep 4.6s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.motif-trace     { stroke-dasharray: var(--trace-len, 400); animation: motifTrace 5.4s ease-in-out infinite; }
+.motif-blip      { animation: motifBlip 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.motif-rise      { animation: motifRise 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 
 /* ─── Keyframes ─── */
 @keyframes marqueeScroll {
@@ -215,6 +290,11 @@ input:-webkit-autofill:focus {
 @keyframes scrollDot {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(32px); }
+}
+
+@keyframes blipPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
 }
 
 /* ─── Marquee ─── */
@@ -230,18 +310,7 @@ input:-webkit-autofill:focus {
   animation: scrollDot 1.8s ease-in-out infinite;
 }
 
-/* ─── Blueprint ─── */
-.blueprint-dot {
-  background-image: radial-gradient(circle, rgba(10,10,10,0.055) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-@keyframes blipPulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.3; }
-}
-
-/* ─── Scrollbar-hide (used by horizontal phone strip on Courtsy page) ─── */
+/* ─── Scrollbar-hide (horizontal phone strip on the Courtsy page) ─── */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;

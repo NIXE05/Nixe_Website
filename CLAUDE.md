@@ -7,16 +7,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 pnpm dev        # Start dev server with Turbopack at http://localhost:3000
 pnpm build      # Type-check + production build (run this to verify changes)
-pnpm lint       # ESLint
 ```
 
 Always run `pnpm build` after making changes to confirm zero TypeScript errors before reporting done.
+
+`pnpm lint` is currently **broken** — the script still calls `next lint`, which Next 16 removed. Run ESLint directly if you need it.
+
+**Turbopack dev caches CSS aggressively.** If a change to `app/globals.css` appears not to apply, the served stylesheet is probably stale — `rm -rf .next` and restart the dev server before debugging the CSS itself.
 
 ## Stack
 
 - **Next.js 16** — App Router, no `src/` directory, static output
 - **Tailwind CSS v4** — configured via `app/globals.css` `@theme` block (no `tailwind.config.ts`)
-- **Framer Motion v11** — DOM animations; **Three.js** — the WorldCanvas particle scene; **lenis** — inertial smooth scrolling
+- **Framer Motion v11** — DOM animations; **lenis** — inertial smooth scrolling. No Three.js, no WebGL.
 - **Plus Jakarta Sans** (800/700/500/400) + **JetBrains Mono** — loaded via `next/font/google` in `app/layout.tsx`; CSS variables `--font-jakarta` and `--font-jetbrains`
 
 ## Critical: Typography classes
@@ -29,47 +32,84 @@ Colors are defined in `@theme` inside `app/globals.css` and used as `text-nixe-i
 
 | Token | Hex | Role |
 |---|---|---|
-| `nixe-paper` | `#FAFAF7` | Page background |
-| `nixe-bone` | `#F4F3EE` | Alternate section bg (Manifesto, Ethos) |
+| `nixe-paper` | `#FAFAF7` | Light plate |
+| `nixe-bone` | `#F1F0EA` | Alternate light plate |
 | `nixe-stone` | `#E5E4DF` | Borders |
 | `nixe-ash` | `#C9C8C2` | Muted/decorative |
-| `nixe-ink` | `#0A0A0A` | Primary text, dark elements |
+| `nixe-ink` | `#0A0A0A` | Dark plate, primary text on light |
 | `nixe-graphite` | `#2A2A2A` | Secondary text |
 | `nixe-smoke` | `#6B6B6B` | Labels, captions |
-| `nixe-pearl` | `#F5F4EF` | Text/elements on dark bg |
+| `nixe-pearl` | `#F5F4EF` | Text/elements on dark |
 
-## Architecture — igloo.inc-inspired scroll experience
+## Architecture — plates
 
-`app/page.tsx` composes: `BackgroundMorph → SmoothScroll → WorldCanvas → Loader → ScrollHUD → Nav → <main z-[1]> [6 sections] → Footer`.
+`app/page.tsx` composes: `SmoothScroll → ScrollHUD → Nav → <main> [6 sections] → Footer`.
 
-The homepage is one continuous "world": a **fixed full-viewport Three.js canvas** (`WorldCanvas`, z-0) sits behind all content (`main` is `relative z-[1]`). Sections do NOT paint their own backgrounds — the page color lives on `<html>` and is **continuously interpolated** with scroll by `BackgroundMorph` (reading each section's `data-bg-color`, anchored to section centers, same hold-30/morph-40/hold-30 curve as the canvas). Don't re-add opaque section backgrounds; they would hide the canvas.
+The homepage is a stack of **plates**: opaque slabs of colour with hard edges between them. Each plate paints its own background and owns its layout; nothing bleeds across a boundary.
 
-**Blending conventions:**
-- `SectionMorph` scrubs every section's content (opacity ease-in/out + gentle y drift via `useScroll`), so adjacent sections crossfade instead of stacking. Its children sit inside a TRANSFORMED wrapper — any `position: fixed` descendant (modal, lightbox) must escape via `createPortal(document.body)` (see Shipped's lightbox)
-- Add `data-world-clear` to content blocks (card grids, form/text columns) and the canvas softly pushes particles out of their projected rects, so the world parts around content and rims its edges. Measured via the offsetParent chain (transform-safe); re-measured by ResizeObserver
-- The Loader does NOT curtain-lift: its paper layer fades in place, the progress ring expands into the globe's bloom, and the wordmark flies into the nav's `[data-nav-wordmark]` slot (nav fades in reveal-gated)
+| Plate | id | Tone | Shape |
+|---|---|---|---|
+| Hero | `hero` | paper | 2D line field + headline |
+| 01 Work | `work` | bone | two full-width project cards |
+| 02 Services | `services` | **ink** | scroll-pinned panels (300vh track) |
+| 03 Shipped | `shipped` | paper | Courtsy split + spec datasheet |
+| 04 About | `about` | bone | statement + capability index |
+| 05 Contact | `contact` | **ink** | form + direct lines |
+| Footer | — | **ink** | continues the Contact plate |
 
-**The world** (`components/WorldCanvas.tsx`):
-- ~12k instanced tetrahedron particles (5.2k on mobile) morph between 6 formations, one per section id (`hero` globe → `work` shell → `services` disc → `shipped` rings → `about` constellation → `contact` core)
-- Scroll drives a chapter coordinate (same 0.55-viewport trigger as BackgroundMorph). Formations HOLD while a section is in view; the morph plays in a window before the next trigger. Camera dolly/offset, line network, grid, opacity, and pulse are per-chapter params in `CHAPTERS`
-- Cinematic intro (beam drop → ring bloom → scan ignition) starts on the loader's `nixe:reveal` event, not on mount
+### The tone system (`components/Plate.tsx` + `globals.css`)
 
-**Loader / reveal coordination** (`lib/reveal.ts`):
-- `Loader` shows EVERY visit; counter reflects real progress (fonts 30% + canvas first frame 45% + window load 25%), force-completes at 6s, locks scroll while visible, then dispatches `nixe:reveal` and curtain-lifts
-- Hero entrance animations gate on `useRevealed()`; `WordReveal` takes an `active` prop for this
+`<Plate tone="paper" | "bone" | "ink">` applies `.plate .plate-{tone}`, which publishes CSS variables that everything inside reads instead of hard-coding ink colours:
 
-**Global overlays** (`components/`):
+`--tone-bg`, `--tone-fg`, `--tone-fg-2/3/4` (descending emphasis), `--tone-line`, `--tone-line-soft`, `--tone-fill`, `--tone-raise` (card surface), `--dot` (blueprint grid).
+
+**Write section markup against these variables, never `rgba(10,10,10,…)` literals** — that is what lets the same component read correctly on paper and on near-black. `Button.tsx` is the reference case: `solid` is `background: var(--tone-fg); color: var(--tone-bg)`, so it inverts per plate with no overrides. `.plate-ink` also sets `color-scheme: dark` so native form controls and the autofill rule follow the plate.
+
+Companion components: `PlateInner` (standard `max-w-[1440px]` + gutters) and `SectionHead` (the index-rail + headline chrome every plate opens with).
+
+### The pinned Services plate
+
+`components/sections/Services.tsx` is the one section with scroll choreography. The track is `COUNT * 100vh` tall with a `sticky top-0 h-dvh` child; `useScroll({ offset: ["start start", "end end"] })` drives a panel coordinate, and each `Panel` derives its own opacity/offset from it.
+
+- `HOLD`/`FADE_END` are **complementary, not overlapping** (0.4 / 0.5). All panels share the same left column, so any simultaneous visibility renders two headlines on top of each other — this was tried and looks broken. The short ramp (~90px of scroll each way) makes the handover read as a cut.
+- Below `md` the pinning is dropped entirely and the panels simply stack.
+- **`position: sticky` here is why `<body>` uses `overflow-x: clip` rather than `hidden`** — `hidden` makes body a scroll container and breaks it. Don't change that back, and don't wrap a plate in a transformed ancestor.
+
+Per-panel line-art diagrams live in `components/ServiceMotif.tsx`, animated entirely by the `motif-*` CSS keyframes in `globals.css` (no JS cost while pinned).
+
+### Scroll depth: parallax layers
+
+`components/ParallaxLayer.tsx` is the decorative depth primitive. `Plate` uses it automatically when given an `index` prop, rendering a soft wash plus an oversized watermark numeral that drift ~54px against the page as the section scrolls. It sits at `zIndex: -1` — above the plate's background but beneath in-flow content — so children need no wrapper or stacking fixes.
+
+**Only ever wrap decoration in it.** Peer content drifting at different rates is exactly what made the two project cards read as misaligned, and the user called that out directly. `Shipped`'s per-phone drift is the one surviving exception, kept because it's an intentionally staggered collage rather than items that should align.
+
+A repeating pattern (like `.blueprint-dot`) is a *useless* parallax layer — shifting a 32px grid by a multiple of its period is invisible. Use structured shapes.
+
+**Rejected:** a continuous "spine" rail drawn down the whole page with a chapter marker per section, blended via `mix-blend-mode: difference` so it inverted over ink plates. It was built and worked, but the user found the hairline at the left edge unwanted and had it removed. Don't re-propose it. Scroll position is already communicated by `ScrollHUD` and the nav's progress hairline.
+
+### Global overlays (`components/`)
+
 - `SmoothScroll` — lenis (`autoRaf`, `anchors: true`); disabled under `prefers-reduced-motion`. `scroll-behavior: smooth` CSS must stay off while lenis is active (handled in globals.css)
-- `ScrollHUD` — fixed bottom-left chapter readout, `mix-blend-mode: difference`
-- `Cursor` — custom cursor with RAF loop; `data-cursor-hover` triggers the expand state
-- `GrainOverlay` — fixed SVG noise texture, `mix-blend-mode: screen`
-- `Nav` — pill condenses past `scrollY > vh/4`, hides on scroll-down
+- `Nav` — pill condenses past `scrollY > vh/4`, hides on scroll-down, and **probes the `[data-tone]` plate under `y = 42px` on every scroll frame to invert itself over ink plates**
+- `ScrollHUD` — fixed bottom-left chapter readout; renders white through `mix-blend-mode: difference` so it inverts against any plate on its own. Hidden over the hero and again past 96% depth (the footer wordmark occupies the same corner)
+- `HeroField` — 2D canvas: three families of drifting hairlines plus a sweep. Parks itself when the tab is hidden or the hero scrolls out of view; renders one static frame under reduced motion
 
-**Sections** (`components/sections/`):
-- All `"use client"`, Framer Motion `whileInView` + `viewport={{ once: true }}` reveals; `Shipped` phones and `FeaturedProjects` second card have scrubbed parallax via `useScroll`/`useTransform`
-- `Hero` — reveal-gated entrances + scroll-scrubbed exit (headline rises/fades)
-- `Shipped` — Courtsy showcase; screenshots at `public/apps/courtsy/screen-{1-5}.png`; lightbox uses `AnimatePresence`
+### Sections (`components/sections/`)
+
+All `"use client"`, Framer Motion `whileInView` + `viewport={{ once: true }}` reveals. `Shipped` phones and `FeaturedProjects`' second card have scrubbed parallax via `useScroll`/`useTransform`.
+
+- `Shipped` — Courtsy showcase; screenshots at `public/apps/courtsy/screen-{1-5}.png`. Its lightbox is `position: fixed` and escapes via `createPortal(document.body)`
 - `Contact` — form submission logs to console and shows a success state; no email service wired yet
+
+### CTA intent (`lib/intent.ts`)
+
+The hero's "Request a Consultation" button both jumps to `#contact` *and* dispatches a `nixe:intent` event that preselects the form's Intent dropdown, so the enquiry arrives labelled rather than blank. Hero and Contact are siblings under a server component, so a one-line custom event is cheaper than threading a context provider through the page for one string.
+
+Consequences to keep in mind: the Intent `<select>` is **controlled** (unlike the other fields, which are uncontrolled with `onChange`) because it has to reflect a value set from outside. `IntentValue` in `lib/intent.ts` must stay in sync with the `<option value>` list. `Button` passes `onClick` through on the `href` branch too — it runs alongside navigation, it does not block it.
+
+## Known leftovers
+
+`data-cursor-hover` attributes remain in `WaitlistButton.tsx`, `ClavisWaitlistButton.tsx` and the `/clavis` + `/courtsy` pages. The custom `Cursor` component that consumed them was removed, so they are inert — harmless, but not worth adding to new markup.
 
 ## Pending work
 

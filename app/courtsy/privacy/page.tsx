@@ -142,7 +142,7 @@ function PrivacyNav() {
       </span>
 
       <a
-        href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtsy`}
+        href={`mailto:${CONTACT}?subject=Privacy%20request%3A%20Courtsy`}
         data-cursor-hover
         className="mono-label inline-flex items-center"
         style={{ color: "rgba(10,10,10,0.7)" }}
@@ -319,7 +319,7 @@ export default function CourtsyPrivacyPage() {
               rows={[
                 [
                   <strong key="acct">Account information</strong>,
-                  "Email address, password (stored as a hash by our auth provider — we never see it in plain text), display name",
+                  "Email address, password (stored as a hash by our auth provider; we never see it in plain text), display name",
                   "When you sign up",
                 ],
                 [
@@ -365,7 +365,7 @@ export default function CourtsyPrivacyPage() {
               }}
             >
               <strong>Courtsy does not process real-money payments.</strong> Expense and
-              settlement amounts are records of money owed between you and your friends —
+              settlement amounts are records of money owed between you and your friends.
               Courtsy does not transfer funds, store card details, or facilitate payment
               processing.
             </blockquote>
@@ -428,28 +428,28 @@ export default function CourtsyPrivacyPage() {
             </p>
             <ol className="list-decimal pl-6 flex flex-col gap-3" style={bodyStyle}>
               <li>
-                <strong>To provide and operate the Service</strong> — running your account,
+                <strong>To provide and operate the Service</strong>: running your account,
                 syncing your data, calculating expense splits and statistics. <em>[Performance of contract]</em>
               </li>
               <li>
-                <strong>To send notifications</strong> — match invitations, RSVP reminders,
+                <strong>To send notifications</strong>: match invitations, RSVP reminders,
                 expense approvals, settlement notifications via APNs. <em>[Performance of contract / your consent at the OS prompt]</em>
               </li>
               <li>
-                <strong>To enable group collaboration</strong> — Realtime updates so members
+                <strong>To enable group collaboration</strong>: Realtime updates so members
                 of your group see new memberships, friendships, and game sessions
                 immediately. <em>[Performance of contract]</em>
               </li>
               <li>
-                <strong>To protect security</strong> — auditing sign-in events, rate-limiting
+                <strong>To protect security</strong>: auditing sign-in events, rate-limiting
                 failed login attempts, detecting abuse. <em>[Legitimate interests / legal obligation]</em>
               </li>
               <li>
-                <strong>To respond to your requests</strong> — answering support emails,
+                <strong>To respond to your requests</strong>: answering support emails,
                 fulfilling deletion requests. <em>[Legitimate interests / legal obligation]</em>
               </li>
               <li>
-                <strong>To comply with law</strong> — responding to lawful requests from
+                <strong>To comply with law</strong>: responding to lawful requests from
                 authorities. <em>[Legal obligation]</em>
               </li>
             </ol>
@@ -506,7 +506,7 @@ export default function CourtsyPrivacyPage() {
                   "The Supabase region you have configured (please refer to our Supabase project for the specific region)",
                 ],
                 [
-                  <strong key="apns">Apple Inc. — APNs</strong>,
+                  <strong key="apns">Apple Inc. (APNs)</strong>,
                   "Delivering push notifications to your device",
                   "Push token + notification payload (e.g., “Alex invited you to a match”)",
                   "Apple infrastructure",
@@ -567,10 +567,10 @@ export default function CourtsyPrivacyPage() {
               7.1 Everyone
             </h3>
             <ul className="list-disc pl-6 flex flex-col gap-2" style={bodyStyle}>
-              <li><strong>Access</strong> — Request a copy of the personal data we hold about you.</li>
-              <li><strong>Correction</strong> — Update inaccurate information (you can edit most of it yourself in the App).</li>
-              <li><strong>Deletion</strong> — Request that we delete your account and personal data (see Section 8).</li>
-              <li><strong>Withdraw consent</strong> — Where we rely on your consent (e.g., push notifications), you can withdraw it via iOS Settings.</li>
+              <li><strong>Access</strong>: Request a copy of the personal data we hold about you.</li>
+              <li><strong>Correction</strong>: Update inaccurate information (you can edit most of it yourself in the App).</li>
+              <li><strong>Deletion</strong>: Request that we delete your account and personal data (see Section 8).</li>
+              <li><strong>Withdraw consent</strong>: Where we rely on your consent (e.g., push notifications), you can withdraw it via iOS Settings.</li>
             </ul>
 
             <h3 className="mt-4" style={subHeaderStyle}>
@@ -597,14 +597,14 @@ export default function CourtsyPrivacyPage() {
             </h3>
             <ul className="list-disc pl-6 flex flex-col gap-2" style={bodyStyle}>
               <li>Right to access, correction, and erasure of your personal data</li>
-              <li>Right to grievance redressal — contact us at {CONTACT}</li>
+              <li>Right to grievance redressal: contact us at {CONTACT}</li>
               <li>Right to nominate another individual to exercise your rights in the event of your death or incapacity</li>
             </ul>
 
             <p className="mt-4" style={bodyStyle}>
               To exercise any of these rights, email{" "}
               <a
-                href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtsy`}
+                href={`mailto:${CONTACT}?subject=Privacy%20request%3A%20Courtsy`}
                 data-cursor-hover
                 className="border-b transition-colors"
                 style={{ color: "var(--color-nixe-ink)", borderColor: "rgba(10,10,10,0.3)" }}
@@ -695,28 +695,28 @@ export default function CourtsyPrivacyPage() {
             <p style={bodyStyle}>We protect your data using:</p>
             <ul className="list-disc pl-6 flex flex-col gap-2" style={bodyStyle}>
               <li>
-                <strong>Encryption in transit</strong> — All connections to the App and
+                <strong>Encryption in transit</strong>: All connections to the App and
                 backend use HTTPS/TLS. Connections that are not HTTPS are rejected by the
                 App.
               </li>
               <li>
-                <strong>Encryption at rest</strong> — Data stored in Supabase is encrypted
+                <strong>Encryption at rest</strong>: Data stored in Supabase is encrypted
                 at rest.
               </li>
               <li>
-                <strong>Authentication</strong> — Industry-standard JWT tokens stored in
+                <strong>Authentication</strong>: Industry-standard JWT tokens stored in
                 the iOS Keychain.
               </li>
               <li>
-                <strong>Row-Level Security</strong> — Database-level access controls so
+                <strong>Row-Level Security</strong>: Database-level access controls so
                 users can only read/write their own data and data shared with their groups.
               </li>
               <li>
-                <strong>Rate limiting</strong> — Repeated failed login attempts trigger a
+                <strong>Rate limiting</strong>: Repeated failed login attempts trigger a
                 temporary lockout.
               </li>
               <li>
-                <strong>Audit logs</strong> — Sign-in and security events are logged for
+                <strong>Audit logs</strong>: Sign-in and security events are logged for
                 monitoring.
               </li>
             </ul>
@@ -787,7 +787,7 @@ export default function CourtsyPrivacyPage() {
               <p style={{ ...bodyStyle, marginBottom: 8 }}>
                 Email:{" "}
                 <a
-                  href={`mailto:${CONTACT}?subject=Privacy%20request%20—%20Courtsy`}
+                  href={`mailto:${CONTACT}?subject=Privacy%20request%3A%20Courtsy`}
                   data-cursor-hover
                   className="border-b transition-colors"
                   style={{ color: "var(--color-nixe-ink)", borderColor: "rgba(10,10,10,0.3)" }}
@@ -797,7 +797,7 @@ export default function CourtsyPrivacyPage() {
               </p>
               <p style={captionStyle}>
                 Subject line for privacy requests:{" "}
-                <em>&ldquo;Privacy request — Courtsy&rdquo;</em>
+                <em>&ldquo;Privacy request: Courtsy&rdquo;</em>
               </p>
             </div>
             <p style={bodyStyle}>

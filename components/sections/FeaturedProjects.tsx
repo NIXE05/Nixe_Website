@@ -1,11 +1,10 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-import { SectionMorph } from "@/components/SectionMorph";
-import { WordReveal } from "@/components/WordReveal";
+import { Plate, PlateInner, SectionHead } from "@/components/Plate";
 
 type Project = {
   id: string;
@@ -43,7 +42,7 @@ const PROJECTS: Project[] = [
     year: "TBA",
     category: "Hospitality PMS",
     description:
-      "AI-native hotel property management — WhatsApp guest comms, automated billing, multi-tenant from day one. In private development.",
+      "AI-native hotel property management with WhatsApp guest comms, automated billing, and multi-tenant support from day one. In private development.",
     comingSoon: true,
     link: "/clavis",
     iconSrc: "/apps/clavis/wordmark-hd.png",
@@ -55,12 +54,12 @@ const PROJECTS: Project[] = [
 function VisualPlaceholder({ project, hovered }: { project: Project; hovered: boolean }) {
   return (
     <div
-      className="relative aspect-[16/10] overflow-hidden border-b"
+      className="relative aspect-[16/9] overflow-hidden"
       style={{
         background: project.comingSoon
           ? "linear-gradient(135deg, #ECEBE5 0%, #DCDBD6 100%)"
           : "linear-gradient(135deg, #F4F3EE 0%, #DCDBD6 100%)",
-        borderColor: "rgba(10,10,10,0.08)",
+        borderBottom: "1px solid rgba(10,10,10,0.08)",
       }}
     >
       {/* Blueprint dots */}
@@ -70,7 +69,7 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
       <div className="absolute inset-0 flex items-center justify-center">
         {project.iconSrc && project.iconKind === "browser" ? (
           <motion.div
-            className="relative w-[58%] max-w-[300px]"
+            className="relative w-[62%] max-w-[400px]"
             animate={{ y: hovered ? -5 : 0, scale: hovered ? 1.03 : 1 }}
             transition={{ duration: 0.45, ease: [0.25, 0, 0.25, 1] }}
           >
@@ -165,8 +164,8 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
           <motion.div
             className="relative overflow-hidden"
             style={{
-              width: 124,
-              height: 124,
+              width: 164,
+              height: 164,
               borderRadius: "26%",
               background: "#FFFFFF",
               boxShadow:
@@ -180,7 +179,7 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
               alt={`${project.name} icon`}
               fill
               className="object-cover"
-              sizes="124px"
+              sizes="164px"
             />
           </motion.div>
         ) : (
@@ -246,16 +245,13 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
   const interactive = !!project.link;
 
   const Wrapper = interactive ? motion.a : motion.div;
   const wrapperProps = interactive
-    ? ({
-        href: project.link,
-        "data-cursor-hover": "true",
-      } as Record<string, string>)
+    ? ({ href: project.link } as Record<string, string>)
     : ({} as Record<string, string>);
 
   return (
@@ -266,14 +262,13 @@ function ProjectCard({ project }: { project: Project }) {
       initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, ease: [0.25, 0, 0.25, 1] }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.25, 0, 0.25, 1] }}
       className="block overflow-hidden rounded-[20px] no-underline"
       style={{
-        background: "#FAFAF7",
-        border: "1px solid rgba(10,10,10,0.08)",
+        background: "var(--tone-raise)",
+        border: "1px solid var(--tone-line-soft)",
         color: "inherit",
-        cursor: interactive ? "none" : "default",
-        opacity: project.comingSoon && !hovered ? 0.92 : 1,
+        opacity: project.comingSoon && !hovered ? 0.94 : 1,
         transform: hovered && interactive ? "translateY(-8px)" : "translateY(0)",
         boxShadow:
           hovered && interactive
@@ -286,10 +281,7 @@ function ProjectCard({ project }: { project: Project }) {
       <VisualPlaceholder project={project} hovered={hovered} />
 
       <div className="p-7 md:p-8">
-        <div
-          className="mono-label mb-3"
-          style={{ color: "rgba(10,10,10,0.5)" }}
-        >
+        <div className="mono-label mb-3" style={{ color: "var(--tone-fg-3)" }}>
           {project.category} · {project.year}
         </div>
 
@@ -306,24 +298,15 @@ function ProjectCard({ project }: { project: Project }) {
           {project.name}
         </h3>
 
-        <p
-          className="leading-relaxed"
-          style={{
-            fontSize: "0.98rem",
-            color: "rgba(10,10,10,0.65)",
-          }}
-        >
+        <p className="leading-relaxed" style={{ fontSize: "0.98rem", color: "var(--tone-fg-2)" }}>
           {project.description}
         </p>
 
         <div
           className="mono-label mt-7 inline-flex items-center gap-2 transition-all duration-300"
           style={{
-            color: interactive
-              ? "rgba(10,10,10,0.55)"
-              : "rgba(10,10,10,0.35)",
-            transform:
-              hovered && interactive ? "translateX(6px)" : "translateX(0)",
+            color: interactive ? "var(--tone-fg-3)" : "var(--tone-fg-4)",
+            transform: hovered && interactive ? "translateX(6px)" : "translateX(0)",
           }}
         >
           {interactive ? "View Project" : "In Development"}
@@ -335,59 +318,26 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export function FeaturedProjects() {
-  // Differential drift: the second card lags slightly as the grid scrolls by.
-  const gridRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: gridRef,
-    offset: ["start end", "end start"],
-  });
-  const cardDrift = useTransform(scrollYProgress, [0, 1], [38, -16]);
-
   return (
-    <SectionMorph
-      id="work"
-      bg="#F4F3EE"
-      style={{
-        paddingTop: "clamp(96px, 14vh, 180px)",
-        paddingBottom: "clamp(96px, 14vh, 180px)",
-      }}
-    >
-      <div className="px-6 md:px-10 max-w-[1440px] mx-auto">
-        {/* Header */}
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between mb-14 md:mb-20">
-          <div>
-            <div
-              className="mono-label mb-5"
-              style={{ color: "rgba(10,10,10,0.55)" }}
-            >
-              01 / SELECTED WORK
-            </div>
-            <h2
-              className="display-xl text-nixe-ink uppercase"
-              style={{ lineHeight: 0.95 }}
-            >
-              <WordReveal>Projects we&apos;re</WordReveal>
-              <WordReveal delay={0.18}>proud to ship.</WordReveal>
-            </h2>
-          </div>
-          <p
-            className="max-w-[34ch] text-sm leading-relaxed md:pb-2"
-            style={{ color: "rgba(10,10,10,0.6)" }}
-          >
-            One shipped, one more compounding in private. We only ship things
-            we&apos;d want to use ourselves.
-          </p>
-        </div>
+    <Plate id="work" tone="bone" index="01">
+      <PlateInner>
+        <SectionHead
+          index="01"
+          label="Selected Work"
+          headline={["Projects we're", "proud to ship."]}
+          kicker="One shipped, one more compounding in private. We only ship things we'd want to use ourselves."
+          className="mb-14 md:mb-20"
+        />
 
-        {/* Cards */}
-        <div ref={gridRef} data-world-clear className="grid gap-7 md:gap-10 grid-cols-1 sm:grid-cols-2 max-w-[920px]">
+        {/* Cards sit on a shared baseline. The second card used to carry a
+            scroll-scrubbed drift; with two equal full-width cards that just
+            read as a misalignment, so it's gone. */}
+        <div className="grid gap-7 md:gap-10 grid-cols-1 sm:grid-cols-2">
           {PROJECTS.map((p, i) => (
-            <motion.div key={p.id} style={i % 2 === 1 ? { y: cardDrift } : undefined}>
-              <ProjectCard project={p} />
-            </motion.div>
+            <ProjectCard key={p.id} project={p} index={i} />
           ))}
         </div>
-      </div>
-    </SectionMorph>
+      </PlateInner>
+    </Plate>
   );
 }
