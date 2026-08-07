@@ -103,9 +103,20 @@ All `"use client"`, Framer Motion `whileInView` + `viewport={{ once: true }}` re
 
 ### CTA intent (`lib/intent.ts`)
 
-The hero's "Request a Consultation" button both jumps to `#contact` *and* dispatches a `nixe:intent` event that preselects the form's Intent dropdown, so the enquiry arrives labelled rather than blank. Hero and Contact are siblings under a server component, so a one-line custom event is cheaper than threading a context provider through the page for one string.
+A CTA can tell the Contact form why the visitor arrived, so the enquiry lands labelled rather than blank. Two routes in, because there are two kinds of caller:
 
-Consequences to keep in mind: the Intent `<select>` is **controlled** (unlike the other fields, which are uncontrolled with `onChange`) because it has to reflect a value set from outside. `IntentValue` in `lib/intent.ts` must stay in sync with the `<option value>` list. `Button` passes `onClick` through on the `href` branch too — it runs alongside navigation, it does not block it.
+- **Same page** — the hero's "Request a Consultation" jumps to `#contact` *and* dispatches a `nixe:intent` event. Hero and Contact are siblings under a server component, so a one-line event beats threading a context provider through the page for one string.
+- **Another page** — `/regia`'s demo buttons link to `/?intent=regia#contact`. An event cannot survive a navigation, so `readIntentFromUrl()` picks it up on mount. Unknown values are rejected against a whitelist.
+
+Consequences to keep in mind: the Intent `<select>` is **controlled** (unlike the other fields, which are uncontrolled with `onChange`) because it has to reflect a value set from outside. `IntentValue` and its `VALID` list in `lib/intent.ts` must stay in sync with the `<option value>` list. `Button` passes `onClick` through on the `href` branch too — it runs alongside navigation, it does not block it.
+
+### Product pages
+
+`/courtsy` and `/clavis` predate the plate system and still use their own bespoke styling. **`/regia` is built on the plate system** (`Plate`/`PlateInner`/`SectionHead`/`Button` + `--tone-*`), which is the direction for any new product page.
+
+Regia is the venue-management product seeded by the `smb-hall-management` build (in `NIXE/External Projects/SMB`). Two things about its copy are deliberate and must not be "corrected":
+- **The client is never named.** It says "a marriage hall in Tamil Nadu", not Sri Murugan Bhavan. The user chose to anonymise them.
+- **Regia has no logo asset.** The homepage card and the page both render the name as type (the `browser` icon kind falls back to a typographic wordmark when `iconSrc` is absent). Don't invent a logo file.
 
 ## Known leftovers
 

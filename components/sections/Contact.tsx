@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/Button";
 import { Plate, PlateInner, SectionHead } from "@/components/Plate";
-import { INTENT_EVENT } from "@/lib/intent";
+import { INTENT_EVENT, readIntentFromUrl } from "@/lib/intent";
 
 type FormData = {
   name: string;
@@ -38,9 +38,13 @@ export function Contact() {
   });
   const [sent, setSent] = useState(false);
 
-  // A CTA elsewhere on the page (the hero's "Request a Consultation") can
-  // preselect why the visitor came, so the enquiry isn't unlabelled.
+  // A CTA can preselect why the visitor came, so the enquiry isn't unlabelled:
+  // an event from elsewhere on this page (the hero), or `?intent=` when they
+  // arrived from another page (the /regia demo button).
   useEffect(() => {
+    const fromUrl = readIntentFromUrl();
+    if (fromUrl) setForm((prev) => ({ ...prev, intent: fromUrl }));
+
     const onIntent = (e: Event) => {
       const value = (e as CustomEvent<string>).detail;
       if (value) setForm((prev) => ({ ...prev, intent: value }));
@@ -168,6 +172,7 @@ export function Contact() {
                     <option value="cybersecurity">Cybersecurity</option>
                     <option value="ai">AI Consulting</option>
                     <option value="applications">Applications</option>
+                    <option value="regia">Regia Demo</option>
                     <option value="other">Other</option>
                   </select>
                 </div>

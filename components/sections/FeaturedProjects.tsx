@@ -20,7 +20,8 @@ type Project = {
   /**
    * "app"      → square iOS-app-icon styling (white rounded square + shadow). Default.
    * "wordmark" → horizontal logo rendered centered on the card bg, no container.
-   * "browser"  → logo framed inside a browser window (for multiplatform web apps).
+   * "browser"  → framed inside a browser window (for multiplatform web apps). Falls
+   *              back to a typographic wordmark when the product has no logo asset.
    */
   iconKind?: "app" | "wordmark" | "browser";
 };
@@ -35,6 +36,17 @@ const PROJECTS: Project[] = [
       "Match tracking and performance analytics for racquet sports. Live scoring, player insights, and match history.",
     link: "/courtsy",
     iconSrc: "/apps/courtsy/icon.png",
+  },
+  {
+    id: "regia",
+    name: "Regia",
+    year: "2026",
+    category: "Venue Management",
+    description:
+      "Venue management for marriage halls. Bookings, advances, itemised billing, expenses and deposits, with the books reconciled as you go.",
+    link: "/regia",
+    iconKind: "browser",
+    url: "nixe.in/regia",
   },
   {
     id: "clavis",
@@ -67,7 +79,7 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
 
       {/* Centered icon — browser window for web apps, iOS app-icon for square assets, wordmark for horizontal logos, monogram fallback */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {project.iconSrc && project.iconKind === "browser" ? (
+        {project.iconKind === "browser" ? (
           <motion.div
             className="relative w-[62%] max-w-[400px]"
             animate={{ y: hovered ? -5 : 0, scale: hovered ? 1.03 : 1 }}
@@ -128,19 +140,31 @@ function VisualPlaceholder({ project, hovered }: { project: Project; hovered: bo
                 className="flex items-center justify-center"
                 style={{ aspectRatio: "16 / 9", background: "#FFFFFF" }}
               >
-                <div
-                  className="relative"
-                  style={{ width: "62%", aspectRatio: "1947 / 808" }}
-                >
-                  <Image
-                    src={project.iconSrc}
-                    alt={`${project.name} logo`}
-                    fill
-                    className="object-contain"
-                    sizes="240px"
-                    priority={false}
-                  />
-                </div>
+                {project.iconSrc ? (
+                  <div className="relative" style={{ width: "62%", aspectRatio: "1947 / 808" }}>
+                    <Image
+                      src={project.iconSrc}
+                      alt={`${project.name} logo`}
+                      fill
+                      className="object-contain"
+                      sizes="240px"
+                      priority={false}
+                    />
+                  </div>
+                ) : (
+                  <span
+                    className="select-none uppercase"
+                    style={{
+                      fontFamily: "var(--font-jakarta), system-ui, sans-serif",
+                      fontSize: "clamp(1.1rem, 2.2vw, 1.75rem)",
+                      fontWeight: 800,
+                      letterSpacing: "0.16em",
+                      color: "#0A0A0A",
+                    }}
+                  >
+                    {project.name}
+                  </span>
+                )}
               </div>
             </div>
           </motion.div>
@@ -325,14 +349,14 @@ export function FeaturedProjects() {
           index="01"
           label="Selected Work"
           headline={["Projects we're", "proud to ship."]}
-          kicker="One shipped, one more compounding in private. We only ship things we'd want to use ourselves."
+          kicker="One already running a real business, one heading to the App Store, one compounding in private. We only ship things we'd want to use ourselves."
           className="mb-14 md:mb-20"
         />
 
         {/* Cards sit on a shared baseline. The second card used to carry a
             scroll-scrubbed drift; with two equal full-width cards that just
             read as a misalignment, so it's gone. */}
-        <div className="grid gap-7 md:gap-10 grid-cols-1 sm:grid-cols-2">
+        <div className="grid gap-7 md:gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {PROJECTS.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
           ))}
