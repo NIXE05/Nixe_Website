@@ -98,7 +98,8 @@ A repeating pattern (like `.blueprint-dot`) is a *useless* parallax layer — sh
 
 All `"use client"`, Framer Motion `whileInView` + `viewport={{ once: true }}` reveals. `Shipped` phones and `FeaturedProjects`' second card have scrubbed parallax via `useScroll`/`useTransform`.
 
-- `Shipped` — Courtsy showcase; screenshots at `public/apps/courtsy/screen-{1-5}.png`. Its lightbox is `position: fixed` and escapes via `createPortal(document.body)`
+- `Shipped` — a **two-slide carousel** (Courtsy, Regia) with tabs, arrows, drag-to-swipe and autoplay. Autoplay is held while hovered or focused, while the lightbox is open, while the section is off-screen, and entirely under `prefers-reduced-motion`. The stage has a `minHeight` because `AnimatePresence mode="wait"` would otherwise collapse it between slides. Courtsy's screenshots live at `public/apps/courtsy/screen-{1-5}.png`; its lightbox is `position: fixed` and escapes via `createPortal(document.body)` — the slide wrapper is a transformed ancestor, so this is load-bearing
+- `components/RegiaScreens.tsx` — Regia has no screenshots, no deployed URL, and its only live install is a client's production database with real customer names in it. So its UI is **drawn in code**: `BookingLedger`, `RegiaDashboard`, `RegiaCalendar`. Numbers are invented, structure follows the documented feature set, everything is `aria-hidden`. Shared by the Shipped carousel and `/regia`. Keep the "Illustrative interface" caption on `/regia` if you add more of these
 - `Contact` — form submission logs to console and shows a success state; no email service wired yet
 
 ### CTA intent (`lib/intent.ts`)
